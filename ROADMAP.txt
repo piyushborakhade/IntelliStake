@@ -1,0 +1,293 @@
+======================================================================
+  IntelliStake — Month 2 Master Expansion Roadmap
+  "Best in Batch" Plan | MBA Finance + BTech AI Edition
+  Generated: February 20, 2026
+======================================================================
+
+WHAT WE'RE UPGRADING
+---------------------
+AI/ML     : Basic XGBoost → Ensemble Stack + SHAP + FinBERT + Fraud Detection
+Finance   : Basic BL      → Backtest + Monte Carlo + 4 Risk Ratios + Rebalancing
+Blockchain: Simulated TXs → Real on-chain TXs + Milestone Escrow + DAO Voting
+Submission: README + PPT  → Research Paper + Demo Video + Live Dashboard
+
+
+======================================================================
+  WEEK 1 — AI & MACHINE LEARNING: The "Explainable Auditor"
+  Files: engine/
+======================================================================
+
+1.1  ENSEMBLE STACKING  (engine/valuation_engine.py)
+     - Layer 1: XGBoost + LightGBM + Random Forest (base learners)
+     - Layer 2: Ridge Regression meta-learner combines all 3
+     - Target: R² > 0.82, RMSE reported on test split
+     - Why: Institutional-grade accuracy vs single-model approach
+     - Time: 2 days
+
+1.2  SHAP EXPLAINABILITY  (engine/shap_explainer.py)  ← NEW FILE
+     - For every startup: generate a human-readable "Reasoning Chart"
+     - Example output:
+         "Valuation increased by 12% because:
+           + High GitHub velocity        → +18%
+           + Series B funding round      → +12%
+           - Open Issues > 100 (debt)    →  -6%
+           + Founder pedigree (IIT)      →  +9%"
+     - SHAP waterfall + beeswarm plots → unified_data/outputs/shap/
+     - This is the "Explainable AI" academic claim. Most impressive feature.
+     - Time: 2 days
+
+1.3  FINBERT SENTIMENT  (engine/live_audit_agent.py update)
+     - Swap VADER for ProsusAI/finbert (finance-tuned BERT)
+     - Understands: "debt reduction" = positive, "market correction" = negative
+     - Same interface — just replaces the scoring function
+     - Measurable accuracy improvement on financial headlines
+     - Time: 1 day
+
+1.4  ISOLATION FOREST FRAUD DETECTION  (engine/fraud_detector.py)  ← NEW FILE
+     - Flag "Hype Startups": high valuation but near-zero technical signals
+     - Features: [trust_score, github_velocity, open_issues, valuation, funding]
+     - Labels: HYPE_ANOMALY | LEGITIMATE | STAGNANT
+     - Output: unified_data/outputs/fraud_flags.json
+     - Academic frame: "Unsupervised anomaly detection as cybersecurity layer"
+     - Time: 1 day
+
+
+======================================================================
+  WEEK 2 — FINANCE & QUANT RESEARCH: The "Quant Hedge Fund" Edge
+  Files: engine/quant_engine.py  ← NEW FILE
+======================================================================
+
+2.1  HISTORICAL BACKTESTING (2018–2024)
+     - Dataset: real_funding_data.json (46,809 real Indian startup rounds)
+     - Simulate: "If IntelliStake ran in 2018, which startups would it approve?"
+     - Cross-reference: did those startups survive/exit successfully by 2024?
+     - Output: survival rate of IntelliStake-approved vs rejected startups
+     - THIS IS THE KILLER ACADEMIC PROOF — validates the entire thesis
+     - Time: 2–3 days
+
+2.2  MONTE CARLO STRESS TESTING
+     - Run 10,000 portfolio simulations under 3 shock scenarios:
+         Bull Market  : +20% sector growth
+         Recession    : -30% across board, startup mortality +40%
+         Tech Crash   : VC funding drops 60% (2022-style)
+     - Calculate: 95% Value-at-Risk (VaR) and CVaR (Expected Shortfall)
+     - Output: distribution plots + risk metrics summary table
+     - Time: 2 days
+
+2.3  ADVANCED RISK METRICS
+     Calculate all 4 ratios vs Nifty 50 benchmark:
+     - Sharpe Ratio     : (Rp - Rf) / σp
+     - Sortino Ratio    : (Rp - Rf) / σ_downside  (penalises downside only)
+     - Treynor Ratio    : (Rp - Rf) / β
+     - Information Ratio: (Rp - Rb) / Tracking Error
+     + Efficient Frontier plot — IntelliStake BL portfolio vs equal-weight
+     - Time: 1–2 days
+
+2.4  DYNAMIC REBALANCING SIGNAL
+     - Trust score drops >15% in 30 days → REDUCE_STAKE signal
+     - Trust score drops >30%            → EXIT_POSITION + oracle freeze
+     - Output: rebalancing_alerts.json updated on every pipeline run
+     - Time: 1 day
+
+
+======================================================================
+  WEEK 3 — BLOCKCHAIN: "The Programmable VC"
+  Files: blockchain/  | Requires: Node.js + Hardhat
+======================================================================
+
+3.1  REAL ORACLE BRIDGE  (blockchain/oracle_bridge_full.py)
+     - npx hardhat node → spin up local Ethereum testnet
+     - Deploy IntelliStakeToken.sol + ComplianceRules.sol
+     - web3.py sends actual freezeMilestoneFunding() TX
+     - Real TX hash + block number → screenshot for demo video
+     - Time: 2 days
+
+3.2  MILESTONE-BASED ESCROW  (blockchain/contracts/MilestoneEscrow.sol)  ← NEW
+     Funds locked, released in 4 tranches:
+       Tranche 1 (25%): On investment — immediate
+       Tranche 2 (25%): Month 3  — IF oracle confirms GitHub velocity = HIGH
+       Tranche 3 (25%): Month 6  — IF trust_score > 0.50
+       Tranche 4 (25%): Month 9  — IF MCA audit is clean
+     - Oracle calls oracleApprove(startupId, trancheId) for each release
+     - If oracle detects decline → holdTranche() called instead
+     - Time: 2 days
+
+3.3  ERC-3643 IDENTITY REGISTRY  (blockchain/contracts/IdentityRegistry.sol)  ← NEW
+     - registerInvestor(wallet, kycLevel) — on-chain KYC
+     - Token transfers blocked unless kycLevel >= REQUIRED_TIER
+     - mock_investors.json wallets registered at deployment
+     - Time: 1–2 days
+
+3.4  DAO GOVERNANCE LAYER  (blockchain/contracts/IntelliStakeDAO.sol)  ← NEW (if time)
+     - Investors with >1% token stake can veto a tranche release
+     - proposeFundFreeze(startupId) → 48-hour voting window opens
+     - If >51% vote YES → freezeMilestoneFunding() auto-triggered
+     - Time: 2–3 days
+
+
+======================================================================
+  WEEK 4 — ACADEMIC SUBMISSION PACKAGE
+======================================================================
+
+4.1  RESEARCH PAPER (~12 pages)
+     Title: "IntelliStake: A Multi-Domain Decision Support System for
+            Regulated Crowd-Venture Capital Using Explainable AI,
+            Black-Litterman Optimization, and ERC-3643 Permissioned Tokens"
+     Sections:
+       1. Abstract
+       2. Introduction + Problem Statement
+       3. Literature Review (BL, ERC-3643, SHAP, FinBERT, Isolation Forest)
+       4. System Architecture + Data Lake Design
+       5. AI Methodology
+       6. Finance Methodology
+       7. Blockchain Methodology
+       8. Results & Validation
+       9. Limitations & Future Work
+      10. Conclusion
+     Time: 3–4 days
+
+4.2  DEMO VIDEO (8 minutes)
+     00:00  Problem pitch — why IntelliStake exists
+     01:00  Data Lake status — 3.2M data points live
+     01:45  Global Audit → 50k rows → BL portfolio result (Sharpe 0.93)
+     03:00  Live OSINT Deep-Dive → Zepto/Razorpay in real time
+     04:30  SHAP Reasoning Chart — "why did the AI score this startup?"
+     05:15  Fraud Detection — flagging hype startups live
+     05:45  Oracle → actual on-chain TX freeze (Hardhat testnet)
+     06:30  Monte Carlo VaR chart + Efficient Frontier
+     07:15  React Dashboard walkthrough
+     07:45  Summary metrics + closing
+     Time: 1 day (recording + edit)
+
+4.3  PPT UPDATE (2 new slides)
+     - Slide: "Live OSINT + Explainable AI Layer" (SHAP + FinBERT)
+     - Slide: "Backtesting Proof — IntelliStake vs Market 2018–2024"
+     Time: 0.5 days
+
+
+======================================================================
+  PRIORITY MATRIX (If Time Gets Tight)
+======================================================================
+
+  MUST DO (Week 1–2 core, non-negotiable):
+  [P1] SHAP Explainability           2 days  — Extremely High Impact
+  [P1] Backtesting 2018–2024         3 days  — Extremely High Impact
+  [P1] FinBERT upgrade               1 day   — High Impact
+  [P1] Monte Carlo VaR/CVaR          2 days  — Very High Impact
+  [P1] Hardhat real TX               2 days  — High Impact
+  [P1] Demo video                    1 day   — Critical for submission
+
+  SHOULD DO (adds depth):
+  [P2] Ensemble Stacking             2 days  — High Impact
+  [P2] Isolation Forest              1 day   — High Impact
+  [P2] Advanced ratios + Frontier    1 day   — High Impact
+  [P2] Milestone Escrow contract     2 days  — High Impact
+
+  NICE TO HAVE (if ahead of schedule):
+  [P3] DAO Governance                2 days  — Medium Impact
+  [P3] Identity Registry full        2 days  — Medium Impact
+  [P3] Research paper               4 days   — Required if thesis-format
+  [P3] Dynamic rebalancing signal    1 day   — Medium Impact
+
+
+======================================================================
+  THE "BEST IN BATCH" DIFFERENTIATOR
+======================================================================
+
+No other student will have:
+
+  SHAP-explained AI valuations
+      ↓
+  feeding a quant-backtested Black-Litterman portfolio
+      ↓
+  with Monte Carlo stress testing + 4 institutional risk ratios
+      ↓
+  where risk signals dynamically trigger
+      ↓
+  on-chain milestone-based escrow tranche releases
+      ↓
+  through a Chainlink-style oracle
+      ↓
+  with DAO investor voting as a governance failsafe
+      ↓
+  all queryable via a live OSINT CLI + React dashboard
+      ↓
+  built on a 3.2M-point knowledge graph of 684k records
+
+  That is institutional-grade. Not capstone-grade.
+
+
+======================================================================
+  SUGGESTED START ORDER (Day 1)
+======================================================================
+
+  Step 1: engine/shap_explainer.py          (fastest visible win)
+  Step 2: engine/valuation_engine.py        (train ensemble, get metrics)
+  Step 3: engine/quant_engine.py            (backtesting on real data)
+  Step 4: environment setup for Hardhat     (parallel track)
+
+
+======================================================================
+  TECH STACK FOR NEW ADDITIONS
+======================================================================
+
+  pip install shap lightgbm scikit-learn transformers torch
+  pip install web3 scipy matplotlib seaborn
+
+  npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+
+
+======================================================================
+  END OF ROADMAP
+  IntelliStake | NMIMS MCA Capstone 2025-26
+======================================================================
+
+
+======================================================================
+  WEEK 4 ADDITION — "DIGITAL TWIN" INVESTMENT MEMO PDF
+  Files: engine/memo_generator.py  ← NEW FILE
+======================================================================
+
+THE IDEA:
+  For the top 5 portfolio startups, auto-generate a 1-page
+  "Investment Memo" PDF — the kind a real VC analyst would hand
+  to a partner before a deal. Print 5 copies and hand one to
+  each professor during the viva. This is unique — no other
+  capstone project has done this.
+
+WHAT EACH MEMO CONTAINS (1 page, A4):
+  Header      : IntelliStake logo, startup name, date, AI Engine version
+  Trust Score : Visual progress bar + risk tier label
+  BL Data     : Allocation %, expected return, Sharpe contribution
+  SHAP Chart  : Top 4 reasons the AI scored this startup (bar chart)
+  GitHub Stats: Sparkline of commit velocity over 6 months
+  Escrow Grid : 4 tranches with RELEASED / PENDING / LOCKED status
+  Verdict     : INVEST / MONITOR / AVOID + one-line recommendation
+
+TECHNICAL IMPLEMENTATION:
+  Library: reportlab (pip install reportlab)
+  Input  : unified_data/outputs/pipeline_portfolio_weights.json
+           unified_data/outputs/shap/ (SHAP values)
+           unified_data/outputs/fraud_flags.json
+  Output : unified_data/outputs/memos/memo_[startup_name].pdf
+  Trigger: Added as Step 5 in run_full_pipeline.py
+
+WHY THIS WINS THE VIVA:
+  - Every other project shows results on a laptop screen
+  - You hand professors a printed, AI-generated VC-grade document
+  - It proves IntelliStake is ready for a real VC office, not just an exam
+  - SHAP reasoning in print = Explainable AI they can read offline
+  - Combines all 3 domain outputs on one page (AI + Finance + Blockchain)
+
+PRIORITY: HIGH — 1.5 days effort, maximum impression impact
+
+======================================================================
+  FINAL UPDATED PRIORITY ORDER
+======================================================================
+
+  WEEK 1: SHAP → FinBERT → Ensemble → Isolation Forest
+  WEEK 2: Backtesting → Monte Carlo → Risk Ratios → Rebalancing
+  WEEK 3: Hardhat TX → Milestone Escrow → Identity Registry → DAO
+  WEEK 4: Investment Memo PDF → Research Paper → Demo Video → PPT
+
+======================================================================

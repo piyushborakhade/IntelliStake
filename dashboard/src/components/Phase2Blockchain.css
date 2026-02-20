@@ -1,0 +1,73 @@
+.compliance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.compliance-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(16, 185, 129, 0.05);
+    border-left: 3px solid var(--accent-success);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+.flow-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.flow-step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.flow-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-hero);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.flow-content h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.flow-content p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.9375rem;
+}
+
+.flow-content code {
+    background: rgba(99, 102, 241, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--accent-primary);
+    font-size: 0.875rem;
+}
+
+.flow-arrow {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+    padding: 0.5rem 0;
+}

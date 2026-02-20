@@ -1,0 +1,71 @@
+[
+  {
+    "audited_at": "2026-02-20T12:06:59.166802+00:00",
+    "startup_name": "Razorpay",
+    "github_repo": "razorpay/razorpay-php",
+    "github_signals": {
+      "repo": "razorpay/razorpay-php",
+      "stars": 200,
+      "forks": 137,
+      "open_issues": 63,
+      "last_commit_date": "2025-09-23",
+      "days_since_commit": 149,
+      "is_stale": true,
+      "language": "PHP",
+      "watchers": 200,
+      "repo_age_days": 4052,
+      "fetch_status": "ok"
+    },
+    "github_score": 0.3142,
+    "headlines_found": 5,
+    "headlines": [
+      {
+        "title": "Razorpay and NPCI bring agentic payments to Claude at India AI Impact Summit - Entrackr",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQSnpkZGV1UkRMVzJZVDFFTVVDRV9xUjgyQV8wMkNqV1J4UHRrODF1ek5USUlDNFRyRmJTeDAyRnpRTHFRcE1aX3Q4TnVYYmttT0ZUdGlNRWczZ3BBalN0NHZJdmQ3b2x6bEVvcDIya1RfUjlfUi1OallmRTdHb2J5TElZN20yQWNqX1ZfVDVQTi1TOC1waWp5b0oyYzJEcHYydnVnZ3VKZ2hlNUFDMms2eldKU09mUdIBtgFBVV95cUxQSnpkZGV1UkRMVzJZVDFFTVVDRV9xUjgyQV8wMkNqV1J4UHRrODF1ek5USUlDNFRyRmJTeDAyRnpRTHFRcE1aX3Q4TnVYYmttT0ZUdGlNRWczZ3BBalN0NHZJdmQ3b2x6bEVvcDIya1RfUjlfUi1OallmRTdHb2J5TElZN20yQWNqX1ZfVDVQTi1TOC1waWp5b0oyYzJEcHYydnVnZ3VKZ2hlNUFDMms2eldKU09mUQ?oc=5",
+        "date": "Fri, 20 Feb 2026 10:03:57 GMT",
+        "sentiment_compound": 0.0,
+        "sentiment_label": "NEUTRAL"
+      },
+      {
+        "title": "Exclusive | India must lead agentic payment regulation: Razorpay\u2019s Rahul Kothari | Business News - Hindustan Times",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNckROVFpSN2dTUWFZWXk1cHVHLW1DeF9EVHNsVkVzZXdrdzhQVWljQ3NHU3FYLWpfd1dKT0s5SW96WEM5Q2xqTUg3NjlVYnNvb1k0WmotMFMtSzd2eFRLQjd6MzNvQVNhMGhKeHB3ZjBiZHREUlpFd2dmTEpabEdDRFlLY0JQOGpQdC1FQ01kNFZpeG94OE9uVnlPSE85X3hIUDBfUFR3aXFRek5BU21QTG05RXVRSmRTZmtLQmdDOTJZU1VBakcyMnB1R2xPQ19Da1hlWdIB2gFBVV95cUxPdWtQYk1vWXVXQ2l5NTctaGZ4aWNxYllBd0lYdURrMGllRXJCYVQwN29PUzJJSDBrWEVUVUcyX3hLZmNXNmhNNGFkSkpUWnhPS3gyeTZBSzNzem9Tb2ZEeTlucmVSMmtKZkJXcEsxWUNTQnl6SVJmRHVQeTRMUjB6WXozVXJESlVJdE9XOGloY0Y3ZjR3QTZaejJsTVllZnpPR0J3Qm1uYU1Md0VjZkRCOVlVWEdvTUtNSE16eFh4blFTc3J3bldmekFzQWl6UmdVUklDUThoM0VHQQ?oc=5",
+        "date": "Fri, 20 Feb 2026 04:36:01 GMT",
+        "sentiment_compound": 0.128,
+        "sentiment_label": "POSITIVE"
+      },
+      {
+        "title": "Razorpay And NPCI Enable UPI Agentic Payments On Claude At India AI Impact Summit - BW Disrupt",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQaGROVUIxOEVLSjMzWmtiU3RlZEpKcGtVcG45b0NsLWVGYjR1anhTLTJWbU1wVTIydUV0SWlmd25MQzAxYjlqUjZMNTV2eEFaTUVod2l3QUFtdmdLUVBGUE10MU1BLXBfZnRRazYyN2M2ckloQnhscm5QLVIzRG9HYnNINUhnbDl5MTVCdHpsS1hwR2Q4SExLSnRpNmhTZ09qREtzNzRiZ25TU3JPUUZrZ2JiSldLZTZUM0l2YzZLaw?oc=5",
+        "date": "Fri, 20 Feb 2026 11:26:01 GMT",
+        "sentiment_compound": 0.0,
+        "sentiment_label": "NEUTRAL"
+      },
+      {
+        "title": "AI Chat Payments Debut: Razorpay-NPCI Pilot Challenges Rivals - Whalesbook",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOLUQwTVZrNFliVkVIY0QzR1N1N0hPa3lfTVNKcnc1bXpKSTRsc3hqeG1SMmt4dERjaGI2OEhOdlEtQ1FndGV4dVRpME5GQkF5b3d5WlhyNG1tcXcyVk5iNVhjTERRMmwtZE9ZNTAwTG51Y0dDYjhRM2RMVkV4aXpuazJOZG9lN1pnR1R3aS1kNURrbnIyWTlPbVE2Ml9pS2lMeFphQkJBMkJ3ellFdUhEVHpUWmIyUTI0VXV1dWZNN2JrbmpSVnR2WU93?oc=5",
+        "date": "Fri, 20 Feb 2026 10:40:15 GMT",
+        "sentiment_compound": 0.0772,
+        "sentiment_label": "POSITIVE"
+      },
+      {
+        "title": "Agentic commerce to be Indias next digital leap after UPI: Razorpay CEO Harshil Mathur - Tribune India",
+        "source": "Google News",
+        "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPbWpiOFRNcGFTNnZuREl4NnYxN2dyVmZYNDFTOEhpTm1PXzB4UUJHUDc3YXRFNDZjVjdSQ1VIWlk3REUtRmFWbFlzRHVXVWtmLS1OU0pMRU9xUTh0aHVHazJUTmN4UnUxdjU3cUVVYi0tc1JrQ3F5RUE0My12LUFNbnYyNDVKdlFKa2RhcklwaXhKelphTzNlRTREN2d6eTBRYUcwWkxXNGE3NkVLdnlBX1JaNU9wdS1HZ3ZEeGpETWxkbFVKb2UyStIBzAFBVV95cUxPNW9vOW9iak5CMGRuTW5hNERfM1lyeDFkazB2Nm9sWkg2T1M4WGU3RFpkQl9sbG1zTDQ0M044ZlU5WW1iNmt6dzktdzhtRGVjcml5RnFXanctdnVfTG42a1BPNlNfY1lHWjRXazhkb0MwZXI3VFVLcElqMkxFMlRNSzJtcF9nRDZsVm01ZU1tUGhKTURVZUt4MnpieXYzZno4TElRSWJDa3RLTl9XLWVPRkRwdE1hRmlMWGs5YnpVc1lnMjB2RW83ZjZIUUM?oc=5",
+        "date": "Fri, 20 Feb 2026 11:40:56 GMT",
+        "sentiment_compound": 0.0,
+        "sentiment_label": "NEUTRAL"
+      }
+    ],
+    "sentiment_score": 0.5205,
+    "live_trust_score": 0.4019,
+    "historical_trust_score": null,
+    "trust_delta": null,
+    "warning_flag": false,
+    "warning_reason": "No historical record found \u2014 new startup or outside dataset",
+    "recommendation": "MANUAL_REVIEW"
+  }
+]

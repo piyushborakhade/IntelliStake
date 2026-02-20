@@ -1,0 +1,128 @@
+.oracle-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.oracle-step {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.oracle-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2.5rem;
+}
+
+.oracle-step h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.oracle-step p {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    margin: 0;
+}
+
+.oracle-connector {
+    text-align: center;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.connector-line {
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+    margin: 0 auto;
+}
+
+.connector-label {
+    font-size: 0.875rem;
+    color: var(--accent-primary);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.reliability-item {
+    padding: 1.5rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.reliability-item h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+}
+
+.reliability-item p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.9375rem;
+}
+
+.encoding-example {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.encoding-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 40px 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.encoding-row:last-child {
+    border-bottom: none;
+}
+
+.encoding-label {
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.encoding-before {
+    color: var(--text-secondary);
+}
+
+.encoding-arrow {
+    text-align: center;
+    color: var(--accent-secondary);
+    font-weight: 700;
+}
+
+.encoding-after {
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .encoding-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .encoding-arrow {
+        transform: rotate(90deg);
+    }
+}

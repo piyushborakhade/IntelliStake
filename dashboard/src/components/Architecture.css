@@ -1,0 +1,129 @@
+.e2e-flow {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.e2e-stage {
+    flex: 1;
+    min-width: 250px;
+}
+
+.e2e-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.ai-badge {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+}
+
+.finance-badge {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--accent-secondary);
+    border: 1px solid var(--accent-secondary);
+}
+
+.oracle-badge {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--accent-tertiary);
+    border: 1px solid var(--accent-tertiary);
+}
+
+.blockchain-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-success);
+    border: 1px solid var(--accent-success);
+}
+
+.e2e-stage h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.e2e-box {
+    background: var(--bg-tertiary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.e2e-box h4 {
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+}
+
+.e2e-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.e2e-box li {
+    color: var(--text-muted);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.875rem;
+}
+
+.e2e-box li:last-child {
+    border-bottom: none;
+}
+
+.e2e-arrow {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.roadmap-item h4 {
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+}
+
+.roadmap-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.roadmap-item li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+    position: relative;
+}
+
+.roadmap-item li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-success);
+    font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+    .e2e-flow {
+        flex-direction: column;
+    }
+
+    .e2e-arrow {
+        transform: rotate(90deg);
+    }
+}

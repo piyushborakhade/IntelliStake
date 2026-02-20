@@ -1,0 +1,32 @@
+# IntelliStake — Data Scaling Engine Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── HTTP & Scraping ──────────────────────────────────────────────────────────
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.1.0
+feedparser>=6.0.11
+aiohttp>=3.9.5
+
+# ── Reddit API ───────────────────────────────────────────────────────────────
+praw>=7.7.1
+
+# ── NLP / Sentiment ──────────────────────────────────────────────────────────
+vaderSentiment>=3.3.2
+rapidfuzz>=3.6.1
+
+# ── Data Processing ──────────────────────────────────────────────────────────
+pandas>=2.1.0
+numpy>=1.26.0
+dask[dataframe]>=2024.1.0
+pyarrow>=14.0.0
+
+# ── Async Utilities ──────────────────────────────────────────────────────────
+asyncio>=3.4.3
+python-dateutil>=2.8.2
+
+# ── Progress & CLI ───────────────────────────────────────────────────────────
+tqdm>=4.66.0
+
+# ── Optional (Spark alternative to Dask) ─────────────────────────────────────
+# pyspark>=3.5.0     # Uncomment if you have a Spark cluster

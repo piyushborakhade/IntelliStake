@@ -1,0 +1,97 @@
+# IntelliStake — .gitignore
+# ============================================================
+# Keeps all scripts, docs, configs, and small-medium datasets.
+# Excludes files that exceed GitHub's 100MB limit or are
+# too large for version control (use Git LFS for those).
+# ============================================================
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Virtual environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Node / React ─────────────────────────────────────────────
+node_modules/
+dashboard/node_modules/
+*.lock
+npm-debug.log*
+dist/
+.cache/
+
+# ── macOS ────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ── IDE ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Large raw data files (>50MB — exceeds GitHub limits) ─────
+# These live locally and in unified_data/; regenerate via pipeline
+unified_data/raw/intellistake_risk_signals.json
+unified_data/raw/intellistake_startups.json
+unified_data/raw/github_repositories.json
+unified_data/raw/startup_valuation_high_growth.json
+unified_data/raw/startup_valuation_high_growth.csv
+
+# ── Large cleaned files (>50MB) ──────────────────────────────
+unified_data/cleaned/intellistake_startups_clean.json
+
+# ── Parquet files (binary, large — not human-readable) ───────
+*.parquet
+
+# ── Pipeline run outputs (regenerated on each run) ───────────
+unified_data/outputs/pipeline_risk_audit.csv
+unified_data/outputs/pipeline_portfolio_weights.json
+unified_data/outputs/pipeline_oracle_tx_log.json
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+Data_Scaling_Engine/logs/
+logs/
+
+# ── Sensitive / secrets ───────────────────────────────────────
+.env
+.env.local
+secrets.json
+*.pem
+*.key
+
+# ── Jupyter ──────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─────────────────────────────────────────────────────────────
+# WHAT IS TRACKED (everything not above):
+#   engine/*.py           — all AI/Finance/Risk scripts
+#   blockchain/           — smart contracts + oracle
+#   data_scaling_engine/  — 4 pipeline modules
+#   dashboard/src/        — React components
+#   docs/                 — MD files, PPT, DOCX
+#   unified_data/cleaned/ — smaller clean datasets (< 50MB)
+#   unified_data/outputs/ — final portfolio + investor JSON
+#   unified_data/production/ — NaN-fixed production files
+#   unified_data/raw/     — smaller raw files kept
+#   README.md, ROADMAP.txt, run_full_pipeline.py, start_intellistake.py
+# ─────────────────────────────────────────────────────────────
