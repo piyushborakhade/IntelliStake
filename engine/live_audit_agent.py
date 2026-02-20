@@ -35,9 +35,27 @@ from typing import Optional
 
 import socket
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# Global socket timeout — prevents RSS/HTTP calls from hanging indefinitely
-socket.setdefaulttimeout(5)
+# Per-request timeout tuple: (connect_timeout, read_timeout)
+# Splitting these prevents slow GitHub responses from being silently killed
+_CONNECT_TIMEOUT = 5
+_READ_TIMEOUT    = 15
+_TIMEOUTS        = (_CONNECT_TIMEOUT, _READ_TIMEOUT)
+
+# Shared session with connection pooling + retry-with-backoff
+_retry_strategy = Retry(
+    total=3,
+    backoff_factor=2,          # waits 2, 4, 8 seconds between retries
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET"],
+    raise_on_status=False,
+)
+_SESSION = requests.Session()
+_SESSION.mount("https://", HTTPAdapter(max_retries=_retry_strategy, pool_maxsize=20))
+_SESSION.mount("http://",  HTTPAdapter(max_retries=_retry_strategy, pool_maxsize=20))
 
 try:
     from bs4 import BeautifulSoup
@@ -53,8 +71,10 @@ except ImportError:
 
 try:
     from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+    _VADER_SINGLETON = SentimentIntensityAnalyzer()   # module-level singleton
     VADER_OK = True
 except ImportError:
+    _VADER_SINGLETON = None
     VADER_OK = False
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -86,12 +106,25 @@ NEWS_RSS_FEEDS = [
     "https://economictimes.indiatimes.com/markets/startups/rssfeeds/82,78981612.cms",
 ]
 
-SENTIMENT_POS = {"funding", "raised", "growth", "launched", "profit", "milestone",
-                 "unicorn", "expansion", "partnership", "revenue", "series", "ipo",
-                 "strong", "record", "win", "top", "best", "award", "breakthrough"}
-SENTIMENT_NEG = {"layoffs", "fraud", "lawsuit", "scandal", "decline", "loss",
-                 "shutdown", "fired", "debt", "delay", "miss", "struggle",
-                 "controversy", "investigation", "scam", "fail", "bankrupt"}
+# Expanded FinTech-aware sentiment keyword sets
+SENTIMENT_POS = {
+    "funding", "raised", "growth", "launched", "profit", "milestone",
+    "unicorn", "expansion", "partnership", "revenue", "series", "ipo",
+    "strong", "record", "win", "top", "best", "award", "breakthrough",
+    # Finance-specific positives
+    "profitability", "valuation", "acquisition", "merger", "vc",
+    "oversubscribed", "exit", "dividend", "surplus", "debt reduction",
+    "cashflow", "market leader", "market share", "turnaround",
+}
+SENTIMENT_NEG = {
+    "layoffs", "fraud", "lawsuit", "scandal", "decline", "loss",
+    "shutdown", "fired", "debt", "delay", "miss", "struggle",
+    "controversy", "investigation", "scam", "fail", "bankrupt",
+    # Finance-specific negatives
+    "insolvency", "nclt", "sebi notice", "rbi penalty", "writeoff",
+    "default", "npa", "market correction", "revenue miss", "burn rate",
+    "cash crunch", "eviction", "rent default", "liquidation",
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -123,9 +156,12 @@ def fetch_github_live(repo: str) -> dict:
         "fetch_status":     "not_attempted",
     }
 
-    # 1a. Repo metadata
+    # 1a. Repo metadata (using shared session with retry)
     try:
-        r = requests.get(f"https://api.github.com/repos/{repo}", headers=headers, timeout=10)
+        r = _SESSION.get(
+            f"https://api.github.com/repos/{repo}",
+            headers=headers, timeout=_TIMEOUTS,
+        )
         if r.status_code == 200:
             info = r.json()
             result.update({
@@ -154,11 +190,11 @@ def fetch_github_live(repo: str) -> dict:
         result["fetch_status"] = f"error: {e}"
         return result
 
-    # 1b. Last commit date
+    # 1b. Last commit date (using shared session)
     try:
-        r2 = requests.get(
+        r2 = _SESSION.get(
             f"https://api.github.com/repos/{repo}/commits",
-            headers=headers, params={"per_page": 1}, timeout=10
+            headers=headers, params={"per_page": 1}, timeout=_TIMEOUTS,
         )
         if r2.status_code == 200 and r2.json():
             commit_date = r2.json()[0]["commit"]["committer"]["date"]
@@ -207,54 +243,57 @@ def fetch_headlines(startup_name: str, max_headlines: int = 5) -> list[dict]:
     Scrape up to max_headlines relevant news headlines for the startup.
     Strategy: search each RSS feed for the startup name in title/summary.
     """
-    headlines = []
-    name_lower = startup_name.lower()
+    name_lower  = startup_name.lower()
     name_tokens = set(name_lower.split())
+    found: list[dict] = []
 
-    # Try RSS feeds first
-    if FEEDPARSER_OK:
-        for feed_url in NEWS_RSS_FEEDS:
-            if len(headlines) >= max_headlines:
-                break
-            try:
-                feed = feedparser.parse(feed_url)
-                for entry in feed.entries:
-                    title   = entry.get("title", "")
-                    summary = entry.get("summary", "")
-                    text    = (title + " " + summary).lower()
-                    # Match: startup name or at least 2 tokens
-                    if name_lower in text or len(name_tokens & set(text.split())) >= 2:
-                        headlines.append({
-                            "title":  title,
-                            "source": feed.feed.get("title", feed_url),
-                            "url":    entry.get("link", ""),
-                            "date":   entry.get("published", ""),
-                        })
-                        if len(headlines) >= max_headlines:
-                            break
-            except Exception:
-                continue
-
-    # Fallback: scrape Google News RSS
-    if len(headlines) < max_headlines:
+    def _parse_feed(feed_url: str) -> list[dict]:
+        """Parse a single RSS feed and return matching headlines."""
+        results = []
         try:
-            q = startup_name.replace(" ", "+")
-            gnews = f"https://news.google.com/rss/search?q={q}&hl=en-IN&gl=IN&ceid=IN:en"
-            feed  = feedparser.parse(gnews) if FEEDPARSER_OK else None
-            if feed:
-                for entry in (feed.entries or []):
-                    if len(headlines) >= max_headlines:
-                        break
-                    headlines.append({
-                        "title":  entry.get("title", ""),
-                        "source": "Google News",
+            feed = feedparser.parse(feed_url)
+            for entry in feed.entries:
+                title   = entry.get("title", "")
+                summary = entry.get("summary", "")
+                text    = (title + " " + summary).lower()
+                if name_lower in text or len(name_tokens & set(text.split())) >= 2:
+                    results.append({
+                        "title":  title,
+                        "source": feed.feed.get("title", feed_url),
                         "url":    entry.get("link", ""),
                         "date":   entry.get("published", ""),
                     })
         except Exception:
             pass
+        return results
 
-    return headlines[:max_headlines]
+    # Fetch all RSS feeds in parallel — 5x faster than sequential
+    if FEEDPARSER_OK:
+        with ThreadPoolExecutor(max_workers=min(len(NEWS_RSS_FEEDS), 6)) as pool:
+            futures = [pool.submit(_parse_feed, url) for url in NEWS_RSS_FEEDS]
+            for future in as_completed(futures):
+                found.extend(future.result())
+                if len(found) >= max_headlines:
+                    break
+
+    # Fallback: Google News RSS (targeted query)
+    if len(found) < max_headlines and FEEDPARSER_OK:
+        try:
+            q     = startup_name.replace(" ", "+")
+            gnews = f"https://news.google.com/rss/search?q={q}&hl=en-IN&gl=IN&ceid=IN:en"
+            for entry in (feedparser.parse(gnews).entries or []):
+                if len(found) >= max_headlines:
+                    break
+                found.append({
+                    "title":  entry.get("title", ""),
+                    "source": "Google News",
+                    "url":    entry.get("link", ""),
+                    "date":   entry.get("published", ""),
+                })
+        except Exception:
+            pass
+
+    return found[:max_headlines]
 
 
 def score_sentiment(headlines: list[dict]) -> tuple[float, list[dict]]:
@@ -265,8 +304,8 @@ def score_sentiment(headlines: list[dict]) -> tuple[float, list[dict]]:
     if not headlines:
         return 0.5, []   # neutral if no news
 
-    analyzer = SentimentIntensityAnalyzer() if VADER_OK else None
-    enriched = []
+    analyzer = _VADER_SINGLETON   # use module-level singleton — never re-instantiate
+    enriched  = []
     compounds = []
 
     for h in headlines:

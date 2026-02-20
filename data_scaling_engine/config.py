@@ -45,6 +45,9 @@ GITHUB_RATE_LIMIT_PAUSE  = 1.0        # seconds between burst batches
 GITHUB_MAX_CONCURRENT    = 20         # max simultaneous aiohttp connections
 GITHUB_LOOKBACK_DAYS     = 365        # 1 year of commit history
 GITHUB_TOP_N_STARTUPS    = 1000       # top N startups to enrich
+GITHUB_RATE_LIMIT_HEADROOM = 200      # reserve 200 req/hr to avoid hard rate-limit
+GITHUB_BURST_SIZE        = 30         # send this many requests then pause
+GITHUB_BURST_PAUSE       = 2.0        # seconds to pause between bursts
 
 # ── Sentiment Harvester ──────────────────────────────────────────────────────
 NEWS_SOURCES = [
@@ -73,7 +76,10 @@ MCA_SCRAPE_DELAY_SECS    = 2.0        # polite delay between MCA page requests
 
 # ── Dask / Spark ─────────────────────────────────────────────────────────────
 DASK_NPARTITIONS         = 16         # Dask DataFrame partitions
-DASK_SCHEDULER           = "threads"  # or "synchronous" for debugging
+# Use threads for I/O-bound pipelines (RSS, HTTP), processes for CPU-bound (graph, parquet)
+DASK_SCHEDULER_IO_BOUND  = "threads"  # sentiment_harvester, mca_audit_pipeline
+DASK_SCHEDULER_CPU_BOUND = "processes" # master_knowledge_graph, heavy transforms
+DASK_SCHEDULER           = DASK_SCHEDULER_IO_BOUND   # backward-compatible default
 
 # ── VADER thresholds ─────────────────────────────────────────────────────────
 SENTIMENT_POSITIVE_THRESH =  0.05
@@ -81,7 +87,8 @@ SENTIMENT_NEGATIVE_THRESH = -0.05
 
 # ── Entity resolution ────────────────────────────────────────────────────────
 # Fuzzy-match threshold (0–100) for matching startup names across datasets
-ENTITY_FUZZY_THRESHOLD   = 82
+# Raised from 82 → 88 to reduce false-positive name collisions
+ENTITY_FUZZY_THRESHOLD   = 88
 
 # ── Logging ──────────────────────────────────────────────────────────────────
 LOG_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
