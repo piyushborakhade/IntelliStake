@@ -280,6 +280,47 @@ def step4_oracle(df: pd.DataFrame, allocs: list[dict]):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# STEPS 5–12 — INSTITUTIONAL-GRADE EXTENSIONS (Phase 3)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _run_module(label: str, module_path: str, extra_args: list = None):
+    import subprocess
+    extra_args = extra_args or []
+    cmd = [sys.executable, str(FINAL_DIR / module_path)] + extra_args
+    _banner(label, module_path)
+    try:
+        subprocess.run(cmd, timeout=600)
+        log.info(f"  ✓ {module_path} complete")
+    except Exception as e:
+        log.warning(f"  {module_path} skipped: {e}")
+
+
+def step5_data_lake():
+    _run_module("STEP 5", "engine/data_lake_manager.py", ["--manifest-only"])
+
+def step6_stacked_ensemble(top_n=50):
+    _run_module("STEP 6", "engine/valuation_stacked.py", ["--top-n", str(top_n)])
+
+def step7_finbert(sample=200):
+    _run_module("STEP 7", "engine/finbert_sentiment.py", ["--sample", str(sample)])
+
+def step8_shap(top_n=10):
+    _run_module("STEP 8", "engine/shap_explainer.py", ["--top-n", str(top_n), "--no-plots"])
+
+def step9_hype():
+    _run_module("STEP 9", "engine/hype_detector.py")
+
+def step10_backtest():
+    _run_module("STEP 10", "engine/backtest_engine.py")
+
+def step11_risk_sim(n_sims=1000):
+    _run_module("STEP 11", "engine/risk_simulator.py", ["--n-sims", str(n_sims), "--no-plots"])
+
+def step12_agentic_osint():
+    _run_module("STEP 12", "engine/live_audit_agent.py", ["--once", "--no-oracle-push"])
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # HELPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -290,15 +331,17 @@ def _banner(step: str, title: str):
 
 
 def _print_final_summary(df: pd.DataFrame):
+    prod = FINAL_DIR / "unified_data" / "4_production"
     print(f"\n{'═' * 62}")
-    print(f"  ✅ IntelliStake — Full Pipeline Complete")
+    print(f"  ✅ IntelliStake — Full Pipeline Complete (v3)")
     print(f"{'═' * 62}")
     print(f"  Records processed : {len(df):,}")
     print(f"  Data points       : {len(df) * df.shape[1]:,}")
-    print(f"  Outputs saved to  : IntelliStake_Final/unified_data/outputs/")
-    print(f"\n  Files generated:")
-    for f in sorted(OUT_DIR.glob("pipeline_*")):
-        print(f"    📄 {f.name}  ({f.stat().st_size / 1024:.1f} KB)")
+    print(f"\n  Output files (4_production/):")
+    for d in [prod, OUT_DIR]:
+        if d.exists():
+            for f in sorted(d.glob("*.json"))[:12]:
+                print(f"    📄 {f.name}  ({f.stat().st_size/1024:.1f} KB)")
     print(f"{'═' * 62}\n")
 
 
@@ -307,18 +350,16 @@ def _print_final_summary(df: pd.DataFrame):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="IntelliStake Full Pipeline")
-    parser.add_argument("--top-n",       type=int, default=None,
-                        help="Audit top-N records in Step 2 (default: all)")
-    parser.add_argument("--dry-run",     action="store_true", default=True,
-                        help="Oracle dry-run mode (default)")
-    parser.add_argument("--live-oracle", action="store_true",
-                        help="Send real TXs to Hardhat/Anvil node")
+    parser = argparse.ArgumentParser(description="IntelliStake Full Pipeline v3")
+    parser.add_argument("--top-n",         type=int,  default=None,  help="Audit top-N records in Step 2")
+    parser.add_argument("--dry-run",       action="store_true", default=True)
+    parser.add_argument("--live-oracle",   action="store_true")
+    parser.add_argument("--skip-advanced", action="store_true", help="Run only original 4 steps (fast demo)")
+    parser.add_argument("--fast",          action="store_true", help="Smaller samples for quick run")
     args = parser.parse_args()
 
     print(f"{'═' * 62}")
-    print(f"  IntelliStake — End-to-End Demo Pipeline")
-    print(f"  R.A.I.S.E.: Bad Data → AI Audit → BL → Blockchain Lock")
+    print(f"  IntelliStake — End-to-End Pipeline v3 (Institutional)")
     print(f"  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'═' * 62}")
 
@@ -329,8 +370,21 @@ def main():
     allocs = step3_portfolio(df)
     step4_oracle(df, allocs)
 
-    elapsed = time.time() - t0
-    log.info(f"Pipeline finished in {elapsed:.1f}s")
+    if not args.skip_advanced:
+        n  = 500 if args.fast else 1000
+        fn = 50  if args.fast else 200
+        sn = 5   if args.fast else 10
+        tn = 20  if args.fast else 50
+        step5_data_lake()
+        step6_stacked_ensemble(top_n=tn)
+        step7_finbert(sample=fn)
+        step8_shap(top_n=sn)
+        step9_hype()
+        step10_backtest()
+        step11_risk_sim(n_sims=n)
+        step12_agentic_osint()
+
+    log.info(f"Pipeline done in {time.time()-t0:.1f}s")
     _print_final_summary(df)
 
 

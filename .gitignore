@@ -95,3 +95,14 @@ secrets.json
 #   unified_data/raw/     — smaller raw files kept
 #   README.md, ROADMAP.txt, run_full_pipeline.py, start_intellistake.py
 # ─────────────────────────────────────────────────────────────
+
+# Large model binaries (too large for GitHub 100MB limit)
+models/autogluon/
+*.pkl
+*.cbm
+*.ubj
+engine/catboost_info/
+
+# ── Additional large data files ──────────────────────────────
+unified_data/4_production/stacked_valuation_summary.json
+unified_data/real/intellistake_unified.json

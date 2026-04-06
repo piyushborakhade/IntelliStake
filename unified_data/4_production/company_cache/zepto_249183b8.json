@@ -1,0 +1,114 @@
+{
+  "company": "Zepto",
+  "data_source": "data_lake",
+  "profile": {
+    "startup_name": "Zepto",
+    "sector": "eCommerce",
+    "city": "Mumbai",
+    "country": "India",
+    "founded_year": 2021,
+    "company_age_years": 4,
+    "total_funding_usd": 287688186.45,
+    "valuation_usd": 1400000000.0,
+    "revenue_usd": 158168072.09,
+    "employees": 375,
+    "trust_score": 0.505,
+    "sentiment_cfs": 0.0882,
+    "github_velocity_score": 100,
+    "stage": "Series C",
+    "data_source": "verified_real",
+    "investors": "",
+    "is_real": true,
+    "github_stars": 30395,
+    "github_repos": 5,
+    "top_repo": "madrobby/zepto",
+    "finbert_label": "NEUTRAL",
+    "finbert_compound": 0.0105,
+    "headlines_found": 5,
+    "sample_headlines": [
+      "\"Zepto startup india\" - Google News",
+      "Zepto, DPIIT shortlist 8 startups in first cohort of Zepto Nova innovation challenge - Entrackr",
+      "Startup India Initiative: DPIIT joins hands with Hero MotoCorp &amp; Zepto to boost early-stage startups - Zee Business"
+    ],
+    "classification": "LEGITIMATE",
+    "risk_severity": "LOW",
+    "top_shap_feature": "github_velocity_score",
+    "cis": 0.7056,
+    "cis_details": {
+      "cis": 0.7056,
+      "ci_low": 0.6256,
+      "ci_high": 0.7856,
+      "signal": "BUY",
+      "percentile": 74,
+      "components": {
+        "valuation_score": 0.4,
+        "sentiment_score": 0.505,
+        "hype_score": 1.0,
+        "risk_score": 1.0,
+        "velocity_score": 1.0,
+        "funding_score": 0.846
+      }
+    },
+    "investment_thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+  },
+  "cis": {
+    "cis": 0.7056,
+    "ci_low": 0.6256,
+    "ci_high": 0.7856,
+    "signal": "BUY",
+    "percentile": 74,
+    "components": {
+      "valuation_score": 0.4,
+      "sentiment_score": 0.505,
+      "hype_score": 1.0,
+      "risk_score": 1.0,
+      "velocity_score": 1.0,
+      "funding_score": 0.846
+    }
+  },
+  "thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "steps": [
+    {
+      "step": "Data Lake Lookup",
+      "status": "running",
+      "result": "Found in data lake \u2014 17 fields"
+    },
+    {
+      "step": "GitHub API",
+      "status": "running",
+      "result": "5 repos \u00b7 30,395 stars \u00b7 velocity 100"
+    },
+    {
+      "step": "FinBERT Sentiment",
+      "status": "running",
+      "result": "NEUTRAL \u00b7 compound 0.0105 \u00b7 5 headlines"
+    },
+    {
+      "step": "Isolation Forest",
+      "status": "running",
+      "result": "LEGITIMATE"
+    },
+    {
+      "step": "R.A.I.S.E. Risk Audit",
+      "status": "running",
+      "result": "LOW"
+    },
+    {
+      "step": "SHAP Explainer",
+      "status": "running",
+      "result": "github_velocity_score"
+    },
+    {
+      "step": "CIS Engine",
+      "status": "running",
+      "result": "CIS: 0.706 \u2192 BUY"
+    },
+    {
+      "step": "Thesis Generator",
+      "status": "running",
+      "result": "Thesis generated"
+    }
+  ],
+  "timestamp": "2026-03-02T18:48:10.217415+00:00",
+  "cached": false
+}

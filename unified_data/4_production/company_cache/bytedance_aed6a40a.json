@@ -1,0 +1,114 @@
+{
+  "company": "ByteDance",
+  "data_source": "data_lake",
+  "profile": {
+    "startup_name": "Bytedance",
+    "sector": "SocialMedia",
+    "city": "Beijing",
+    "country": "China",
+    "founded_year": 2012,
+    "company_age_years": 13,
+    "total_funding_usd": 145329075229.56,
+    "valuation_usd": 300000000000.0,
+    "revenue_usd": 61686065819.96,
+    "employees": 704,
+    "trust_score": 0.747,
+    "sentiment_cfs": 0.1812,
+    "github_velocity_score": 100,
+    "stage": "Series F",
+    "data_source": "verified_real",
+    "investors": "",
+    "is_real": true,
+    "github_stars": 33997,
+    "github_repos": 5,
+    "top_repo": "bytedance/deer-flow",
+    "finbert_label": "NEUTRAL",
+    "finbert_compound": 0.0133,
+    "headlines_found": 5,
+    "sample_headlines": [
+      "\"ByteDance startup india\" - Google News",
+      "ByteDance founder Zhang Yiming becomes China\u2019s richest person; know his early life, net worth and more - The Times of India",
+      "Byju's, Startup: ByteDance highest-valued unicorn in the world; BYJU's among top 15 - Forbes India"
+    ],
+    "classification": "LEGITIMATE",
+    "risk_severity": "LOW",
+    "top_shap_feature": "github_velocity_score",
+    "cis": 0.7213,
+    "cis_details": {
+      "cis": 0.7213,
+      "ci_low": 0.6413,
+      "ci_high": 0.8013,
+      "signal": "BUY",
+      "percentile": 75,
+      "components": {
+        "valuation_score": 0.4,
+        "sentiment_score": 0.507,
+        "hype_score": 1.0,
+        "risk_score": 1.0,
+        "velocity_score": 1.0,
+        "funding_score": 1.0
+      }
+    },
+    "investment_thesis": "**Bytedance** \u2014 SocialMedia \u00b7 Series F Stage | CIS: 0.72 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Bytedance at the **75th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$145329.1M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"ByteDance startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+  },
+  "cis": {
+    "cis": 0.7213,
+    "ci_low": 0.6413,
+    "ci_high": 0.8013,
+    "signal": "BUY",
+    "percentile": 75,
+    "components": {
+      "valuation_score": 0.4,
+      "sentiment_score": 0.507,
+      "hype_score": 1.0,
+      "risk_score": 1.0,
+      "velocity_score": 1.0,
+      "funding_score": 1.0
+    }
+  },
+  "thesis": "**Bytedance** \u2014 SocialMedia \u00b7 Series F Stage | CIS: 0.72 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Bytedance at the **75th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$145329.1M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"ByteDance startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "steps": [
+    {
+      "step": "Data Lake Lookup",
+      "status": "running",
+      "result": "Found in data lake \u2014 17 fields"
+    },
+    {
+      "step": "GitHub API",
+      "status": "running",
+      "result": "5 repos \u00b7 33,997 stars \u00b7 velocity 100"
+    },
+    {
+      "step": "FinBERT Sentiment",
+      "status": "running",
+      "result": "NEUTRAL \u00b7 compound 0.0133 \u00b7 5 headlines"
+    },
+    {
+      "step": "Isolation Forest",
+      "status": "running",
+      "result": "LEGITIMATE"
+    },
+    {
+      "step": "R.A.I.S.E. Risk Audit",
+      "status": "running",
+      "result": "LOW"
+    },
+    {
+      "step": "SHAP Explainer",
+      "status": "running",
+      "result": "github_velocity_score"
+    },
+    {
+      "step": "CIS Engine",
+      "status": "running",
+      "result": "CIS: 0.721 \u2192 BUY"
+    },
+    {
+      "step": "Thesis Generator",
+      "status": "running",
+      "result": "Thesis generated"
+    }
+  ],
+  "timestamp": "2026-03-02T18:48:17.498060+00:00",
+  "cached": false
+}

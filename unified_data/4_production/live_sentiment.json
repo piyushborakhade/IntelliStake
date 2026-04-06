@@ -1,0 +1,381 @@
+{
+  "generated_at": "2026-03-03T01:09:57.129296",
+  "model": "ProsusAI/finbert",
+  "total_headlines": 43,
+  "sources": [
+    "TechCrunch India",
+    "Inc42",
+    "YourStory",
+    "Economic Times Tech"
+  ],
+  "overall_score": 0.0276,
+  "overall_label": "neutral",
+  "sector_scores": {
+    "General": {
+      "avg_score": -0.3496,
+      "headline_count": 21,
+      "label": "bearish"
+    },
+    "AI/ML": {
+      "avg_score": 0.4281,
+      "headline_count": 18,
+      "label": "bullish"
+    },
+    "eCommerce": {
+      "avg_score": 0.2751,
+      "headline_count": 3,
+      "label": "bullish"
+    },
+    "FinTech": {
+      "avg_score": 0.0,
+      "headline_count": 1,
+      "label": "neutral"
+    }
+  },
+  "headlines": [
+    {
+      "headline": "E2W Registrations Decline 9% In Feb To 1.11 Lakh Units, Ola Electric Sales Down 47%",
+      "source": "Inc42",
+      "label": "negative",
+      "confidence": 0.9739,
+      "sentiment_score": -0.9739,
+      "sector": "General"
+    },
+    {
+      "headline": "Ola Electric Slumps Nearly 16% To Hit All-Time Low At \u20b921.21",
+      "source": "Inc42",
+      "label": "negative",
+      "confidence": 0.9713,
+      "sentiment_score": -0.9713,
+      "sector": "General"
+    },
+    {
+      "headline": "New-Age Tech Stocks Bleed $16 Bn This Week Amid Market Volatility",
+      "source": "Inc42",
+      "label": "negative",
+      "confidence": 0.9618,
+      "sentiment_score": -0.9618,
+      "sector": "General"
+    },
+    {
+      "headline": "<![CDATA[Ola Electric slips out of top five in February market share; shares hit all-time low]]>",
+      "source": "Economic Times Tech",
+      "label": "negative",
+      "confidence": 0.9617,
+      "sentiment_score": -0.9617,
+      "sector": "General"
+    },
+    {
+      "headline": "India&#8217;s app downloads rebounded to 25.5 billion in 2025, fueled by AI assistants and microdrama boom",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.9535,
+      "sentiment_score": 0.9535,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "<![CDATA[Ola Electric loses speed; AWS ops in Middle East hit]]>",
+      "source": "Economic Times Tech",
+      "label": "negative",
+      "confidence": 0.9472,
+      "sentiment_score": -0.9472,
+      "sector": "General"
+    },
+    {
+      "headline": "Bounce raises $5M from existing investors as EV mobility startup rebuilds after pandemic pivot",
+      "source": "YourStory",
+      "label": "positive",
+      "confidence": 0.942,
+      "sentiment_score": 0.942,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Exclusive: EV startup Bounce Raises \u20b936 Cr From Existing Investors",
+      "source": "Inc42",
+      "label": "positive",
+      "confidence": 0.9331,
+      "sentiment_score": 0.9331,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Thousands of Indian bank transfer records found spilling online after security lapse",
+      "source": "TechCrunch India",
+      "label": "negative",
+      "confidence": 0.9186,
+      "sentiment_score": -0.9186,
+      "sector": "General"
+    },
+    {
+      "headline": "[Weekly funding roundup Feb 21-27] Steep fall in VC inflow due to absence of large deals",
+      "source": "YourStory",
+      "label": "negative",
+      "confidence": 0.9164,
+      "sentiment_score": -0.9164,
+      "sector": "General"
+    },
+    {
+      "headline": "India bids to attract over $200B in AI infrastructure investment by 2028",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.9156,
+      "sentiment_score": 0.9156,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "[Update] Exclusive: Quick Commerce Enablement Startup Inamo Raises $8 Mn",
+      "source": "Inc42",
+      "label": "positive",
+      "confidence": 0.873,
+      "sentiment_score": 0.873,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "India&#8217;s AI boom pushes firms to trade near-term revenue for users",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.8499,
+      "sentiment_score": 0.8499,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "The Cloud Beyond The Clouds: Startups Firm Up Orbital AI Data Centre Plans",
+      "source": "Inc42",
+      "label": "positive",
+      "confidence": 0.8468,
+      "sentiment_score": 0.8468,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Bolna nabs $6.3M from General Catalyst for its India-focused voice orchestration platform",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.8319,
+      "sentiment_score": 0.8319,
+      "sector": "General"
+    },
+    {
+      "headline": "French and Malaysian authorities are investigating Grok for generating sexualized deepfakes",
+      "source": "TechCrunch India",
+      "label": "negative",
+      "confidence": 0.8277,
+      "sentiment_score": -0.8277,
+      "sector": "General"
+    },
+    {
+      "headline": "After Flipkart, Amazon India expands zero referral fees as market leans toward zero-commission models",
+      "source": "YourStory",
+      "label": "positive",
+      "confidence": 0.8252,
+      "sentiment_score": 0.8252,
+      "sector": "eCommerce"
+    },
+    {
+      "headline": "Indian grocery startup Citymall raises $47M to challenge ultra-fast delivery giants",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.8065,
+      "sentiment_score": 0.8065,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "RAS Luxury Raises $7.5 Mn From Dabur Ventures, Unilever Ventures",
+      "source": "Inc42",
+      "label": "positive",
+      "confidence": 0.7957,
+      "sentiment_score": 0.7957,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "<![CDATA[Escalating tensions turn spotlight on Big Tech's AI investments in Middle East]]>",
+      "source": "Economic Times Tech",
+      "label": "negative",
+      "confidence": 0.7952,
+      "sentiment_score": -0.7952,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Trump tells Apple&#8217;s CEO to stop expanding iPhone production in India",
+      "source": "TechCrunch India",
+      "label": "negative",
+      "confidence": 0.6948,
+      "sentiment_score": -0.6948,
+      "sector": "General"
+    },
+    {
+      "headline": "Google launches sub-$5 AI Plus plan in India to compete with ChatGPT Go",
+      "source": "TechCrunch India",
+      "label": "positive",
+      "confidence": 0.5841,
+      "sentiment_score": 0.5841,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "India | Startup News and Analysis on TechCrunch",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.9298,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "Nothing opens its first retail store in India",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.8418,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Google Photos brings its prompt-based editing feature to India, Australia, and Japan",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.5903,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "Eat App wants a bite of India&#8217;s restaurant reservation business with an acquisition and Swiggy partnership",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.8276,
+      "sentiment_score": 0.0,
+      "sector": "eCommerce"
+    },
+    {
+      "headline": "Sequoia-backed fintech Aspora will let Indian diaspora pay bills back home",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.8356,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "OpenAI launches a sub-$5 ChatGPT plan in India",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.8406,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Meta to start selling its Ray-Ban smart glasses in India on May 19",
+      "source": "TechCrunch India",
+      "label": "neutral",
+      "confidence": 0.7592,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "Art and algorithms: Tao Art Gallery showcases contemporary Indian creations",
+      "source": "YourStory",
+      "label": "neutral",
+      "confidence": 0.9182,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "DevSparks Pune 2026: Here's everything in store at the developer-only summit",
+      "source": "YourStory",
+      "label": "neutral",
+      "confidence": 0.9348,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "Exclusive: Quick Commerce Startup BazaarNow In Talks To Raise $9 Mn",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.8152,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "The Fintech Showdown Before PhonePe\u2019s IPO",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.9179,
+      "sentiment_score": 0.0,
+      "sector": "FinTech"
+    },
+    {
+      "headline": "Indian Startup IPO Tracker 2026",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.9339,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "On OpenAI&#8217;s $110 Bn Stage, India\u2019s Waiting In The Wings",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.6003,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "Exclusive: Innoviti Closes Series M Funding Round At \u20b9104 Cr",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.8265,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "Indian Listed New-Age Tech Company Tracker: Market Cap, Revenue &#038; More",
+      "source": "Inc42",
+      "label": "neutral",
+      "confidence": 0.94,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "<![CDATA[UK fintech major Revolut to enter India soon; opens 'waitlist' for users]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.9275,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "<![CDATA[Nvidia to invest $2 billion each in Lumentum, Coherent to bolster AI processors]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.8116,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "<![CDATA[Amazon to invest additional $21 billion in Spain for data centres, AI]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.8814,
+      "sentiment_score": 0.0,
+      "sector": "eCommerce"
+    },
+    {
+      "headline": "<![CDATA[Fintech Pine Labs to launch stablecoin payments outside India, CEO says]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.8243,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    },
+    {
+      "headline": "<![CDATA[EV startup Bounce raises $5 million from Accel, B Capital, Qualcomm]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.547,
+      "sentiment_score": 0.0,
+      "sector": "AI/ML"
+    },
+    {
+      "headline": "<![CDATA[Iran crisis hits India\u2019s economy; PE firms dial up SaaS deals]]>",
+      "source": "Economic Times Tech",
+      "label": "neutral",
+      "confidence": 0.7157,
+      "sentiment_score": 0.0,
+      "sector": "General"
+    }
+  ]
+}

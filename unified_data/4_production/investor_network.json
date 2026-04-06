@@ -1,0 +1,4163 @@
+{
+  "generated_at": "2026-03-03T01:03:14.908146",
+  "model": "NetworkX PageRank + Betweenness Centrality (Bipartite Graph)",
+  "graph_stats": {
+    "total_nodes": 100,
+    "total_edges": 4014,
+    "avg_degree": 80.28,
+    "description": "Co-investor PageRank network \u2014 4,547 investor nodes"
+  },
+  "top_investors": [
+    {
+      "investor_name": "Others",
+      "portfolio_count": 79,
+      "pagerank_score": 0.006485,
+      "degree_centrality": 0.01738,
+      "avg_portfolio_valuation_usd": 129834816.0,
+      "top_investments": [
+        "Upwards",
+        "Avenue Growth",
+        "Book My Show",
+        "PaySense",
+        "Entropik"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Undisclosed Investors",
+      "portfolio_count": 31,
+      "pagerank_score": 0.003279,
+      "degree_centrality": 0.00682,
+      "avg_portfolio_valuation_usd": 56740623.0,
+      "top_investments": [
+        "Vagupu",
+        "Sumeru",
+        "Kanhaiya",
+        "HWell24 Plus",
+        "Tagos Design"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Undisclosed investors",
+      "portfolio_count": 28,
+      "pagerank_score": 0.002973,
+      "degree_centrality": 0.00616,
+      "avg_portfolio_valuation_usd": 90621449.0,
+      "top_investments": [
+        "Edelweiss",
+        "UCLID",
+        "New Castle Technologies",
+        "Voxweb",
+        "HashTaag"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Kalaari Capital",
+      "portfolio_count": 36,
+      "pagerank_score": 0.002806,
+      "degree_centrality": 0.00792,
+      "avg_portfolio_valuation_usd": 106652643.0,
+      "top_investments": [
+        "Vogo Automotive",
+        "Vyome Therapeutics Inc.",
+        "Cure Fit",
+        "POPxo",
+        "Rubique"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Indian Angel Network",
+      "portfolio_count": 32,
+      "pagerank_score": 0.002786,
+      "degree_centrality": 0.00704,
+      "avg_portfolio_valuation_usd": 79462148.0,
+      "top_investments": [
+        "StyleDotMe",
+        "Little Black Book",
+        "Skillenza",
+        "Arcatron",
+        "ThinkerBell"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Blume Ventures",
+      "portfolio_count": 36,
+      "pagerank_score": 0.002678,
+      "degree_centrality": 0.00792,
+      "avg_portfolio_valuation_usd": 60365264.0,
+      "top_investments": [
+        "Agara Labs",
+        "RailYatri",
+        "The Healthy Billions",
+        "The Wedding Brigade",
+        "Little Black Book"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "others",
+      "portfolio_count": 33,
+      "pagerank_score": 0.002662,
+      "degree_centrality": 0.00726,
+      "avg_portfolio_valuation_usd": 66496553.0,
+      "top_investments": [
+        "HappyGoEasy",
+        "HealthFin",
+        "Buddy4studdy",
+        "Trilyo",
+        "Farm Taaza"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Accel Partners",
+      "portfolio_count": 36,
+      "pagerank_score": 0.00266,
+      "degree_centrality": 0.00792,
+      "avg_portfolio_valuation_usd": 207300670.0,
+      "top_investments": [
+        "Metro Bikes",
+        "Cure Fit",
+        "Drip capital",
+        "WickedRide",
+        "Sigtuple"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "6 investors",
+      "portfolio_count": 24,
+      "pagerank_score": 0.002549,
+      "degree_centrality": 0.00528,
+      "avg_portfolio_valuation_usd": 317100806.0,
+      "top_investments": [
+        "Apna",
+        "Cashfree",
+        "YourStory",
+        "Shop101",
+        "OkCredit"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "4 investors",
+      "portfolio_count": 23,
+      "pagerank_score": 0.002463,
+      "degree_centrality": 0.00506,
+      "avg_portfolio_valuation_usd": 599670778.0,
+      "top_investments": [
+        "Holisol logistics",
+        "Masai School",
+        "PagarBook",
+        "Ecom Express",
+        "Polygon (Previously Matic Network)"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Sequoia Capital",
+      "portfolio_count": 29,
+      "pagerank_score": 0.002215,
+      "degree_centrality": 0.00638,
+      "avg_portfolio_valuation_usd": 155313356.0,
+      "top_investments": [
+        "Zilingo",
+        "Five Star Group",
+        "Daily Ninja",
+        "WickedRide",
+        "Finova Capital"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "8 investors",
+      "portfolio_count": 19,
+      "pagerank_score": 0.002055,
+      "degree_centrality": 0.00418,
+      "avg_portfolio_valuation_usd": 3097185030.0,
+      "top_investments": [
+        "Reliance Retail",
+        "Cuemath",
+        "Infra.Market",
+        "Pepperfry",
+        "Get My Parking"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "9 investors",
+      "portfolio_count": 17,
+      "pagerank_score": 0.001851,
+      "degree_centrality": 0.00374,
+      "avg_portfolio_valuation_usd": 1374053521.0,
+      "top_investments": [
+        "GoMechanic",
+        "Progcap",
+        "Skyroot Aerospace",
+        "CarTrade",
+        "Wysa"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "3 investors",
+      "portfolio_count": 17,
+      "pagerank_score": 0.001851,
+      "degree_centrality": 0.00374,
+      "avg_portfolio_valuation_usd": 226068756.0,
+      "top_investments": [
+        "Bharat Biotech",
+        "WhiteHat Education Technology",
+        "LEAD School",
+        "Upstox",
+        "Yellow Messenger"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "10 investors",
+      "portfolio_count": 16,
+      "pagerank_score": 0.001749,
+      "degree_centrality": 0.00352,
+      "avg_portfolio_valuation_usd": 320457631.0,
+      "top_investments": [
+        "Koo App",
+        "Urban Ladder",
+        "Doubtnut",
+        "Turtlemint",
+        "Play Shifu"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "5 investors",
+      "portfolio_count": 16,
+      "pagerank_score": 0.001732,
+      "degree_centrality": 0.00352,
+      "avg_portfolio_valuation_usd": 136408781.0,
+      "top_investments": [
+        "Kodo",
+        "NiYO Solutions",
+        "The Man Company",
+        "Teachmint",
+        "Convosight"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "12 investors",
+      "portfolio_count": 15,
+      "pagerank_score": 0.001647,
+      "degree_centrality": 0.0033,
+      "avg_portfolio_valuation_usd": 529567674.0,
+      "top_investments": [
+        "MediBuddy",
+        "Capital Float",
+        "Northern Arc",
+        "Magicpin",
+        "WinZO"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "LetsVenture",
+      "portfolio_count": 18,
+      "pagerank_score": 0.001608,
+      "degree_centrality": 0.00462,
+      "avg_portfolio_valuation_usd": 52915740.0,
+      "top_investments": [
+        "Sunstone Eduversity Pvt. Ltd",
+        "NanoClean Global",
+        "Nivesh",
+        "RentSher",
+        "Glassic"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Kae Capital",
+      "portfolio_count": 19,
+      "pagerank_score": 0.001429,
+      "degree_centrality": 0.00418,
+      "avg_portfolio_valuation_usd": 68929080.0,
+      "top_investments": [
+        "Loan Tap",
+        "Fynd",
+        "Credifiable",
+        "TouchKin",
+        "Hypernova Interactive"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "7 investors",
+      "portfolio_count": 12,
+      "pagerank_score": 0.001341,
+      "degree_centrality": 0.00264,
+      "avg_portfolio_valuation_usd": 277658735.0,
+      "top_investments": [
+        "KreditBee",
+        "Convin",
+        "Fisdom",
+        "GlowRoad",
+        "Jupiter"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "SAIF Partners",
+      "portfolio_count": 16,
+      "pagerank_score": 0.001273,
+      "degree_centrality": 0.00352,
+      "avg_portfolio_valuation_usd": 46932508.0,
+      "top_investments": [
+        "Cashflo",
+        "AyeFinance",
+        "TravelTriangle",
+        "Travel Triangle",
+        "PlaySimple"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Rajan Anandan",
+      "portfolio_count": 16,
+      "pagerank_score": 0.001257,
+      "degree_centrality": 0.00352,
+      "avg_portfolio_valuation_usd": 89733064.0,
+      "top_investments": [
+        "Nivesh",
+        "Inclov",
+        "EasyGov",
+        "Bottr.me",
+        "Monsoon Fintech"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Mumbai Angels",
+      "portfolio_count": 16,
+      "pagerank_score": 0.001253,
+      "degree_centrality": 0.00352,
+      "avg_portfolio_valuation_usd": 94521527.0,
+      "top_investments": [
+        "Dhruva Space",
+        "Leegality",
+        "FalconBrick",
+        "Register My Marriage",
+        "Wittyparot"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Ratan Tata",
+      "portfolio_count": 14,
+      "pagerank_score": 0.001252,
+      "degree_centrality": 0.00308,
+      "avg_portfolio_valuation_usd": 196036300.0,
+      "top_investments": [
+        "The Print",
+        "IdeaChakki",
+        "Kyazoonga",
+        "MadRat Games",
+        "Invictus Oncology"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "13 investors",
+      "portfolio_count": 11,
+      "pagerank_score": 0.001239,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 937498570.0,
+      "top_investments": [
+        "Dodla Dairy",
+        "Grofers",
+        "OPEN",
+        "Shadowfax",
+        "NoBroker"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "2 investors",
+      "portfolio_count": 11,
+      "pagerank_score": 0.001239,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 695586831.0,
+      "top_investments": [
+        "Skillmatics",
+        "Paytm Payments Bank",
+        "MyMoneyMantra",
+        "Vivriti Capital",
+        "nearbuy"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Group of Angel Investors",
+      "portfolio_count": 11,
+      "pagerank_score": 0.001239,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 525214.0,
+      "top_investments": [
+        "LabsAdvisor",
+        "PayMango",
+        "wWhere",
+        "Faaya",
+        "InstaBounce"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Nexus Venture Partners",
+      "portfolio_count": 15,
+      "pagerank_score": 0.001183,
+      "degree_centrality": 0.0033,
+      "avg_portfolio_valuation_usd": 81369570.0,
+      "top_investments": [
+        "Bolo App",
+        "Observe AI",
+        "Dhruva",
+        "HyperTrack",
+        "Goodbox"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Undisclosed Investor",
+      "portfolio_count": 10,
+      "pagerank_score": 0.001138,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 41915114.0,
+      "top_investments": [
+        "LenDen Club",
+        "IOTrek",
+        "Frapperz",
+        "Kloseby",
+        "MuhurtMaza"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "undisclosed investors",
+      "portfolio_count": 10,
+      "pagerank_score": 0.001138,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 4473638.0,
+      "top_investments": [
+        "MrNeeds",
+        "ZippServe",
+        "Aequm",
+        "Genie",
+        "Hoopy"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "IDG Ventures",
+      "portfolio_count": 13,
+      "pagerank_score": 0.001117,
+      "degree_centrality": 0.00308,
+      "avg_portfolio_valuation_usd": 118872356.0,
+      "top_investments": [
+        "Cure Fit",
+        "Bizongo",
+        "Mobiliz AR",
+        "Heckyl",
+        "Little Black Book"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "India Quotient",
+      "portfolio_count": 15,
+      "pagerank_score": 0.00111,
+      "degree_centrality": 0.0033,
+      "avg_portfolio_valuation_usd": 39719744.0,
+      "top_investments": [
+        "Vyapar App",
+        "FleetX",
+        "Clip App",
+        "Loantap",
+        "Ketchupp"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "N/A",
+      "portfolio_count": 10,
+      "pagerank_score": 0.001099,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 294196054.0,
+      "top_investments": [
+        "My OmNamo",
+        "True North",
+        "HousingMan",
+        "Yulu Bikes",
+        "Kinsane Entertainment Inc"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Brand Capital",
+      "portfolio_count": 10,
+      "pagerank_score": 0.001091,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 54376332.0,
+      "top_investments": [
+        "DoneThing",
+        "NeoStencil",
+        "AirMed Labs",
+        "ExtraCarbon",
+        "Faircent.com"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "IDG Ventures India",
+      "portfolio_count": 14,
+      "pagerank_score": 0.001087,
+      "degree_centrality": 0.00308,
+      "avg_portfolio_valuation_usd": 53568848.0,
+      "top_investments": [
+        "POPxo",
+        "Hevo Data",
+        "Smart Karma",
+        "Blowhorn",
+        "Active.ai"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Unitus Seed Fund",
+      "portfolio_count": 13,
+      "pagerank_score": 0.001086,
+      "degree_centrality": 0.00286,
+      "avg_portfolio_valuation_usd": 72539014.0,
+      "top_investments": [
+        "Blowhorn",
+        "Curiositi",
+        "UE LifeSciences",
+        "Urban Tailor",
+        "OneClickWash"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Undisclosed investor",
+      "portfolio_count": 9,
+      "pagerank_score": 0.001036,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 31324071.0,
+      "top_investments": [
+        "MessaGif",
+        "vImmune",
+        "OrangeTwig",
+        "Dipper",
+        "KabadiExpress"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "500 Startups",
+      "portfolio_count": 14,
+      "pagerank_score": 0.001026,
+      "degree_centrality": 0.00308,
+      "avg_portfolio_valuation_usd": 92851839.0,
+      "top_investments": [
+        "SpotDraft",
+        "Bottr.me",
+        "Ftcash",
+        "Niramai",
+        "Quickli"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "Venture Catalysts",
+      "portfolio_count": 9,
+      "pagerank_score": 0.00101,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 35737548.0,
+      "top_investments": [
+        "iNICU",
+        "PeeSafe",
+        "IGP.com",
+        "Kalpnik Technologies",
+        "HomeCapital"
+      ],
+      "influence_tier": "Tier 1"
+    },
+    {
+      "investor_name": "The Chennai Angels",
+      "portfolio_count": 11,
+      "pagerank_score": 0.000981,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 59660010.0,
+      "top_investments": [
+        "Paperflite",
+        "EdgeFx",
+        "Spares Hub",
+        "Netree",
+        "Vegetall"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Axilor Ventures",
+      "portfolio_count": 12,
+      "pagerank_score": 0.000947,
+      "degree_centrality": 0.00264,
+      "avg_portfolio_valuation_usd": 80469485.0,
+      "top_investments": [
+        "Vyapar App",
+        "CustomerSucessBox",
+        "Your Quote",
+        "OpenApp",
+        "MiStay"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "14 investors",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000934,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 670184313.0,
+      "top_investments": [
+        "CityMall",
+        "Practo",
+        "Toppr",
+        "MyGlamm",
+        "CarDekho"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "11 investors",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000934,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 356054607.0,
+      "top_investments": [
+        "Xpressbees",
+        "smallcase",
+        "mfine",
+        "DocsApp",
+        "Square Yards"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "1 investors",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000934,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 167930398.0,
+      "top_investments": [
+        "Lava International Limited",
+        "Aknamed",
+        "Avataar.Me",
+        "Wheels Eye",
+        "Magicbricks"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "RoundGlass Partners",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000934,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 84480689.0,
+      "top_investments": [
+        "Gympik.com",
+        "Doctor Insta",
+        "Life in Control",
+        "DoctorInsta",
+        "Xcode"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Binny Bansal",
+      "portfolio_count": 13,
+      "pagerank_score": 0.000933,
+      "degree_centrality": 0.00286,
+      "avg_portfolio_valuation_usd": 119460495.0,
+      "top_investments": [
+        "Alteria Capital",
+        "House of Msasaba",
+        "Increff",
+        "AvailFinance",
+        "Niramai"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Tiger Global",
+      "portfolio_count": 11,
+      "pagerank_score": 0.000932,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 395596231.0,
+      "top_investments": [
+        "Inshorts",
+        "NestAway",
+        "The Viral Fever",
+        "CultureAlley",
+        "Zopper"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Anupam Mittal",
+      "portfolio_count": 13,
+      "pagerank_score": 0.000928,
+      "degree_centrality": 0.00286,
+      "avg_portfolio_valuation_usd": 87862403.0,
+      "top_investments": [
+        "Zepo",
+        "infeedo",
+        "ShaadiSaga",
+        "WitWorks",
+        "Blinge"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Infuse Ventures",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000891,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 58498992.0,
+      "top_investments": [
+        "GoldFarm",
+        "Ecolibriumenergy",
+        "Silvan Innovation Labs",
+        "Fourth Partner Energy",
+        "Glowship"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Kunal Shah",
+      "portfolio_count": 14,
+      "pagerank_score": 0.000884,
+      "degree_centrality": 0.00308,
+      "avg_portfolio_valuation_usd": 91877177.0,
+      "top_investments": [
+        "AvailFinance",
+        "Zepo",
+        "Lets Reap",
+        "Bharat Bazaar",
+        "Remitr"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "ah! Ventures",
+      "portfolio_count": 11,
+      "pagerank_score": 0.000869,
+      "degree_centrality": 0.00242,
+      "avg_portfolio_valuation_usd": 50019897.0,
+      "top_investments": [
+        "Unocoin",
+        "ShaadiSaga",
+        "ShabdNagari",
+        "DriversCart",
+        "AHA Taxis"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "YourNest Angel Fund",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000846,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 39618712.0,
+      "top_investments": [
+        "Aahaa Stores",
+        "Fashalot",
+        "GolfLAN",
+        "TheSmartQ",
+        "MoMark"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "16 investors",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000832,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 531830597.0,
+      "top_investments": [
+        "Urban Company",
+        "Pee Safe",
+        "Housing.com",
+        "Bombay Shaving Company",
+        "Treebo Hotels"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Undisclosed",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000832,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 27244618.0,
+      "top_investments": [
+        "Ezyhaul",
+        "Badiyajobs",
+        "Newspatrolling",
+        "ICHR",
+        "Streamoid"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Matrix Partners",
+      "portfolio_count": 10,
+      "pagerank_score": 0.000795,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 225441472.0,
+      "top_investments": [
+        "Vogo Automotive",
+        "Five Star Group",
+        "AvailFinance",
+        "Transversal Technologies",
+        "Tilite Technologies Pvt. Ltd"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "TV Mohandas Pai",
+      "portfolio_count": 10,
+      "pagerank_score": 0.000793,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 81439435.0,
+      "top_investments": [
+        "QwikSpec",
+        "TaxSutra",
+        "Bharat Bazaar",
+        "Velvetcase",
+        "Gingercrush"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "17 investors",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000791,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 913328552.0,
+      "top_investments": [
+        "BigBasket",
+        "InCred",
+        "Agnikul",
+        "Livspace",
+        "FamPay"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Paytm",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000788,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 102053188.0,
+      "top_investments": [
+        "Healthians",
+        "Credit Mate",
+        "Insider.in",
+        "QorQI",
+        "TapChief"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Orios Venture Partners",
+      "portfolio_count": 10,
+      "pagerank_score": 0.000782,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 41078357.0,
+      "top_investments": [
+        "Inthree",
+        "PrettySecrets",
+        "Taskbob",
+        "Yumist",
+        "Pickingo"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Omidyar Network",
+      "portfolio_count": 10,
+      "pagerank_score": 0.000772,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 135049055.0,
+      "top_investments": [
+        "Varthana",
+        "RailYatri",
+        "Omnia Information",
+        "NowFloats",
+        "Indifi"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Anand Chandrasekaran",
+      "portfolio_count": 10,
+      "pagerank_score": 0.000769,
+      "degree_centrality": 0.0022,
+      "avg_portfolio_valuation_usd": 141164391.0,
+      "top_investments": [
+        "Uncanny Vision",
+        "GoFynd",
+        "MoEngage",
+        "Tone Tag",
+        "Buttercups"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "YouWeCan Ventures",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000763,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 109050737.0,
+      "top_investments": [
+        "Startup Buddy",
+        "Black White Orange Brands",
+        "SportyBeans",
+        "Carl\\\\xe2\\\\x80\\\\x99s Jr",
+        "Cartisan"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Hyderabad Angels",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000747,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 96110315.0,
+      "top_investments": [
+        "Fracktal Works",
+        "Innovapptive",
+        "HealthSutra",
+        "RealBox",
+        "ePathsala"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Norwest Venture Partners",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000746,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 141481237.0,
+      "top_investments": [
+        "Veritas Finance Ltd.",
+        "Five Star Group",
+        "Multiplier Solutions",
+        "ABI Health",
+        "ElastiRun"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "RB Investments",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000733,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 77798664.0,
+      "top_investments": [
+        "Burger Singh",
+        "A&R Bon Vivants",
+        "Tea Box",
+        "Vanitycask",
+        "Faasos"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "DSG Consumer Partners",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000716,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 200397812.0,
+      "top_investments": [
+        "Furtados School of Music",
+        "Easy Diner",
+        "The Moms Co",
+        "India Lends",
+        "Tazzo Bikes"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "15 investors",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000707,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 3812763955.0,
+      "top_investments": [
+        "ZestMoney",
+        "Purplle",
+        "Lendingkart",
+        "Quikr",
+        "Indifi Technologies"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "MakeMyTrip",
+      "portfolio_count": 5,
+      "pagerank_score": 0.000707,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 118151037.0,
+      "top_investments": [
+        "Bitla Software",
+        "GoFro",
+        "HolidayIQ",
+        "Bona Vita",
+        "Simplotel"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Singapore Angel Network",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000707,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 59194656.0,
+      "top_investments": [
+        "Vahdam Tea",
+        "SpotDraft",
+        "iOrderFresh",
+        "Endless Robotics",
+        "SwitchMe"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Alok Mittal",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000641,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 119458596.0,
+      "top_investments": [
+        "Trip shelf",
+        "Leverage Edu",
+        "Farmizen",
+        "LifCare",
+        "Baxi"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Girish Mathrubootham",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000641,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 87759526.0,
+      "top_investments": [
+        "Josh Talks",
+        "Vista Rooms",
+        "iService",
+        "Hubilo",
+        "CrownIt"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Sequoia Capital India",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000635,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 160487343.0,
+      "top_investments": [
+        "Samosa Labs",
+        "OncoStem",
+        "Dhruva",
+        "Faasos",
+        "Belong"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Matrix Partners India",
+      "portfolio_count": 8,
+      "pagerank_score": 0.00063,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 138585673.0,
+      "top_investments": [
+        "FPL Technologies",
+        "DocTalk",
+        "ZipLoan",
+        "TestBook",
+        "Ridlr"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Info Edge (India) Ltd",
+      "portfolio_count": 5,
+      "pagerank_score": 0.000628,
+      "degree_centrality": 0.0011,
+      "avg_portfolio_valuation_usd": 4272681.0,
+      "top_investments": [
+        "zippserv",
+        "BigStylist",
+        "HappilyUnmarried",
+        "Unnati Helpers",
+        "Rare Media"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "India Educational Investment Fund",
+      "portfolio_count": 5,
+      "pagerank_score": 0.000628,
+      "degree_centrality": 0.0011,
+      "avg_portfolio_valuation_usd": 56988522.0,
+      "top_investments": [
+        "ChipperSage",
+        "SelectJobs",
+        "Oliveboard",
+        "ReportBee",
+        "GuruG Learning"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Flipkart",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000617,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 116328340.0,
+      "top_investments": [
+        "Phone Pe",
+        "TinyStep",
+        "QikPod",
+        "Cube26",
+        "FXMartIndia"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "SRI Capital",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000609,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 19298868.0,
+      "top_investments": [
+        "Shubh Loans",
+        "Imaginate",
+        "WorkApps",
+        "Yellowdig",
+        "Zuppler"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Saama Capital",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000608,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 42137984.0,
+      "top_investments": [
+        "Shubh Loans",
+        "Daily Ninja",
+        "Hotelogix",
+        "Easy Diner",
+        "Lending Kart"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Kunal Bahl",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000594,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 91672480.0,
+      "top_investments": [
+        "Visit",
+        "B9 Beverages",
+        "Shopsense",
+        "Capabiliti",
+        "FirstTouch"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Lead Angels",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000586,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 120573940.0,
+      "top_investments": [
+        "Glassic",
+        "PurpleDocs",
+        "Timemytask",
+        "CarveNiche",
+        "GameXS.in"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Helion Venture Partners",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000579,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 43503286.0,
+      "top_investments": [
+        "RailYatri",
+        "Zefo",
+        "Doormint",
+        "RevX",
+        "MySmartPrice"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "IvyCap Ventures",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000577,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 126792035.0,
+      "top_investments": [
+        "Ftcash",
+        "RML Agtech",
+        "BlueStone",
+        "GrabOnRent",
+        "Taskbob"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Sequoia India",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000563,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 83581393.0,
+      "top_investments": [
+        "FPL Technologies",
+        "Drip capital",
+        "Zefo",
+        "MoneyTap",
+        "Awfis"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Sandeep Tandon",
+      "portfolio_count": 9,
+      "pagerank_score": 0.000563,
+      "degree_centrality": 0.00198,
+      "avg_portfolio_valuation_usd": 108309570.0,
+      "top_investments": [
+        "Lets Reap",
+        "Bharat Bazaar",
+        "ShaadiSaga",
+        "enCashea",
+        "CrownIt"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Kris Gopalakrishnan",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000554,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 111436925.0,
+      "top_investments": [
+        "Process 9",
+        "MagicX",
+        "Avagmah",
+        "Ampere Vehicles",
+        "PlaceofOrigin"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Times Internet",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000538,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 75779749.0,
+      "top_investments": [
+        "Vidooly",
+        "Ridlr",
+        "TaskBucks",
+        "Bluegape.com",
+        "Jiffstore"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Rohit Bansal",
+      "portfolio_count": 8,
+      "pagerank_score": 0.000533,
+      "degree_centrality": 0.00176,
+      "avg_portfolio_valuation_usd": 102824958.0,
+      "top_investments": [
+        "Visit",
+        "B9 Beverages",
+        "Shopsense",
+        "Capabiliti",
+        "FirstTouch"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Vertex Ventures",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000532,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 39914918.0,
+      "top_investments": [
+        "Hansel io",
+        "Hotelogix",
+        "Active AI",
+        "Synup",
+        "Flutura"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "20 investors",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 88936840.0,
+      "top_investments": [
+        "Jumbotail",
+        "Airmeet",
+        "BluSmart Mobility",
+        "Pariksha"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "18 investors",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 154352886.0,
+      "top_investments": [
+        "Jai Kisan",
+        "Milkbasket",
+        "Chingari",
+        "FabAlley"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "23 investors",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 643108450.0,
+      "top_investments": [
+        "Plum",
+        "Freshtohome",
+        "Aye Finance",
+        "Trulymadly.com"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Rainmatter",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 1683341.0,
+      "top_investments": [
+        "Balance App",
+        "Digio",
+        "Neotrade Analytics",
+        "Tradelab"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Quarizon",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 79571676.0,
+      "top_investments": [
+        "Oi Media",
+        "Asocon",
+        "Pictor Imaging",
+        "Chai Thela"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Undisclosed HNIs",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 3253763.0,
+      "top_investments": [
+        "RepairEasy",
+        "TaxiVaxi",
+        "Goalwise",
+        "Funcart"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Multiple investors through Ten Minute Million competition",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 121297.0,
+      "top_investments": [
+        "Strike",
+        "MaaxMarket",
+        "Gamooz",
+        "SoundSurround"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Green House Ventures (GHV)",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 578610.0,
+      "top_investments": [
+        "RoadGods",
+        "Pindropmusic",
+        "iStyleYou",
+        "AdUrCup"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Hyderabad Angels (at Startup Heroes event)",
+      "portfolio_count": 4,
+      "pagerank_score": 0.000526,
+      "degree_centrality": 0.00088,
+      "avg_portfolio_valuation_usd": 102524.0,
+      "top_investments": [
+        "Hostel Dunia",
+        "Yo Grad",
+        "Enabli",
+        "CBS"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Tracxn Labs",
+      "portfolio_count": 7,
+      "pagerank_score": 0.000518,
+      "degree_centrality": 0.00154,
+      "avg_portfolio_valuation_usd": 120987311.0,
+      "top_investments": [
+        "enCashea",
+        "Twigly",
+        "Cookifi",
+        "DrivoJoy",
+        "Klozee"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "1Crowd",
+      "portfolio_count": 5,
+      "pagerank_score": 0.000503,
+      "degree_centrality": 0.0011,
+      "avg_portfolio_valuation_usd": 3488345.0,
+      "top_investments": [
+        "Karma Healthcare",
+        "Nuvepro",
+        "Fourth Ambit",
+        "ZipGrid",
+        "Idea Bubbles"
+      ],
+      "influence_tier": "Tier 2"
+    },
+    {
+      "investor_name": "Bessemer Venture Partners",
+      "portfolio_count": 6,
+      "pagerank_score": 0.000502,
+      "degree_centrality": 0.00132,
+      "avg_portfolio_valuation_usd": 116290830.0,
+      "top_investments": [
+        "TravelTriangle",
+        "Wydr",
+        "Innoviti",
+        "Travel Triangle",
+        "StayGlad"
+      ],
+      "influence_tier": "Tier 2"
+    }
+  ],
+  "top_networked_startups": [
+    {
+      "startup_name": "Gameezop",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000168,
+      "network_score": 74.2256,
+      "avg_investor_influence": 0.003627,
+      "direct_investors": [
+        "Anand Chandrasekaran",
+        "Others"
+      ],
+      "valuation_usd": 155886890.0
+    },
+    {
+      "startup_name": "Ampere Vehicles",
+      "sector": "Electric Bike Manufacturers",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000181,
+      "network_score": 72.2035,
+      "avg_investor_influence": 0.003519,
+      "direct_investors": [
+        "Kris Gopalakrishnan",
+        "Others"
+      ],
+      "valuation_usd": 10705594.0
+    },
+    {
+      "startup_name": "Zoctr",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000184,
+      "network_score": 71.4405,
+      "avg_investor_influence": 0.00348,
+      "direct_investors": [
+        "NB Ventures",
+        "Others"
+      ],
+      "valuation_usd": 276239414.0
+    },
+    {
+      "startup_name": "Deyor Rooms",
+      "sector": "Budget Hotels Aggregator",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000167,
+      "network_score": 70.2682,
+      "avg_investor_influence": 0.00343,
+      "direct_investors": [
+        "Dheeraj Jain",
+        "Others"
+      ],
+      "valuation_usd": 1932758.0
+    },
+    {
+      "startup_name": "Biryani Blues",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000197,
+      "network_score": 70.1597,
+      "avg_investor_influence": 0.003409,
+      "direct_investors": [
+        "Carpediem Capital",
+        "Others"
+      ],
+      "valuation_usd": 3133526.0
+    },
+    {
+      "startup_name": "Advantage Club",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000184,
+      "network_score": 69.5647,
+      "avg_investor_influence": 0.003386,
+      "direct_investors": [
+        "Purvi Ventures",
+        "Others"
+      ],
+      "valuation_usd": 3055439.0
+    },
+    {
+      "startup_name": "TravelKhana",
+      "sector": "AI/ML",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000184,
+      "network_score": 69.5326,
+      "avg_investor_influence": 0.003385,
+      "direct_investors": [
+        "Astarc Ventures",
+        "Others"
+      ],
+      "valuation_usd": 23512782.0
+    },
+    {
+      "startup_name": "PaySense",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.0002,
+      "network_score": 69.1352,
+      "avg_investor_influence": 0.003357,
+      "direct_investors": [
+        "PayU",
+        "Others"
+      ],
+      "valuation_usd": 133962161.0
+    },
+    {
+      "startup_name": "Talent Next",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.0002,
+      "network_score": 69.1352,
+      "avg_investor_influence": 0.003357,
+      "direct_investors": [
+        "Karanpal Singh",
+        "Others"
+      ],
+      "valuation_usd": 4654037.0
+    },
+    {
+      "startup_name": "iAugmentor Labs",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.0002,
+      "network_score": 69.1352,
+      "avg_investor_influence": 0.003357,
+      "direct_investors": [
+        "Rajasthan Angel Investor Network",
+        "Others"
+      ],
+      "valuation_usd": 1017253.0
+    },
+    {
+      "startup_name": "WhatsOnRent",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000175,
+      "network_score": 69.1215,
+      "avg_investor_influence": 0.003369,
+      "direct_investors": [
+        "Lalit Mangal",
+        "Others"
+      ],
+      "valuation_usd": 16727693.0
+    },
+    {
+      "startup_name": "Tring",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000192,
+      "network_score": 68.8479,
+      "avg_investor_influence": 0.003347,
+      "direct_investors": [
+        "Vishwadeep Bajaj",
+        "Others"
+      ],
+      "valuation_usd": 288159641.0
+    },
+    {
+      "startup_name": "Cure Fit",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 4,
+      "pagerank_score": 0.0003,
+      "network_score": 68.3344,
+      "avg_investor_influence": 0.003267,
+      "direct_investors": [
+        "IDG Ventures",
+        "Accel Partners",
+        "Kalaari Capital",
+        "Others"
+      ],
+      "valuation_usd": 1035603000.0
+    },
+    {
+      "startup_name": "Front Desk AI",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Speciale Invest",
+        "Others"
+      ],
+      "valuation_usd": 3869407.0
+    },
+    {
+      "startup_name": "Numeroseven",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Shiva Gunapu",
+        "Others"
+      ],
+      "valuation_usd": 146754499.0
+    },
+    {
+      "startup_name": "Samco",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Bay Capital Investments",
+        "Others"
+      ],
+      "valuation_usd": 43172498.0
+    },
+    {
+      "startup_name": "Book My Diamond",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Chirag Nikunj Sheth",
+        "Others"
+      ],
+      "valuation_usd": 244236824.0
+    },
+    {
+      "startup_name": "Nurturey",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Mohit Joshi",
+        "Others"
+      ],
+      "valuation_usd": 1155517.0
+    },
+    {
+      "startup_name": "Roambee",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Deutsche Telekom Strategic Investments",
+        "Others"
+      ],
+      "valuation_usd": 13464586.0
+    },
+    {
+      "startup_name": "BetaOut",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "East Ventures",
+        "Others"
+      ],
+      "valuation_usd": 254654467.0
+    },
+    {
+      "startup_name": "World Art Community",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Viraj Tyagi",
+        "Others"
+      ],
+      "valuation_usd": 734074.0
+    },
+    {
+      "startup_name": "Sibia Analytics",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Radhakrishnan Natarajan",
+        "Others"
+      ],
+      "valuation_usd": 277371005.0
+    },
+    {
+      "startup_name": "SeeDoc",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "YourNest Angel Fund\\\\xc2\\\\xa0",
+        "Others"
+      ],
+      "valuation_usd": 8175433.0
+    },
+    {
+      "startup_name": "Perfumery",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Oranda Global",
+        "Others"
+      ],
+      "valuation_usd": 201840.0
+    },
+    {
+      "startup_name": "FeetApart",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Vishal Bali",
+        "Others"
+      ],
+      "valuation_usd": 225265676.0
+    },
+    {
+      "startup_name": "ShabdaNagari",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Kanpur Angels",
+        "Others"
+      ],
+      "valuation_usd": 1605717.0
+    },
+    {
+      "startup_name": "Myeglu",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Foxconn Technology Group",
+        "Others"
+      ],
+      "valuation_usd": 215399875.0
+    },
+    {
+      "startup_name": "BookMyBai",
+      "sector": "Domestic Help Aggregation plat",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Vineel Nalla",
+        "Others"
+      ],
+      "valuation_usd": 737669.0
+    },
+    {
+      "startup_name": "Zify",
+      "sector": "Ride Sharing platform",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Sean O\\\\xe2\\\\x80\\\\x99Sullivan",
+        "Others"
+      ],
+      "valuation_usd": 1327421.0
+    },
+    {
+      "startup_name": "FYNE",
+      "sector": "Home Fitting & Fixtures Market",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Sandeep Dama",
+        "Others"
+      ],
+      "valuation_usd": 70508127.0
+    },
+    {
+      "startup_name": "Korra",
+      "sector": "Private Label Apparel sales",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Asha Jadeja Motwani",
+        "Others"
+      ],
+      "valuation_usd": 2138499.0
+    },
+    {
+      "startup_name": "Bevy",
+      "sector": "Online Hiring Platform",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "Varun Agarwal",
+        "Others"
+      ],
+      "valuation_usd": 250208372.0
+    },
+    {
+      "startup_name": "Torqus",
+      "sector": "Restaurant Management Platform",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000205,
+      "network_score": 68.0993,
+      "avg_investor_influence": 0.003302,
+      "direct_investors": [
+        "S S Mukherji",
+        "Others"
+      ],
+      "valuation_usd": 2923057.0
+    },
+    {
+      "startup_name": "DrivoJoy",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.00024,
+      "network_score": 67.6599,
+      "avg_investor_influence": 0.003263,
+      "direct_investors": [
+        "Indian Angel Network",
+        "Tracxn Labs",
+        "Others"
+      ],
+      "valuation_usd": 5056700.0
+    },
+    {
+      "startup_name": "Vagupu",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 6385460.0
+    },
+    {
+      "startup_name": "Sumeru",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 2977784.0
+    },
+    {
+      "startup_name": "Kanhaiya",
+      "sector": "Inspiration",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 610589.0
+    },
+    {
+      "startup_name": "HWell24 Plus",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 41638510.0
+    },
+    {
+      "startup_name": "Tagos Design",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 22135051.0
+    },
+    {
+      "startup_name": "GenNext Students",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 3265238.0
+    },
+    {
+      "startup_name": "Wowflux",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 270312264.0
+    },
+    {
+      "startup_name": "SimpliLend",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 215744554.0
+    },
+    {
+      "startup_name": "Zapyle",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 187827887.0
+    },
+    {
+      "startup_name": "Clodura",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 73940058.0
+    },
+    {
+      "startup_name": "Johari Shop",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 285676.0
+    },
+    {
+      "startup_name": "HipCouch",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 4633617.0
+    },
+    {
+      "startup_name": "Heads Up For Tails",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 7053127.0
+    },
+    {
+      "startup_name": "Rupaiya Exchange",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 963424.0
+    },
+    {
+      "startup_name": "VivoCarat",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 199854.0
+    },
+    {
+      "startup_name": "LaundryAnna",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 652675.0
+    },
+    {
+      "startup_name": "CheersOye!",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 2020155.0
+    },
+    {
+      "startup_name": "Co Life",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 7446370.0
+    },
+    {
+      "startup_name": "Mojarto",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 2382030.0
+    },
+    {
+      "startup_name": "Cuberoot",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 3162719.0
+    },
+    {
+      "startup_name": "Tax2Win",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 4281829.0
+    },
+    {
+      "startup_name": "Chikoop",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 235333993.0
+    },
+    {
+      "startup_name": "Zenify",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 3345479.0
+    },
+    {
+      "startup_name": "MachaDalo",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 1422022.0
+    },
+    {
+      "startup_name": "MInd Your Fleet",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 220935607.0
+    },
+    {
+      "startup_name": "Helpi",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 181727683.0
+    },
+    {
+      "startup_name": "Bikxie",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 124453955.0
+    },
+    {
+      "startup_name": "WorkHorse",
+      "sector": "Service-On-Demand Mobile App",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 127420487.0
+    },
+    {
+      "startup_name": "RedPolka",
+      "sector": "Online Fashion Aggregator",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 1408244.0
+    },
+    {
+      "startup_name": "Appedo",
+      "sector": "nan",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 3144124.0
+    },
+    {
+      "startup_name": "MyDreamStore",
+      "sector": "nan",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000121,
+      "network_score": 66.7834,
+      "avg_investor_influence": 0.003279,
+      "direct_investors": [
+        "Undisclosed Investors"
+      ],
+      "valuation_usd": 1848842.0
+    },
+    {
+      "startup_name": "Tricog",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000236,
+      "network_score": 65.6537,
+      "avg_investor_influence": 0.003164,
+      "direct_investors": [
+        "Inventus Capital Partners",
+        "Blume Ventures",
+        "Others"
+      ],
+      "valuation_usd": 61606108.0
+    },
+    {
+      "startup_name": "Edelweiss",
+      "sector": "Finance",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 1617836267.0
+    },
+    {
+      "startup_name": "UCLID",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 2108354.0
+    },
+    {
+      "startup_name": "New Castle Technologies",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 1145237.0
+    },
+    {
+      "startup_name": "Voxweb",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 7310510.0
+    },
+    {
+      "startup_name": "HashTaag",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 5208990.0
+    },
+    {
+      "startup_name": "Locanix",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 1098394.0
+    },
+    {
+      "startup_name": "Zwayam",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 1846731.0
+    },
+    {
+      "startup_name": "BoiBanit",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 10320570.0
+    },
+    {
+      "startup_name": "Zebroads",
+      "sector": "Logistics",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 541826.0
+    },
+    {
+      "startup_name": "SchoolWear",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 5579440.0
+    },
+    {
+      "startup_name": "Appie",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 8309588.0
+    },
+    {
+      "startup_name": "Big Fish Ventures",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 77559251.0
+    },
+    {
+      "startup_name": "Pramati",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 785756.0
+    },
+    {
+      "startup_name": "HealthEnablr",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 5779475.0
+    },
+    {
+      "startup_name": "Schoolkart",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 2690108.0
+    },
+    {
+      "startup_name": "American Vision",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 687834.0
+    },
+    {
+      "startup_name": "DawaiLelo",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 373039.0
+    },
+    {
+      "startup_name": "PinClick",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 169705344.0
+    },
+    {
+      "startup_name": "Lumiere",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 266031006.0
+    },
+    {
+      "startup_name": "Applicate",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 5162354.0
+    },
+    {
+      "startup_name": "EasyKhaana",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 306456.0
+    },
+    {
+      "startup_name": "mFicient",
+      "sector": "Cloud Enterprise Mobility Plat",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 85715054.0
+    },
+    {
+      "startup_name": "GetFocus",
+      "sector": "Indoor Navigation & Analytics ",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 132470195.0
+    },
+    {
+      "startup_name": "MyIndianStay",
+      "sector": "Home Stay & room rentals platf",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 1269888.0
+    },
+    {
+      "startup_name": "OUWT",
+      "sector": "Nightlife Discovery Mobile App",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 646126.0
+    },
+    {
+      "startup_name": "Talkoot",
+      "sector": "Social platform for traders an",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 499480.0
+    },
+    {
+      "startup_name": "Butterfly Interactive",
+      "sector": "extra curricular activities ma",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 125610844.0
+    },
+    {
+      "startup_name": "GetMyPeon",
+      "sector": "Hyperlocal Handyman Services",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 60.6697,
+      "avg_investor_influence": 0.002973,
+      "direct_investors": [
+        "Undisclosed investors"
+      ],
+      "valuation_usd": 802459.0
+    },
+    {
+      "startup_name": "RentSher",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000258,
+      "network_score": 57.241,
+      "avg_investor_influence": 0.002733,
+      "direct_investors": [
+        "Shorooq Investments",
+        "LetsVenture",
+        "Others"
+      ],
+      "valuation_usd": 5972402.0
+    },
+    {
+      "startup_name": "Stalk Buy Love",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 29592438.0
+    },
+    {
+      "startup_name": "Velmenni",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 804215.0
+    },
+    {
+      "startup_name": "Volta Motors",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 409270.0
+    },
+    {
+      "startup_name": "Cyclops",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 342812.0
+    },
+    {
+      "startup_name": "Advenio",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 624637.0
+    },
+    {
+      "startup_name": "Guarented",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 1847147.0
+    },
+    {
+      "startup_name": "CreditVidya",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 4694491.0
+    },
+    {
+      "startup_name": "ParaBlu",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 3998175.0
+    },
+    {
+      "startup_name": "RKSV",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 20330885.0
+    },
+    {
+      "startup_name": "Eatfresh",
+      "sector": "Online marketplace for Chef Me",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 152892454.0
+    },
+    {
+      "startup_name": "Cashkaro.com",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 12110709.0
+    },
+    {
+      "startup_name": "ScoopWhoop",
+      "sector": "Viral Content web Platform",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 24688267.0
+    },
+    {
+      "startup_name": "Shopalyst",
+      "sector": "Product discovery & recommenda",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 6752461.0
+    },
+    {
+      "startup_name": "UniLog",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 154502911.0
+    },
+    {
+      "startup_name": "Truweight",
+      "sector": "Weight Management Service",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 287910017.0
+    },
+    {
+      "startup_name": "Crowdfire (formerly Justunfollow)",
+      "sector": "nan",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.9e-05,
+      "network_score": 57.119,
+      "avg_investor_influence": 0.002806,
+      "direct_investors": [
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 11036849.0
+    },
+    {
+      "startup_name": "Arcatron",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 262127767.0
+    },
+    {
+      "startup_name": "PeeBuddy",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 2737843.0
+    },
+    {
+      "startup_name": "Lawrato",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 88952731.0
+    },
+    {
+      "startup_name": "Shoekonnect",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 283061167.0
+    },
+    {
+      "startup_name": "Adytude",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 7261031.0
+    },
+    {
+      "startup_name": "Wiwigo",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 2667123.0
+    },
+    {
+      "startup_name": "Oneway.cab",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 1945857.0
+    },
+    {
+      "startup_name": "Staqu",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 234262535.0
+    },
+    {
+      "startup_name": "Roast",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 141593031.0
+    },
+    {
+      "startup_name": "SP Robotics",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 2324432.0
+    },
+    {
+      "startup_name": "Transcell",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 109179264.0
+    },
+    {
+      "startup_name": "Orahi",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 4632303.0
+    },
+    {
+      "startup_name": "DesignBids",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 96582033.0
+    },
+    {
+      "startup_name": "RepUp",
+      "sector": "Online Reputation Management P",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 282067557.0
+    },
+    {
+      "startup_name": "Fourseven",
+      "sector": "AI/ML",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 2143414.0
+    },
+    {
+      "startup_name": "Jiyo Natural",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 86778898.0
+    },
+    {
+      "startup_name": "WedmeGood.com",
+      "sector": "Wedding Planning Platform",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 2444039.0
+    },
+    {
+      "startup_name": "Flatpebble",
+      "sector": "Online marketplace for Photogr",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 5384018.0
+    },
+    {
+      "startup_name": "Shopatplaces",
+      "sector": "Ethnic",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000107,
+      "network_score": 56.79,
+      "avg_investor_influence": 0.002786,
+      "direct_investors": [
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 175184286.0
+    },
+    {
+      "startup_name": "Skillenza",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.00017,
+      "network_score": 56.3439,
+      "avg_investor_influence": 0.002732,
+      "direct_investors": [
+        "Blume Ventures",
+        "Indian Angel Network"
+      ],
+      "valuation_usd": 5762526.0
+    },
+    {
+      "startup_name": "Casa2inns",
+      "sector": "Affordable Hotel Booking Onlin",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000162,
+      "network_score": 56.2794,
+      "avg_investor_influence": 0.002733,
+      "direct_investors": [
+        "Accel Partners",
+        "Kalaari Capital"
+      ],
+      "valuation_usd": 38327499.0
+    },
+    {
+      "startup_name": "Joy by nature",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.00026,
+      "network_score": 54.9014,
+      "avg_investor_influence": 0.002615,
+      "direct_investors": [
+        "Mumbai Angels",
+        "Vriddhi Fund",
+        "Others"
+      ],
+      "valuation_usd": 3599654.0
+    },
+    {
+      "startup_name": "The Wedding Brigade",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 3974566.0
+    },
+    {
+      "startup_name": "BHIVE Workspace",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 9073639.0
+    },
+    {
+      "startup_name": "Prepathon",
+      "sector": "EdTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 196384752.0
+    },
+    {
+      "startup_name": "BhiveWorkspace",
+      "sector": "Reality",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 7957814.0
+    },
+    {
+      "startup_name": "intouchapp",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 270382085.0
+    },
+    {
+      "startup_name": "MockBank",
+      "sector": "Government Test Preparation pl",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.5265,
+      "avg_investor_influence": 0.002678,
+      "direct_investors": [
+        "Blume Ventures"
+      ],
+      "valuation_usd": 3458202.0
+    },
+    {
+      "startup_name": "Simility",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 138550644.0
+    },
+    {
+      "startup_name": "Universal Sportsbiz Pvt. Ltd",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 112300826.0
+    },
+    {
+      "startup_name": "Good Methods Global",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 227452867.0
+    },
+    {
+      "startup_name": "Sepalika",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 6657323.0
+    },
+    {
+      "startup_name": "Mihup",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 31147592.0
+    },
+    {
+      "startup_name": "Milofy",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 3416832.0
+    },
+    {
+      "startup_name": "Mubble",
+      "sector": "AI/ML",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 55989590.0
+    },
+    {
+      "startup_name": "Collectabillia",
+      "sector": "Celebrity Fashion Brand",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 28355585.0
+    },
+    {
+      "startup_name": "ManageMySpa",
+      "sector": "Spa & Salon Management Softwar",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 9.6e-05,
+      "network_score": 54.1511,
+      "avg_investor_influence": 0.00266,
+      "direct_investors": [
+        "Accel Partners"
+      ],
+      "valuation_usd": 27108250.0
+    },
+    {
+      "startup_name": "SecururAX",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000261,
+      "network_score": 52.8673,
+      "avg_investor_influence": 0.002513,
+      "direct_investors": [
+        "Axilor Ventures",
+        "Parampara Early Stage Opportunities Fund",
+        "Others"
+      ],
+      "valuation_usd": 221289705.0
+    },
+    {
+      "startup_name": "Apna",
+      "sector": "Employment",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 585377252.0
+    },
+    {
+      "startup_name": "Cashfree",
+      "sector": "FinTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 312457338.0
+    },
+    {
+      "startup_name": "YourStory",
+      "sector": "Information Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 57843976.0
+    },
+    {
+      "startup_name": "Shop101",
+      "sector": "Apps",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 153549030.0
+    },
+    {
+      "startup_name": "OkCredit",
+      "sector": "FinTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 423366454.0
+    },
+    {
+      "startup_name": "SUGAR Cosmetics",
+      "sector": "Beauty",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 185121491.0
+    },
+    {
+      "startup_name": "Rivigo",
+      "sector": "Automotive",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 1233410683.0
+    },
+    {
+      "startup_name": "FarMart",
+      "sector": "AgriTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 17909101.0
+    },
+    {
+      "startup_name": "Quizizz",
+      "sector": "EdTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 80153141.0
+    },
+    {
+      "startup_name": "Cell Propulsion",
+      "sector": "Automotive",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 16428782.0
+    },
+    {
+      "startup_name": "QuickSell",
+      "sector": "SaaS",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 11136505.0
+    },
+    {
+      "startup_name": "ixigo",
+      "sector": "Mobile",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 191415515.0
+    },
+    {
+      "startup_name": "Chai Point",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 287895344.0
+    },
+    {
+      "startup_name": "Wow! Momo",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 125185606.0
+    },
+    {
+      "startup_name": "Goodera",
+      "sector": "Computer",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 84801168.0
+    },
+    {
+      "startup_name": "F5 Refreshement",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 2823062.0
+    },
+    {
+      "startup_name": "EarlySalary",
+      "sector": "Financial Services",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 262106119.0
+    },
+    {
+      "startup_name": "LimeRoad",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 300226424.0
+    },
+    {
+      "startup_name": "Star Health and Allied Insurance",
+      "sector": "HealthTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 524625772.0
+    },
+    {
+      "startup_name": "MedPlus",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 1577646618.0
+    },
+    {
+      "startup_name": "JUSPAY",
+      "sector": "FinTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 209313897.0
+    },
+    {
+      "startup_name": "LiquiLoans",
+      "sector": "Financial Services",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 13892626.0
+    },
+    {
+      "startup_name": "Fyllo",
+      "sector": "AgriTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 52.1944,
+      "avg_investor_influence": 0.002549,
+      "direct_investors": [
+        "6 investors"
+      ],
+      "valuation_usd": 3050214.0
+    },
+    {
+      "startup_name": "CarveNiche",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.00025,
+      "network_score": 52.0237,
+      "avg_investor_influence": 0.002476,
+      "direct_investors": [
+        "Calcutta Angels",
+        "Lead Angels",
+        "Others"
+      ],
+      "valuation_usd": 216701177.0
+    },
+    {
+      "startup_name": "Grabhouse.com",
+      "sector": "nan",
+      "country": "India",
+      "investor_count": 2,
+      "pagerank_score": 0.000164,
+      "network_score": 51.8494,
+      "avg_investor_influence": 0.00251,
+      "direct_investors": [
+        "Kalaari Capital",
+        "Sequoia Capital"
+      ],
+      "valuation_usd": 9061878.0
+    },
+    {
+      "startup_name": "Heterogenous",
+      "sector": "Technology",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000266,
+      "network_score": 50.8645,
+      "avg_investor_influence": 0.00241,
+      "direct_investors": [
+        "Chennai Angels",
+        "Keiretsu Forum",
+        "Others"
+      ],
+      "valuation_usd": 4804202.0
+    },
+    {
+      "startup_name": "PurpleDocs",
+      "sector": "ConsumerTech",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000266,
+      "network_score": 50.5263,
+      "avg_investor_influence": 0.002393,
+      "direct_investors": [
+        "KellyGamma",
+        "Lead Angels",
+        "Others"
+      ],
+      "valuation_usd": 59052413.0
+    },
+    {
+      "startup_name": "CoinTribe",
+      "sector": "Finance",
+      "country": "India",
+      "investor_count": 3,
+      "pagerank_score": 0.000268,
+      "network_score": 50.4898,
+      "avg_investor_influence": 0.00239,
+      "direct_investors": [
+        "Sabre Partners",
+        "Puneet Dalmia",
+        "Others"
+      ],
+      "valuation_usd": 82957618.0
+    },
+    {
+      "startup_name": "Holisol logistics",
+      "sector": "Business Development",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 142183259.0
+    },
+    {
+      "startup_name": "Masai School",
+      "sector": "EdTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 27747376.0
+    },
+    {
+      "startup_name": "PagarBook",
+      "sector": "Apps",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 90602708.0
+    },
+    {
+      "startup_name": "Ecom Express",
+      "sector": "Delivery",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 2952077966.0
+    },
+    {
+      "startup_name": "Polygon (Previously Matic Network)",
+      "sector": "AI/ML",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 2267038.0
+    },
+    {
+      "startup_name": "Netmeds",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 459813930.0
+    },
+    {
+      "startup_name": "Embibe",
+      "sector": "Content Creators",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 1225035084.0
+    },
+    {
+      "startup_name": "INDwealth",
+      "sector": "Artificial Intelligence",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 413959377.0
+    },
+    {
+      "startup_name": "PlanetSpark",
+      "sector": "EdTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 1792865.0
+    },
+    {
+      "startup_name": "unlu",
+      "sector": "Celebrity",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 6564030.0
+    },
+    {
+      "startup_name": "InterviewBit",
+      "sector": "EdTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 111336320.0
+    },
+    {
+      "startup_name": "UrbanPiper",
+      "sector": "FoodTech",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 47416995.0
+    },
+    {
+      "startup_name": "OZiva",
+      "sector": "Dietary Supplements",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 76786824.0
+    },
+    {
+      "startup_name": "WorkIndia",
+      "sector": "Human Resources",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 40937088.0
+    },
+    {
+      "startup_name": "Mu Sigma",
+      "sector": "Analytics",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 948930080.0
+    },
+    {
+      "startup_name": "ITILITE",
+      "sector": "Business Travel",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 126623531.0
+    },
+    {
+      "startup_name": "Quess Corp",
+      "sector": "Information Technology",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 98840007.0
+    },
+    {
+      "startup_name": "MyGate",
+      "sector": "Apps",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 213987631.0
+    },
+    {
+      "startup_name": "Paytm Mall",
+      "sector": "eCommerce",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 5644241135.0
+    },
+    {
+      "startup_name": "Setu",
+      "sector": "Financial Services",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 97139751.0
+    },
+    {
+      "startup_name": "Blue Tokai Coffee Roasters",
+      "sector": "Consumer Goods",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 37381282.0
+    },
+    {
+      "startup_name": "Financial Software & Systems",
+      "sector": "Debit Cards",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 1014452914.0
+    },
+    {
+      "startup_name": "CredFlow",
+      "sector": "Credit",
+      "country": "India",
+      "investor_count": 1,
+      "pagerank_score": 0.000122,
+      "network_score": 50.4822,
+      "avg_investor_influence": 0.002463,
+      "direct_investors": [
+        "4 investors"
+      ],
+      "valuation_usd": 12310710.0
+    }
+  ],
+  "total_nodes": 100,
+  "total_edges": 4014
+}

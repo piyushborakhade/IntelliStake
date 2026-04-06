@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build: .
+    container_name: intellistake-backend
+    ports:
+      - "5500:5500"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+    volumes:
+      - ./models:/app/models
+      - ./unified_data:/app/unified_data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5500/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - intellistake-network
+
+  # Frontend (Nginx serving built React app)
+  frontend:
+    image: nginx:alpine
+    container_name: intellistake-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./dashboard/dist:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - intellistake-network
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: intellistake-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - intellistake-network
+
+networks:
+  intellistake-network:
+    driver: bridge

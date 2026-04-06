@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 /**
  * @title  ComplianceRules
@@ -133,6 +133,16 @@ contract ComplianceRules {
     mapping(address => uint8) public complianceScore;
 
     /**
+     * @notice Trusted oracle address(es) that can push compliance score updates.
+     *
+     * @dev    In production this is TrustOracle.sol. The oracle calls
+     *         updateComplianceScore() and setTransferEnabled() whenever the AI
+     *         engine publishes a new trust_score for a startup.
+     *         Multiple oracle addresses are supported for redundancy.
+     */
+    mapping(address => bool) public authorisedOracles;
+
+    /**
      * @notice Tracks the maximum token balance (in basis points of total supply)
      *         any single investor is permitted to hold.
      *         Default: 2000 bps = 20% — prevents whale concentration risk.
@@ -168,6 +178,9 @@ contract ComplianceRules {
     /// @notice Emitted when a startup token is frozen/unfrozen by risk flag
     event TransferFreezeToggled(address indexed startupToken, bool enabled, string reason);
 
+    /// @notice Emitted when an oracle address is authorised or revoked
+    event OracleAuthorisationUpdated(address indexed oracle, bool authorised);
+
     /// @notice Emitted when a transfer is blocked (audit trail for regulators)
     event UnauthorisedTransferBlocked(
         address indexed from,
@@ -179,6 +192,7 @@ contract ComplianceRules {
     // ── Custom Errors (gas-efficient, Solidity ≥0.8.4) ────────────────────
 
     error Unauthorised(address caller);
+    error NotOracleOrOwner(address caller);
     error KYCNotVerified(address investor);
     error NotAccredited(address investor);
     error TransfersFrozen(address startupToken);
@@ -190,6 +204,16 @@ contract ComplianceRules {
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert Unauthorised(msg.sender);
+        _;
+    }
+
+    /**
+     * @dev Allows owner OR an authorised oracle to call compliance update functions.
+     *      TrustOracle.sol is granted oracle rights via addOracle().
+     */
+    modifier onlyOracleOrOwner() {
+        if (msg.sender != owner && !authorisedOracles[msg.sender])
+            revert NotOracleOrOwner(msg.sender);
         _;
     }
 
@@ -339,7 +363,7 @@ contract ComplianceRules {
      * @param startupToken  Address of the startup's ERC-3643 token
      * @param score         New compliance score [0–100]
      */
-    function updateComplianceScore(address startupToken, uint8 score) external onlyOwner {
+    function updateComplianceScore(address startupToken, uint8 score) external onlyOracleOrOwner {
         complianceScore[startupToken] = score;
         emit ComplianceScoreUpdated(startupToken, score, msg.sender);
 
@@ -366,7 +390,7 @@ contract ComplianceRules {
         address startupToken,
         bool    enabled,
         string calldata reason
-    ) external onlyOwner {
+    ) external onlyOracleOrOwner {
         transfersEnabled[startupToken] = enabled;
         emit TransferFreezeToggled(startupToken, enabled, reason);
     }
@@ -408,6 +432,25 @@ contract ComplianceRules {
     }
 
     // ── Administrative ─────────────────────────────────────────────────────
+
+    /**
+     * @notice Grant oracle rights to an address (e.g. TrustOracle.sol after deployment).
+     * @param oracle  Address to authorise as oracle
+     */
+    function addOracle(address oracle) external onlyOwner {
+        require(oracle != address(0), "Zero address");
+        authorisedOracles[oracle] = true;
+        emit OracleAuthorisationUpdated(oracle, true);
+    }
+
+    /**
+     * @notice Revoke oracle rights from an address.
+     * @param oracle  Address to de-authorise
+     */
+    function removeOracle(address oracle) external onlyOwner {
+        authorisedOracles[oracle] = false;
+        emit OracleAuthorisationUpdated(oracle, false);
+    }
 
     /**
      * @notice Updates the minimum transfer amount.

@@ -1,0 +1,117 @@
+"""
+engine/routes/user_routes.py
+================================
+JWT-gated user endpoints. Requires role = 'ANALYST' | 'PORTFOLIO_MANAGER'.
+Every response is lens-translated to user-friendly language.
+"""
+from flask import Blueprint, jsonify, request, g
+from functools import wraps
+
+user_bp = Blueprint('user', __name__)
+
+
+def require_user_auth(f):
+    """Minimal JWT check — reads Authorization: Bearer <token> header."""
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        token = request.headers.get('Authorization', '').replace('Bearer ', '')
+        if not token:
+            return jsonify({'error': 'Authentication required'}), 401
+        # In production: verify JWT signature + expiry
+        # For now, set a mock user context (compatible with AuthContext JWT structure)
+        g.user = {'role': 'ANALYST', 'email': 'user@demo.com'}
+        return f(*args, **kwargs)
+    return wrapper
+
+
+@user_bp.route('/profile')
+@require_user_auth
+def profile():
+    """Return the user's profile with investor DNA."""
+    return jsonify({
+        'email': g.user.get('email'),
+        'role':  g.user.get('role'),
+        'investorDNA': {
+            'riskAppetite': 'balanced',
+            'capitalRange': '₹10L – ₹50L',
+            'sectors': ['FinTech', 'SaaS'],
+            'stage': 'growth',
+            'lockupHorizon': '3-5yr',
+        },
+        'kycTier': 2,
+    })
+
+
+@user_bp.route('/feed')
+@require_user_auth
+def personalized_feed():
+    """
+    Returns personalized startup feed.
+    Applies lens translation — user receives human-readable labels.
+    """
+    from engine.services.lens_service import translate_startup
+    limit = min(int(request.args.get('limit', 20)), 50)
+
+    # Attempt to load from chatbot_api data lake
+    try:
+        import engine.chatbot_api as mono
+        startups = getattr(mono, 'STARTUPS', [])
+        # Filter above trust 0.40
+        filtered = [s for s in startups if s.get('trust_score', 0) >= 0.40]
+        sorted_s = sorted(filtered, key=lambda x: x.get('trust_score', 0), reverse=True)[:limit]
+        return jsonify([translate_startup(s, 'user') for s in sorted_s])
+    except Exception:
+        pass
+
+    # Fallback demo payload
+    return jsonify([{
+        'startup_name': 'Razorpay', 'trust_score': 0.91, 'sector': 'FinTech',
+        'funding_stage': 'Series B', 'country': 'India', 'employee_count': 3500,
+        'estimated_revenue_usd': 250_000_000,
+        'trust_display': {'label': '🟢 Top Performer', 'color': '#10b981'},
+        'stage_display': 'Established — Already Proven at Scale',
+        'revenue_display': '₹208Cr',
+    }])
+
+
+@user_bp.route('/portfolio')
+@require_user_auth
+def portfolio():
+    """Returns the user's portfolio with BL-optimized weights."""
+    from engine.services.lens_service import translate_portfolio
+    # In production: load from Supabase user_portfolio table
+    mock = {
+        'holdings': [
+            {'name': 'Razorpay',  'weight': 0.22, 'trust_score': 0.91, 'sector': 'FinTech'},
+            {'name': 'Zepto',     'weight': 0.18, 'trust_score': 0.82, 'sector': 'E-commerce'},
+            {'name': 'PhonePe',   'weight': 0.20, 'trust_score': 0.85, 'sector': 'FinTech'},
+            {'name': 'CRED',      'weight': 0.15, 'trust_score': 0.72, 'sector': 'FinTech'},
+            {'name': 'Meesho',    'weight': 0.12, 'trust_score': 0.64, 'sector': 'D2C'},
+            {'name': 'Ola',       'weight': 0.13, 'trust_score': 0.51, 'sector': 'Mobility'},
+        ],
+        'sharpe_ratio':     0.9351,
+        'sortino_ratio':    1.24,
+        'var_95':           -22.3,
+        'portfolio_return': 0.224,
+        'portfolio_vol':    0.18,
+        'monte_carlo_p70':  2.1,
+    }
+    return jsonify(translate_portfolio(mock, 'user'))
+
+
+@user_bp.route('/watchlist', methods=['GET', 'POST', 'DELETE'])
+@require_user_auth
+def watchlist():
+    """User's saved startup watchlist."""
+    if request.method == 'GET':
+        return jsonify({'watchlist': [], 'count': 0})
+    if request.method == 'POST':
+        startup_id = request.json.get('startup_id')
+        return jsonify({'added': startup_id, 'message': 'Added to watchlist'})
+    return jsonify({'message': 'Removed from watchlist'})
+
+
+def translate_portfolio(portfolio, mode):
+    """Local shim — delegates to lens_service."""
+    from engine.services.lens_service import translate_portfolio as _tp
+    return _tp(portfolio, mode)

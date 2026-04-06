@@ -125,15 +125,44 @@ function validateResponseData(data, type) {
 }
 
 /**
- * Convert floating point values to Solidity-compatible integers
- * Ethereum doesn't support floating point, so we scale by 10^18 (wei precision)
- * @param {number} value - Floating point value
- * @returns {string} Integer string representation (scaled by 10^18)
+ * Convert floating point values to Solidity-compatible integers.
+ * Ethereum doesn't support floating point, so we scale by 10^18 (wei precision).
+ *
+ * BUG FIX: The previous implementation did:
+ *   BigInt(Math.floor(value * Number(SCALING_FACTOR)))
+ * This is wrong because:
+ *   - 10^18 exceeds Number.MAX_SAFE_INTEGER (2^53 ≈ 9×10^15)
+ *   - Converting SCALING_FACTOR back to Number loses precision
+ *   - Multiplying a float by an imprecise Number compounds the error
+ *
+ * CORRECT APPROACH: Keep everything in BigInt. Split the value into integer and
+ * fractional parts, scale each independently using BigInt arithmetic only.
+ *
+ * @param {number} value - Floating point value (e.g. 0.9645 or 1234567.89)
+ * @returns {string} Integer string representation scaled by 10^18
  */
 function floatToSolidityInt(value) {
-    const SCALING_FACTOR = BigInt(10 ** 18);
-    const scaled = BigInt(Math.floor(value * Number(SCALING_FACTOR)));
-    return scaled.toString();
+    // Clamp to safe range and handle edge cases
+    if (!isFinite(value) || isNaN(value)) return "0";
+
+    const SCALE = 10n ** 18n;   // Use BigInt literal — no Number conversion
+
+    // Split into integer and fractional parts
+    const intPart  = Math.floor(Math.abs(value));
+    const fracPart = Math.abs(value) - intPart;
+
+    // Scale integer part: safe because intPart fits in a JS integer
+    const intScaled = BigInt(intPart) * SCALE;
+
+    // Scale fractional part using 9 decimal digits of precision (avoids overflow)
+    // fracPart ∈ [0, 1), so fracPart * 1e9 ∈ [0, 1e9) — well within safe integer range
+    const FRAC_PRECISION = 9;
+    const fracDigits     = Math.round(fracPart * 10 ** FRAC_PRECISION);
+    // fracScaled = fracDigits * (10^18 / 10^FRAC_PRECISION) = fracDigits * 10^9
+    const fracScaled = BigInt(fracDigits) * (SCALE / 10n ** BigInt(FRAC_PRECISION));
+
+    const result = intScaled + fracScaled;
+    return (value < 0 ? -result : result).toString();
 }
 
 /**

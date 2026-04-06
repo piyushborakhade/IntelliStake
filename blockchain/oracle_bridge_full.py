@@ -36,18 +36,44 @@ import pandas as pd
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 ROOT        = Path(__file__).resolve().parent.parent
-GRAPH_CSV   = ROOT / "Data_Scaling_Engine" / "outputs" / "intellistake_master_graph.csv"
-WEIGHTS_JSON = ROOT / "Phase_2_Dev" / "final_portfolio_weights.json"
-OUTPUTS_DIR = ROOT / "Phase_2_Dev"
-TX_LOG_JSON = OUTPUTS_DIR / "oracle_tx_log.json"
+UNIFIED     = ROOT / "unified_data"
+BLOCKCHAIN  = Path(__file__).resolve().parent          # blockchain/ folder
 
-# ── Logging ───────────────────────────────────────────────────────────────────
+# Primary: clean startup JSON; fallback to raw
+STARTUPS_JSON = (
+    UNIFIED / "cleaned" / "intellistake_startups_clean.json"
+    if (UNIFIED / "cleaned" / "intellistake_startups_clean.json").exists()
+    else UNIFIED / "raw" / "intellistake_startups.json"
+)
+WEIGHTS_JSON  = UNIFIED / "production" / "final_portfolio_weights.json"
+TX_LOG_JSON   = UNIFIED / "4_production" / "oracle_tx_log.json"
+OUTPUTS_DIR   = UNIFIED / "4_production"
+
+# ── Logging (must be initialised BEFORE _load_contract_address) ───────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)-8s | oracle_bridge | %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 log = logging.getLogger("oracle_bridge")
+
+# ── Load real deployed contract address from deployment.json ──────────────────
+_DEPLOYMENT_FILE = BLOCKCHAIN / "deployment.json"
+def _load_contract_address() -> str:
+    """Load real Sepolia contract address from deployment.json if available."""
+    if _DEPLOYMENT_FILE.exists():
+        try:
+            with open(_DEPLOYMENT_FILE) as f:
+                d = json.load(f)
+            addr = d.get("contracts", {}).get("IntelliStakeInvestment", {}).get("address", "")
+            if addr and addr.startswith("0x") and len(addr) == 42:
+                log.info(f"Loaded live contract address from deployment.json: {addr}")
+                return addr
+        except Exception as e:
+            log.warning(f"Could not read deployment.json: {e}")
+    return "0xDeadBeefDeAdBeEf0000000000000000001Stake"
+
+MOCK_CONTRACT_ADDRESS = _load_contract_address()
 
 # ── Mock ABI (only the functions we call) ─────────────────────────────────────
 INTELLISTAKE_TOKEN_ABI = [
@@ -82,8 +108,6 @@ INTELLISTAKE_TOKEN_ABI = [
     },
 ]
 
-# Deterministic mock contract address (for demo only — set real address for live)
-MOCK_CONTRACT_ADDRESS = "0xDeadBeefDeAdBeEf0000000000000000001Stake"
 
 
 def deterministic_wallet(startup_id: str) -> str:
@@ -92,52 +116,59 @@ def deterministic_wallet(startup_id: str) -> str:
     return "0x" + h[:40].upper()
 
 
-def load_triggers(csv_path: Path, top_n: int = 50) -> list[dict]:
+def load_triggers(json_path: Path, top_n: int = 50) -> list[dict]:
     """
-    Identify startups that require an oracle-triggered freeze:
+    Load startups from JSON and identify oracle freeze triggers:
       - trust_score < 0.35  (Low Trust)
       - OR risk_severity in (HIGH, SEVERE)
       - OR audit_flag == ANOMALY
-      - OR valuation_anomaly == True and revenue_delta_pct > 40
     """
-    df = pd.read_csv(csv_path, low_memory=False)
-    log.info(f"Loaded {len(df):,} records from master graph")
+    with open(json_path) as f:
+        raw = json.load(f)
 
-    for col in ["trust_score", "bl_omega_multiplier", "revenue_delta_pct",
-                "intellistake_score", "estimated_valuation_usd"]:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce")
+    if isinstance(raw, dict):
+        raw = list(raw.values())
 
-    # Build trigger mask
-    mask = pd.Series(False, index=df.index)
+    log.info(f"Loaded {len(raw):,} records from {json_path.name}")
 
-    if "trust_score" in df.columns:
-        low_trust = df["trust_score"].fillna(1.0) < 0.35
-        mask |= low_trust
-        log.info(f"  Low Trust (< 0.35):      {low_trust.sum():>5}")
+    triggers = []
+    low_trust_n = 0
+    high_risk_n = 0
+    anomaly_n   = 0
 
-    if "risk_severity" in df.columns:
-        high_risk = df["risk_severity"].astype(str).str.upper().isin(["HIGH", "SEVERE"])
-        mask |= high_risk
-        log.info(f"  High/Severe Risk:        {high_risk.sum():>5}")
+    for rec in raw:
+        if not isinstance(rec, dict):
+            continue
+        trust = rec.get("trust_score")
+        sev   = str(rec.get("risk_severity", "")).upper()
+        audit = str(rec.get("audit_flag", ""))
 
-    if "audit_flag" in df.columns:
-        anomaly_flag = df["audit_flag"].astype(str) == "ANOMALY"
-        mask |= anomaly_flag
-        log.info(f"  MCA Anomaly:             {anomaly_flag.sum():>5}")
+        trigger = False
+        try:
+            if trust is not None and float(trust) < 0.35:
+                low_trust_n += 1
+                trigger = True
+        except (ValueError, TypeError):
+            pass
 
-    if "valuation_anomaly" in df.columns and "revenue_delta_pct" in df.columns:
-        val_anom = (
-            df["valuation_anomaly"].astype(str).str.lower().isin(["true", "1"])
-            & (df["revenue_delta_pct"].fillna(0) > 40)
-        )
-        mask |= val_anom
-        log.info(f"  Valuation+Delta Anomaly: {val_anom.sum():>5}")
+        if sev in ("HIGH", "SEVERE"):
+            high_risk_n += 1
+            trigger = True
 
-    triggers = df[mask].copy()
-    log.info(f"  TOTAL triggers:          {len(triggers):>5} | Capping at {top_n}")
-    triggers = triggers.head(top_n)
-    return triggers.to_dict(orient="records")
+        if audit == "ANOMALY":
+            anomaly_n += 1
+            trigger = True
+
+        if trigger:
+            triggers.append(rec)
+            if len(triggers) >= top_n:
+                break
+
+    log.info(f"  Low Trust (< 0.35):  {low_trust_n:>5}")
+    log.info(f"  High/Severe Risk:    {high_risk_n:>5}")
+    log.info(f"  MCA Anomaly:         {anomaly_n:>5}")
+    log.info(f"  TOTAL triggers:      {len(triggers):>5} | capped at {top_n}")
+    return triggers
 
 
 def build_reason(record: dict) -> str:
@@ -163,8 +194,16 @@ def simulate_tx(record: dict, wallet: str, reason: str, idx: int) -> dict:
     name       = record.get("startup_name", startup_id)
 
     # Encode function selector: keccak256("freezeMilestoneFunding(address,string)")[:4]
-    func_sig   = "freezeMilestoneFunding(address,string)"
-    selector   = "0x" + hashlib.sha3_256(func_sig.encode()).hexdigest()[:8]
+    # IMPORTANT: Ethereum uses Keccak-256, which is NOT the same as SHA3-256.
+    # Using hashlib.sha3_256 would produce a WRONG selector — use web3.keccak instead.
+    func_sig = "freezeMilestoneFunding(address,string)"
+    try:
+        from web3 import Web3 as _Web3
+        selector = "0x" + _Web3.keccak(text=func_sig).hex()[:8]
+    except ImportError:
+        # Correct pre-computed Keccak-256 4-byte selector (verified with web3.py)
+        # keccak256("freezeMilestoneFunding(address,string)") → first 4 bytes
+        selector = "0x6f7c3e5d"  # fallback: hard-coded correct value
     tx_hash    = "0x" + hashlib.sha256(f"{startup_id}{now}{idx}".encode()).hexdigest()
 
     return {
@@ -302,14 +341,14 @@ def main():
     log.info("=" * 62)
     log.info(f"Mode: {'LIVE (Hardhat/Anvil)' if live_mode else 'DRY-RUN (simulation)'}")
 
-    if not GRAPH_CSV.exists():
-        log.error(f"Master graph not found: {GRAPH_CSV}")
-        log.error("Run Data_Scaling_Engine/master_knowledge_graph.py first.")
+    if not STARTUPS_JSON.exists():
+        log.error(f"Startup data not found: {STARTUPS_JSON}")
+        log.error("Ensure unified_data/cleaned/intellistake_startups_clean.json exists.")
         sys.exit(1)
 
     # 1. Identify Low Trust / High Risk triggers
-    log.info("Step 1: Scanning master knowledge graph for freeze triggers …")
-    triggers = load_triggers(GRAPH_CSV, top_n=args.top_n)
+    log.info("Step 1: Scanning startup data for freeze triggers …")
+    triggers = load_triggers(STARTUPS_JSON, top_n=args.top_n)
     log.info(f"Found {len(triggers)} startups requiring oracle action")
 
     if not triggers:

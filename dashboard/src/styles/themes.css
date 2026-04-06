@@ -1,0 +1,69 @@
+/* Theme 1 — Void (default dark) */
+[data-theme="void"] {
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #111118;
+  --bg-surface: #1A1A24;
+  --bg-elevated: #22222E;
+  --text-primary: #F0F0F5;
+  --text-secondary: #9090A8;
+  --text-muted: #606075;
+  --accent: #2D7EF8;
+  --border-primary: rgba(255,255,255,0.08);
+  --border-secondary: rgba(255,255,255,0.12);
+}
+
+/* Theme 2 — Carbon (dark warm gray) */
+[data-theme="carbon"] {
+  --bg-primary: #0C0C0C;
+  --bg-secondary: #161616;
+  --bg-surface: #1F1F1F;
+  --bg-elevated: #282828;
+  --text-primary: #F5F0EB;
+  --text-secondary: #A09890;
+  --text-muted: #6B6560;
+  --accent: #F5A623;
+  --border-primary: rgba(255,255,255,0.07);
+  --border-secondary: rgba(255,255,255,0.11);
+}
+
+/* Theme 3 — Aurora (dark with green accent) */
+[data-theme="aurora"] {
+  --bg-primary: #080F0C;
+  --bg-secondary: #0D1812;
+  --bg-surface: #142018;
+  --bg-elevated: #1B2A20;
+  --text-primary: #E8F5EE;
+  --text-secondary: #8FB09A;
+  --text-muted: #567060;
+  --accent: #1DB972;
+  --border-primary: rgba(29,185,114,0.12);
+  --border-secondary: rgba(29,185,114,0.18);
+}
+
+/* Theme 4 — Slate (medium dark, less intense) */
+[data-theme="slate"] {
+  --bg-primary: #0F1117;
+  --bg-secondary: #161B27;
+  --bg-surface: #1E2535;
+  --bg-elevated: #252D40;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent: #7C5CFC;
+  --border-primary: rgba(255,255,255,0.09);
+  --border-secondary: rgba(255,255,255,0.13);
+}
+
+/* Default theme if none set */
+:root {
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #111118;
+  --bg-surface: #1A1A24;
+  --bg-elevated: #22222E;
+  --text-primary: #F0F0F5;
+  --text-secondary: #9090A8;
+  --text-muted: #606075;
+  --accent: #2D7EF8;
+  --border-primary: rgba(255,255,255,0.08);
+  --border-secondary: rgba(255,255,255,0.12);
+}

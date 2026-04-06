@@ -1,0 +1,53 @@
+{
+  "network": "Sepolia Testnet",
+  "deployed_at": "2026-03-13T12:01:28.827Z",
+  "deployer": "0x72a91859A59248B7937E72141Be24165ECB00643",
+  "contracts": {
+    "IdentityRegistry": {
+      "address": "0x3427a20B61033e8D5A5bac25aff3EB1C7569689F",
+      "purpose": "KYC / ERC-3643 DID registry",
+      "abi_file": "IdentityRegistry.sol"
+    },
+    "IntelliStakeToken": {
+      "address": "0x7F0A6bD2A655C523B42A97B98298e34B8E69e8Bb",
+      "symbol": "$ISTK",
+      "standard": "ERC-3643",
+      "purpose": "AI-vetted startup security token",
+      "abi_file": "IntelliStakeToken.sol"
+    },
+    "IntelliStakeInvestment": {
+      "address": "0x1a955Dd02199781DFeBFDfE548786ecdd875f4c7",
+      "purpose": "Milestone escrow with AI trust gating",
+      "abi_file": "IntelliStakeInvestment.sol",
+      "platform_fee_bps": 50
+    }
+  },
+  "demo_deals": [
+    {
+      "dealId": 0,
+      "startup": "Zepto",
+      "sector": "eCommerce",
+      "trustScore": 82
+    },
+    {
+      "dealId": 1,
+      "startup": "Razorpay",
+      "sector": "FinTech",
+      "trustScore": 91
+    },
+    {
+      "dealId": 2,
+      "startup": "Byju's",
+      "sector": "EdTech",
+      "trustScore": 38
+    }
+  ],
+  "verify_cmds": [
+    "npx hardhat verify --network sepolia 0x3427a20B61033e8D5A5bac25aff3EB1C7569689F",
+    "npx hardhat verify --network sepolia 0x7F0A6bD2A655C523B42A97B98298e34B8E69e8Bb \"0x72a91859A59248B7937E72141Be24165ECB00643\"",
+    "npx hardhat verify --network sepolia 0x1a955Dd02199781DFeBFDfE548786ecdd875f4c7"
+  ],
+  "demo_deals_seeded": true,
+  "demo_deals_count": 3,
+  "tvl_eth": "0.03184"
+}

@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "generated_at": "2026-03-02T12:40:41.324215+00:00",
+    "cohort_year": 2018,
+    "evaluation_year": 2024,
+    "trust_threshold": 0.45,
+    "nifty_benchmark_cagr_pct": 13.8
+  },
+  "portfolios": {
+    "intellistake": {
+      "label": "IntelliStake Approved",
+      "count": 379,
+      "success_rate_pct": 35.88,
+      "portfolio_cagr_pct": -27.85,
+      "cumulative_return_pct": -85.89,
+      "portfolio_value_usd": 534664415.72,
+      "sharpe_ratio": -0.6478,
+      "sortino_ratio": -1.6497,
+      "information_ratio": -0.7855,
+      "alpha_vs_nifty_pct": -41.65
+    },
+    "baseline": {
+      "label": "Equal-Weight Baseline",
+      "count": 379,
+      "success_rate_pct": 36.15,
+      "portfolio_cagr_pct": -27.57,
+      "cumulative_return_pct": -85.56,
+      "portfolio_value_usd": 547282431.98,
+      "sharpe_ratio": -0.6415,
+      "sortino_ratio": -1.6266,
+      "information_ratio": -0.779,
+      "alpha_vs_nifty_pct": -41.37
+    },
+    "nifty50": {
+      "label": "Nifty 50 Benchmark",
+      "portfolio_cagr_pct": 13.8,
+      "cumulative_return_pct": 117.2,
+      "note": "Historical approximate 2018\u20132024 CAGR"
+    },
+    "rejected_count": 73,
+    "trust_threshold": 0.45,
+    "cohort_year": 2018,
+    "evaluation_year": 2024
+  },
+  "top_10_picks": [
+    {
+      "startup_name": "Studds Accessories",
+      "trust_score": 0.969,
+      "success_by_2024": false,
+      "funding_round": "private equity",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Wealthtrust",
+      "trust_score": 0.9616,
+      "success_by_2024": false,
+      "funding_round": "seed",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Chezuba",
+      "trust_score": 0.9585,
+      "success_by_2024": false,
+      "funding_round": "angel",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "DailyHunt",
+      "trust_score": 0.955,
+      "success_by_2024": true,
+      "funding_round": "series e",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Five Star Group",
+      "trust_score": 0.9367,
+      "success_by_2024": false,
+      "funding_round": "private equity",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Magicpin",
+      "trust_score": 0.9348,
+      "success_by_2024": false,
+      "funding_round": "debt funding",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Sequretek",
+      "trust_score": 0.9343,
+      "success_by_2024": false,
+      "funding_round": "venture _ series unknown",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Emflux Motors",
+      "trust_score": 0.9293,
+      "success_by_2024": true,
+      "funding_round": "seed",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Kuants",
+      "trust_score": 0.9128,
+      "success_by_2024": false,
+      "funding_round": "seed",
+      "amount_usd": 0.0
+    },
+    {
+      "startup_name": "Portea Medical",
+      "trust_score": 0.9017,
+      "success_by_2024": true,
+      "funding_round": "debt financing",
+      "amount_usd": 0.0
+    }
+  ],
+  "cohort_summary": {
+    "total_startups": 452,
+    "approved_count": 379,
+    "rejected_count": 73,
+    "approval_rate_pct": 83.8
+  }
+}

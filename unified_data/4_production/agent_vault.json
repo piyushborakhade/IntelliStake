@@ -1,0 +1,32 @@
+{
+  "total_deposited": 500000,
+  "total_invested": 195000.0,
+  "available": 305000.0,
+  "currency": "INR",
+  "investments": [
+    {
+      "id": "0x35b4e20c5aac85a4bdbd330302c1bdcaea47d11c",
+      "company": "Zepto",
+      "amount": 10000.0,
+      "type": "MILESTONE",
+      "cis": 0.7765,
+      "reason": "CIS 0.78 \u00b7 STRONG BUY \u00b7 Zepto",
+      "status": "EXECUTED",
+      "timestamp": "2026-03-02T10:33:56.706330+00:00",
+      "tx_hash": "0x35b4e20c5aac85a4bdbd330302c1bdcaea47d11c"
+    },
+    {
+      "id": "0x89770db66a46dd17520a6d6f751943bb7ed68c1a",
+      "company": "Groww",
+      "amount": 10000.0,
+      "type": "MILESTONE",
+      "cis": 0.5,
+      "reason": "Manual \u2014 Agent Mode: AGGRESSIVE",
+      "status": "EXECUTED",
+      "timestamp": "2026-03-02T10:37:16.515388+00:00",
+      "tx_hash": "0x89770db66a46dd17520a6d6f751943bb7ed68c1a"
+    }
+  ],
+  "agent_mode": "BALANCED",
+  "agent_active": true
+}

@@ -1,0 +1,92 @@
+# IntelliStake — requirements.txt
+# Optimized for Apple Silicon (M4 Pro, 24GB RAM, macOS)
+# Run: pip install -r requirements.txt
+
+# ── Web Framework ──
+flask==3.0.3
+flask-cors==4.0.1
+
+# ── Core Data ──
+pandas==2.2.2
+numpy==1.26.4
+pyarrow==16.0.0
+dask==2024.5.0
+scipy==1.13.0
+
+# ── Machine Learning ──
+scikit-learn==1.5.0
+xgboost==2.0.3
+lightgbm==4.3.0
+catboost==1.2.5
+shap==0.45.0
+
+# ── Survival Analysis ──
+lifelines==0.29.0
+
+# ── Graph / Network (WAS MISSING) ──
+networkx==3.3
+
+# ── NLP / Sentiment ──
+vaderSentiment==3.3.2
+
+# ── Data Fetching / Scraping ──
+feedparser==6.0.11
+requests==2.32.2
+urllib3==2.2.1
+aiohttp==3.9.5
+beautifulsoup4==4.12.3
+lxml==5.2.1
+
+# ─────────────────────────────────────────────────────────────────
+# HEAVY INSTALLS — enabled for this machine (~8GB download total)
+# AutoGluon excluded — conflicts with catboost==1.2.5 + torch==2.3.0
+# ─────────────────────────────────────────────────────────────────
+
+# FinBERT / Transformers (~4GB — runs on Apple MPS GPU automatically)
+
+torch==2.3.0
+transformers==4.41.0
+
+# RAG Chatbot
+sentence-transformers==3.0.0
+chromadb==0.5.0
+
+# Blockchain / Web3
+web3==6.19.0
+
+# ─────────────────────────────────────────────────────────────────
+# AutoGluon — intentionally commented out
+# Conflicts with catboost==1.2.5 and torch==2.3.0 pin.
+# Use a separate venv if you specifically need the AutoML page.
+# ─────────────────────────────────────────────────────────────────
+
+
+# ── Utilities ──
+python-dateutil==2.9.0
+tqdm==4.66.4
+rapidfuzz==3.9.0
+python-dotenv==1.0.1
+
+# ── Visualisation ──
+matplotlib==3.9.0
+seaborn==0.13.2
+
+# ── PDF Generation ──
+reportlab==4.2.0
+
+# ── Security & Rate Limiting ──
+flask-limiter==3.5.0
+PyJWT==2.8.0
+cryptography==42.0.0
+
+# ── Caching ──
+redis==5.0.1
+
+# ── Reddit API ──
+praw==7.7.1
+
+# ── AutoML ──
+# Commented out intentionally — conflicts with pinned torch + catboost versions above.
+# Install separately in a fresh venv only if you need the AutoML leaderboard:
+#   pip install autogluon
+# autogluon==1.1.0

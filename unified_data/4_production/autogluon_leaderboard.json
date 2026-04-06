@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-03-03T00:44:42.827409",
+  "training_records": 37699,
+  "time_limit_sec": 300,
+  "best_model": "RandomForestMSE",
+  "best_r2": 0.9729,
+  "leaderboard": [
+    {
+      "model": "RandomForestMSE",
+      "r2_score": 0.9729,
+      "fit_time_sec": 6.7,
+      "pred_time_sec": 0.028
+    },
+    {
+      "model": "ExtraTreesMSE",
+      "r2_score": 0.9727,
+      "fit_time_sec": 1.9,
+      "pred_time_sec": 0.026
+    },
+    {
+      "model": "LightGBMXT",
+      "r2_score": 0.9673,
+      "fit_time_sec": 62.4,
+      "pred_time_sec": 0.112
+    },
+    {
+      "model": "WeightedEnsemble_L2",
+      "r2_score": 0.9738,
+      "fit_time_sec": 10.8,
+      "pred_time_sec": 0.033
+    },
+    {
+      "model": "LightGBMLarge",
+      "r2_score": 0.9725,
+      "fit_time_sec": 7.2,
+      "pred_time_sec": 0.005
+    },
+    {
+      "model": "LightGBM",
+      "r2_score": 0.9734,
+      "fit_time_sec": 1.6,
+      "pred_time_sec": 0.003
+    },
+    {
+      "model": "XGBoost",
+      "r2_score": 0.9723,
+      "fit_time_sec": 0.6,
+      "pred_time_sec": 0.004
+    },
+    {
+      "model": "CatBoost",
+      "r2_score": 0.9728,
+      "fit_time_sec": 2.5,
+      "pred_time_sec": 0.002
+    },
+    {
+      "model": "NeuralNetTorch",
+      "r2_score": 0.9681,
+      "fit_time_sec": 9.5,
+      "pred_time_sec": 0.007
+    }
+  ],
+  "feature_importance": {
+    "log_funding": 1.75049,
+    "funding_per_year": 0.04415,
+    "log_employees": 0.00418,
+    "sector": 0.00408,
+    "sentiment_cfs": 0.00385,
+    "trust_score": 0.00379,
+    "github_velocity_score": 0.00299,
+    "company_age_years": 0.00215,
+    "country": 0.00116
+  }
+}

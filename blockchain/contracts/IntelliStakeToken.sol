@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
@@ -41,7 +42,13 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     
     /// @dev Mapping of addresses to accredited investor status
     mapping(address => bool) public accreditedInvestors;
-    
+
+    /// @dev Trusted oracle address that can call freezeMilestoneFunding()
+    address public oracleAddress;
+
+    /// @dev Mapping of startup token address → milestone funding frozen
+    mapping(address => bool) public milestoneFrozen;
+
     /// @dev Maximum tokens per address (anti-concentration)
     uint256 public maxHoldingPerAddress;
     
@@ -65,11 +72,14 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     
     event IdentityRegistrySet(address indexed registry);
     event ComplianceSet(address indexed compliance);
+    event OracleAddressSet(address indexed oracle);
     event TrancheLocked(uint256 indexed startupId, uint256 amount, bytes32 milestoneHash);
     event TrancheReleased(uint256 indexed startupId, uint256 trancheIndex, uint256 amount);
     event MilestoneVerified(bytes32 indexed milestoneHash, uint256 timestamp);
     event AccreditationUpdated(address indexed investor, bool status);
     event TransferRejected(address indexed from, address indexed to, uint256 amount, string reason);
+    event MilestoneFundingFrozen(address indexed startupToken, string reason, uint256 timestamp);
+    event MilestoneFundingRestored(address indexed startupToken, uint256 timestamp);
     
     // ==================== Errors ====================
     
@@ -81,6 +91,8 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     error MilestoneNotVerified(bytes32 milestoneHash);
     error InvalidMilestoneProof();
     error TransferNotCompliant(address from, address to);
+    error MilestoneFundingCurrentlyFrozen(address startupToken);
+    error NotOracle(address caller);
     
     // ==================== Constructor ====================
     
@@ -90,8 +102,9 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
      */
     constructor(address _initialOwner) 
         ERC20("IntelliStake Security Token", "ISTK")
-        Ownable(_initialOwner)
+        Ownable()
     {
+        if (_initialOwner != address(0)) transferOwnership(_initialOwner);
         maxHoldingPerAddress = 1_000_000 * 10**decimals(); // 1M tokens max per address
         minInvestmentAmount = 1_000 * 10**decimals();      // 1K tokens minimum investment
     }
@@ -118,6 +131,52 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
         emit ComplianceSet(_compliance);
     }
     
+    /**
+     * @dev Set the trusted oracle address (TrustOracle.sol or oracle_bridge backend wallet).
+     *      The oracle can call freezeMilestoneFunding() to halt a startup's token transfers.
+     * @param _oracle Address of the oracle contract or signer wallet
+     */
+    function setOracleAddress(address _oracle) external onlyOwner {
+        require(_oracle != address(0), "Invalid oracle address");
+        oracleAddress = _oracle;
+        emit OracleAddressSet(_oracle);
+    }
+
+    /**
+     * @dev Freeze milestone funding for a startup token.
+     *      Called by TrustOracle when trust_score < 0.35 or HIGH risk flag raised.
+     *      Frozen token address cannot be used as the 'to' address in transfers.
+     * @param startupToken Address of the startup's token (or wallet) to freeze
+     * @param reason       Human-readable reason for the freeze (stored in event log)
+     */
+    function freezeMilestoneFunding(address startupToken, string calldata reason) external {
+        require(
+            msg.sender == oracleAddress || msg.sender == owner(),
+            "IntelliStakeToken: not oracle or owner"
+        );
+        require(startupToken != address(0), "Invalid startup token address");
+        milestoneFrozen[startupToken] = true;
+        emit MilestoneFundingFrozen(startupToken, reason, block.timestamp);
+    }
+
+    /**
+     * @dev Restore milestone funding after a freeze (manual override by owner).
+     * @param startupToken Address to unfreeze
+     */
+    function restoreMilestoneFunding(address startupToken) external onlyOwner {
+        milestoneFrozen[startupToken] = false;
+        emit MilestoneFundingRestored(startupToken, block.timestamp);
+    }
+
+    /**
+     * @dev Check if milestone funding is currently frozen for a startup token.
+     * @param startupToken Address to check
+     * @return frozen True if frozen
+     */
+    function getMilestoneStatus(address startupToken) external view returns (bool frozen) {
+        return milestoneFrozen[startupToken];
+    }
+
     /**
      * @dev Update accredited investor status
      * @param investor Address to update
@@ -194,9 +253,18 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
             return false;
         }
         
-        // Check 5: External compliance module (if set)
+        // Check 5: Milestone funding freeze (oracle-driven circuit breaker)
+        // If the receiving startup token is frozen, block further investment transfers
+        if (milestoneFrozen[to]) {
+            return false;
+        }
+
+        // Check 6: External compliance module (if set).
+        // ComplianceRules.canTransfer takes 4 args: (from, to, amount, startupToken).
+        // We pass address(this) as the startupToken since this IS the token contract.
         if (address(compliance) != address(0)) {
-            return compliance.canTransfer(from, to, amount);
+            (bool allowed,) = compliance.canTransfer(from, to, amount, address(this));
+            return allowed;
         }
         
         return true;
@@ -276,26 +344,48 @@ contract IntelliStakeToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     }
     
     /**
-     * @dev Verify milestone completion using oracle proof
-     * @param milestoneHash Hash of the milestone
-     * @param proof Cryptographic proof from Chainlink oracle
-     * @return True if milestone is verified
-     * 
-     * @notice In production, this would verify a signature from the oracle.
-     * For capstone demonstration, we accept any non-empty proof.
+     * @dev Verify milestone completion using ECDSA oracle proof.
+     *
+     * The off-chain oracle signs: eth_sign( keccak256(milestoneHash ‖ block.chainid) )
+     * The `proof` parameter must be the 65-byte (r, s, v) ECDSA signature produced
+     * by the oracle node's private key (corresponding to oracleAddress).
+     *
+     * @param milestoneHash Hash of the milestone that was completed
+     * @param proof         65-byte ECDSA signature from the oracle wallet
+     * @return True if signature is valid and came from oracleAddress
      */
     function verifyMilestone(
         bytes32 milestoneHash,
         bytes calldata proof
-    ) internal pure returns (bool) {
-        // Production implementation would:
-        // 1. Extract oracle signature from proof
-        // 2. Verify signature against trusted oracle public key
-        // 3. Decode milestone status from signed data
-        // 4. Check timestamp freshness
-        
-        // Simplified for demonstration
-        return proof.length > 0 && milestoneHash != bytes32(0);
+    ) internal view returns (bool) {
+        // Require exactly 65 bytes (r=32, s=32, v=1)
+        if (proof.length != 65) return false;
+        if (milestoneHash == bytes32(0)) return false;
+
+        // If no oracle configured, fall back to owner-only mode (testing only)
+        if (oracleAddress == address(0)) return true;
+
+        // Reproduce the Ethereum signed message hash
+        bytes32 ethSignedHash = keccak256(abi.encodePacked(
+            "\x19Ethereum Signed Message:\n32",
+            // Include chainId to prevent cross-chain replay
+            keccak256(abi.encodePacked(milestoneHash, block.chainid))
+        ));
+
+        // Recover signer from ECDSA signature
+        bytes32 r;
+        bytes32 s;
+        uint8   v;
+        assembly {
+            r := calldataload(proof.offset)
+            s := calldataload(add(proof.offset, 32))
+            v := byte(0, calldataload(add(proof.offset, 64)))
+        }
+        if (v < 27) v += 27;
+        if (v != 27 && v != 28) return false;
+
+        address signer = ecrecover(ethSignedHash, v, r, s);
+        return signer != address(0) && signer == oracleAddress;
     }
     
     /**
@@ -463,15 +553,26 @@ interface IIdentityRegistry {
 }
 
 /**
- * @dev Interface for T-REX Compliance Module
+ * @dev Interface for T-REX Compliance Module — matches ComplianceRules.canTransfer()
+ *
+ * ComplianceRules.canTransfer() takes an extra `startupToken` address (the ERC-3643
+ * token contract being transferred) and returns (bool allowed, string reason).
+ * The ICompliance interface here mirrors that exact signature.
  */
 interface ICompliance {
     /**
-     * @dev Check if a transfer is compliant
+     * @dev Check if a transfer is compliant with all regulatory rules.
+     * @param from         Sender address
+     * @param to           Receiver address
+     * @param amount       Token amount (in wei)
+     * @param startupToken Address of the IntelliStake token contract (pass address(this))
+     * @return allowed     True if all compliance checks pass
+     * @return reason      Human-readable rejection reason (empty string if allowed)
      */
     function canTransfer(
         address from,
         address to,
-        uint256 amount
-    ) external view returns (bool);
+        uint256 amount,
+        address startupToken
+    ) external view returns (bool allowed, string memory reason);
 }

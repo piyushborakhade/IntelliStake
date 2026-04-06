@@ -1,32 +1,53 @@
-# IntelliStake — Data Scaling Engine Dependencies
-# Install with: pip install -r requirements.txt
+# IntelliStake — Master Requirements (v3 — Institutional Grade)
+# Install all: pip install -r requirements.txt
+# Minimal install (no FinBERT/Ollama): pip install -r requirements.txt --ignore-requires-python
 
-# ── HTTP & Scraping ──────────────────────────────────────────────────────────
-requests>=2.31.0
-beautifulsoup4>=4.12.0
-lxml>=5.1.0
-feedparser>=6.0.11
-aiohttp>=3.9.5
+# ── Core Data ────────────────────────────────────────────────────────────────
+pandas>=2.1.0
+numpy>=1.26.0
+pyarrow>=14.0.0
+dask[dataframe]>=2024.1.0
+scipy>=1.12.0
 
-# ── Reddit API ───────────────────────────────────────────────────────────────
-praw>=7.7.1
+# ── Machine Learning (AI Domain) ─────────────────────────────────────────────
+scikit-learn>=1.4.0
+xgboost>=2.0.0
+lightgbm>=4.2.0
+shap>=0.44.0
+
+# ── Deep Learning — FinBERT + TabMLP (optional, ~450MB download) ─────────────
+# torch>=2.1.0          # Uncomment for GPU/FinBERT support
+# transformers>=4.38.0  # HuggingFace FinBERT (ProsusAI/finbert)
+# sentence-transformers>=2.6.0   # RAG embeddings
+
+# ── RAG Chatbot ───────────────────────────────────────────────────────────────
+# chromadb>=0.4.22       # Local vector store for RAG
+# ollama>=0.1.7          # Python client for Ollama LLM
 
 # ── NLP / Sentiment ──────────────────────────────────────────────────────────
 vaderSentiment>=3.3.2
-rapidfuzz>=3.6.1
+feedparser>=6.0.11
 
-# ── Data Processing ──────────────────────────────────────────────────────────
-pandas>=2.1.0
-numpy>=1.26.0
-dask[dataframe]>=2024.1.0
-pyarrow>=14.0.0
+# ── HTTP / Scraping ──────────────────────────────────────────────────────────
+requests>=2.31.0
+urllib3>=2.0.0
+aiohttp>=3.9.5
+beautifulsoup4>=4.12.0
+lxml>=5.1.0
 
-# ── Async Utilities ──────────────────────────────────────────────────────────
-asyncio>=3.4.3
+# ── Visualisation ────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ── Blockchain ───────────────────────────────────────────────────────────────
+# web3>=6.14.0          # Uncomment for live oracle push
+
+# ── Utilities ────────────────────────────────────────────────────────────────
 python-dateutil>=2.8.2
-
-# ── Progress & CLI ───────────────────────────────────────────────────────────
 tqdm>=4.66.0
+rapidfuzz>=3.6.1
+praw>=7.7.1
 
-# ── Optional (Spark alternative to Dask) ─────────────────────────────────────
-# pyspark>=3.5.0     # Uncomment if you have a Spark cluster
+# ── Quick install (all non-optional) ─────────────────────────────────────────
+# pip install pandas numpy pyarrow scipy scikit-learn xgboost lightgbm shap
+#             vaderSentiment feedparser requests matplotlib seaborn

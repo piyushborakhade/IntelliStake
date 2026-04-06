@@ -1,0 +1,113 @@
+{
+  "company": "Haulio",
+  "data_source": "data_lake",
+  "profile": {
+    "startup_name": "Haulio",
+    "sector": "Logistics",
+    "city": "Singapore",
+    "country": "Singapore",
+    "founded_year": 2018,
+    "company_age_years": 7,
+    "total_funding_usd": 23556225.79,
+    "valuation_usd": 50000000.0,
+    "revenue_usd": 7474114.25,
+    "employees": 114,
+    "trust_score": 0.345,
+    "sentiment_cfs": 0.4237,
+    "github_velocity_score": 25,
+    "stage": "Series B",
+    "data_source": "verified_real",
+    "investors": "",
+    "is_real": true,
+    "github_stars": 0,
+    "github_repos": 5,
+    "top_repo": "khairu-aqsara/haulio-farmfresh",
+    "finbert_label": "NEUTRAL",
+    "finbert_compound": 0.0,
+    "headlines_found": 2,
+    "sample_headlines": [
+      "\"Haulio startup india\" - Google News",
+      "YCH Group invests in logistic startup Haulio - Singapore Business Review"
+    ],
+    "classification": "LEGITIMATE",
+    "risk_severity": "MEDIUM",
+    "top_shap_feature": "trust_score",
+    "cis": 0.5737,
+    "cis_details": {
+      "cis": 0.5737,
+      "ci_low": 0.4937,
+      "ci_high": 0.6537,
+      "signal": "HOLD",
+      "percentile": 60,
+      "components": {
+        "valuation_score": 0.4,
+        "sentiment_score": 0.5,
+        "hype_score": 1.0,
+        "risk_score": 0.7,
+        "velocity_score": 0.25,
+        "funding_score": 0.737
+      }
+    },
+    "investment_thesis": "**Haulio** \u2014 Logistics \u00b7 Series B Stage | CIS: 0.57 | Signal: **HOLD**\n\nIntelliStake's Composite Intelligence Score places Haulio at the **60th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$23.6M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Haulio startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **25/100**, indicating weak technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **trust_score**. We recommend monitoring for 60 days before committing capital. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+  },
+  "cis": {
+    "cis": 0.5737,
+    "ci_low": 0.4937,
+    "ci_high": 0.6537,
+    "signal": "HOLD",
+    "percentile": 60,
+    "components": {
+      "valuation_score": 0.4,
+      "sentiment_score": 0.5,
+      "hype_score": 1.0,
+      "risk_score": 0.7,
+      "velocity_score": 0.25,
+      "funding_score": 0.737
+    }
+  },
+  "thesis": "**Haulio** \u2014 Logistics \u00b7 Series B Stage | CIS: 0.57 | Signal: **HOLD**\n\nIntelliStake's Composite Intelligence Score places Haulio at the **60th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$23.6M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Haulio startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **25/100**, indicating weak technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **trust_score**. We recommend monitoring for 60 days before committing capital. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "steps": [
+    {
+      "step": "Data Lake Lookup",
+      "status": "running",
+      "result": "Found in data lake \u2014 17 fields"
+    },
+    {
+      "step": "GitHub API",
+      "status": "running",
+      "result": "5 repos \u00b7 0 stars \u00b7 velocity 25"
+    },
+    {
+      "step": "FinBERT Sentiment",
+      "status": "running",
+      "result": "NEUTRAL \u00b7 compound 0.0 \u00b7 2 headlines"
+    },
+    {
+      "step": "Isolation Forest",
+      "status": "running",
+      "result": "LEGITIMATE"
+    },
+    {
+      "step": "R.A.I.S.E. Risk Audit",
+      "status": "running",
+      "result": "MEDIUM"
+    },
+    {
+      "step": "SHAP Explainer",
+      "status": "running",
+      "result": "trust_score"
+    },
+    {
+      "step": "CIS Engine",
+      "status": "running",
+      "result": "CIS: 0.574 \u2192 HOLD"
+    },
+    {
+      "step": "Thesis Generator",
+      "status": "running",
+      "result": "Thesis generated"
+    }
+  ],
+  "timestamp": "2026-03-02T19:54:57.919452+00:00",
+  "cached": false
+}

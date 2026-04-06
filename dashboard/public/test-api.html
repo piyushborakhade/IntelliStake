@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>API Test</title></head>
+<body>
+<h1>IntelliStake API Test</h1>
+<button onclick="testSimulate()">Test Simulate API</button>
+<pre id="result"></pre>
+<script>
+async function testSimulate() {
+  const result = document.getElementById('result');
+  result.textContent = 'Testing...';
+  try {
+    const response = await fetch('http://localhost:5501/api/investment/simulate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount_inr: 100000 })
+    });
+    const data = await response.json();
+    result.textContent = JSON.stringify(data, null, 2);
+  } catch (error) {
+    result.textContent = 'ERROR: ' + error.message;
+  }
+}
+</script>
+</body>
+</html>

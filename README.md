@@ -209,7 +209,7 @@ IntelliStake_Final/
 │
 ├── 📂 dashboard/                     ← React + Vite interactive dashboard
 │   └── src/
-│       ├── pages/                    12 interactive dashboard pages
+│       ├── pages/                    31 interactive dashboard pages
 │       ├── components/               Hero, Sidebar, Phase panels, Architecture
 │       └── data/mockData.js          Platform metrics, portfolio, risk samples
 │
@@ -229,23 +229,56 @@ IntelliStake_Final/
 
 | Metric | Value |
 |---|---|
-| Knowledge Graph Data Points | **3,200,000** (50k × 64 features) |
-| Ensemble Valuation R² | **0.9212** (XGBoost + LightGBM) |
+| Knowledge Graph Data Points | **3,200,000** (74,577 × 43 features) |
+| Total Startup Records | **74,577** (37,711 verified real + 36,866 synthetic) |
+| XGBoost Valuation R² | **0.9645** |
+| LightGBM Valuation R² | **0.9709** |
+| Stacked Ensemble R² | **0.9212** |
+| CoxPH Survival C-index | **0.822** |
 | BL Portfolio Sharpe Ratio | **0.9351** |
 | BL Portfolio Sortino Ratio | **1.24** |
 | Max Drawdown (10k Monte Carlo) | **−7.44%** |
-| Trust Score Coverage | **98.6%** of startups audited |
-| Total Dataset Records | **~430,000** |
-| Total Data Lake Size | **~403 MB** |
-| Oracle Transactions Simulated | **1,247** |
-| Smart Contract Test Cases | **10** (Hardhat) |
+| Total Data Lake Size | **~340 MB** (confirmed) |
+| Oracle Transactions (simulated) | **50** |
 | Registered Investor Wallets | **50** mock (Institutional / HNI / Retail / Non-KYC) |
+| Total Dashboard Pages | **31** |
+| Flask API Endpoints | **33** |
+
+> **Backtest Honest Note:** The 2018 cohort backtest shows CAGR = **−27.85%** and Sharpe = **−0.6478**.
+> This reflects real market outcomes for the 2018 cohort (Byju's, GoMechanic, etc.).
+> IntelliStake's escrow freeze mechanism (triggered at trust_score < 0.35) is designed specifically
+> to prevent full capital loss in these scenarios by locking milestone tranches before drawdown completes.
+
+---
+
+## 🚀 Running the Platform
+
+```bash
+# Install all dependencies (first time — run from Capstone/ root)
+pip install -r IntelliStake_Final/requirements.txt
+
+# One-command startup (boots Flask API + React dashboard)
+bash start.sh
+```
+
+- Dashboard → **http://localhost:5173**
+- API → **http://localhost:5500**
+
+> **Important:** The Flask API must be running before opening the dashboard.
+> All 31 pages fetch live data from `localhost:5500`. Without the API, pages show loading spinners.
+
+### Environment Variables (`engine/.env`)
+```
+MISTRAL_API_KEY=your_key_here       # Required for chatbot Mistral fallback
+REDDIT_CLIENT_ID=your_id            # Optional — for live Reddit sentiment
+REDDIT_CLIENT_SECRET=your_secret    # Optional
+```
 
 ---
 
 ## 🖥️ Interactive Dashboard (Live at `localhost:5173`)
 
-The React + Vite dashboard running at **http://localhost:5173** has **12 fully interactive pages**:
+The React + Vite dashboard running at **http://localhost:5173** has **31 fully interactive pages**:
 
 ### 🏠 Command Center (Home)
 The landing page shows a live platform overview:

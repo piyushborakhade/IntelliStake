@@ -1,0 +1,104 @@
+{
+  "company": "Swiggy",
+  "data_source": "live_fetch",
+  "profile": {
+    "startup_name": "Swiggy",
+    "sector": "technology",
+    "stage": "growth",
+    "predicted_valuation_usd": 100000000,
+    "total_funding_usd": 20000000,
+    "trust_score": 0.58,
+    "github_velocity_score": 94,
+    "risk_severity": "MEDIUM",
+    "classification": "LEGITIMATE",
+    "github_stars": 3029,
+    "github_repos": 5,
+    "top_repo": "realabbas/big-companies-interview-questions",
+    "finbert_label": "NEUTRAL",
+    "finbert_compound": 0.0184,
+    "headlines_found": 5,
+    "sample_headlines": [
+      "\"Swiggy startup india\" - Google News",
+      "From Rapido entering food delivery to major funding rounds \u2014 your essential 60\u2011second briefing on the biggest shifts in India\u2019s startup scene today. #rapido #zomato #swiggy #food #startups #investors #bengaluru #news #indianstartupnews - instagram.com",
+      "India\u2019s Rapido begins testing food delivery to take on Swiggy, Zomato - TechCrunch"
+    ],
+    "top_shap_feature": "github_velocity_score",
+    "cis": 0.7713,
+    "cis_details": {
+      "cis": 0.7713,
+      "ci_low": 0.6913,
+      "ci_high": 0.8513,
+      "signal": "STRONG BUY",
+      "percentile": 80,
+      "components": {
+        "valuation_score": 0.825,
+        "sentiment_score": 0.509,
+        "hype_score": 1.0,
+        "risk_score": 0.7,
+        "velocity_score": 0.94,
+        "funding_score": 0.73
+      }
+    },
+    "investment_thesis": "**Swiggy** \u2014 technology \u00b7 growth Stage | CIS: 0.77 | Signal: **STRONG BUY**\n\nIntelliStake's Composite Intelligence Score places Swiggy at the **80th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$100.0M** against total funding of **$20.0M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Swiggy startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **94/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend an immediate position with confidence. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+  },
+  "cis": {
+    "cis": 0.7713,
+    "ci_low": 0.6913,
+    "ci_high": 0.8513,
+    "signal": "STRONG BUY",
+    "percentile": 80,
+    "components": {
+      "valuation_score": 0.825,
+      "sentiment_score": 0.509,
+      "hype_score": 1.0,
+      "risk_score": 0.7,
+      "velocity_score": 0.94,
+      "funding_score": 0.73
+    }
+  },
+  "thesis": "**Swiggy** \u2014 technology \u00b7 growth Stage | CIS: 0.77 | Signal: **STRONG BUY**\n\nIntelliStake's Composite Intelligence Score places Swiggy at the **80th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$100.0M** against total funding of **$20.0M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Swiggy startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **94/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend an immediate position with confidence. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "steps": [
+    {
+      "step": "Data Lake Lookup",
+      "status": "running",
+      "result": "Not in data lake \u2014 initiating live research"
+    },
+    {
+      "step": "GitHub API",
+      "status": "running",
+      "result": "5 repos \u00b7 3,029 stars \u00b7 velocity 94"
+    },
+    {
+      "step": "FinBERT Sentiment",
+      "status": "running",
+      "result": "NEUTRAL \u00b7 compound 0.0184 \u00b7 5 headlines"
+    },
+    {
+      "step": "Isolation Forest",
+      "status": "running",
+      "result": "LEGITIMATE"
+    },
+    {
+      "step": "R.A.I.S.E. Risk Audit",
+      "status": "running",
+      "result": "MEDIUM"
+    },
+    {
+      "step": "SHAP Explainer",
+      "status": "running",
+      "result": "github_velocity_score"
+    },
+    {
+      "step": "CIS Engine",
+      "status": "running",
+      "result": "CIS: 0.771 \u2192 STRONG BUY"
+    },
+    {
+      "step": "Thesis Generator",
+      "status": "running",
+      "result": "Thesis generated"
+    }
+  ],
+  "timestamp": "2026-03-02T17:27:16.061485+00:00",
+  "cached": false
+}

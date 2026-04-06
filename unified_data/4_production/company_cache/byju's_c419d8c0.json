@@ -1,0 +1,114 @@
+{
+  "company": "Byju's",
+  "data_source": "data_lake",
+  "profile": {
+    "startup_name": "Byju's",
+    "sector": "EdTech",
+    "city": "Bangalore",
+    "country": "India",
+    "founded_year": 2011,
+    "company_age_years": 14,
+    "total_funding_usd": 4386447404.59,
+    "valuation_usd": 22000000000.0,
+    "revenue_usd": 932681664.67,
+    "employees": 655,
+    "trust_score": 0.834,
+    "sentiment_cfs": 0.2733,
+    "github_velocity_score": 38,
+    "stage": "Series F",
+    "data_source": "verified_real",
+    "investors": "",
+    "is_real": true,
+    "github_stars": 5,
+    "github_repos": 5,
+    "top_repo": "jacobsusan/dwitter-client",
+    "finbert_label": "NEUTRAL",
+    "finbert_compound": 0.0,
+    "headlines_found": 5,
+    "sample_headlines": [
+      "\"Byju's startup india\" - Google News",
+      "Byju's moves NCLAT on Aakash EGM for rights issue - The Economic Times",
+      "'Worth zero': Founder of India's once biggest startup Byju's concedes mistakes - Reuters"
+    ],
+    "classification": "LEGITIMATE",
+    "risk_severity": "LOW",
+    "top_shap_feature": "total_funding_usd",
+    "cis": 0.6544,
+    "cis_details": {
+      "cis": 0.6544,
+      "ci_low": 0.5744,
+      "ci_high": 0.7344,
+      "signal": "BUY",
+      "percentile": 68,
+      "components": {
+        "valuation_score": 0.4,
+        "sentiment_score": 0.5,
+        "hype_score": 1.0,
+        "risk_score": 1.0,
+        "velocity_score": 0.38,
+        "funding_score": 0.964
+      }
+    },
+    "investment_thesis": "**Byju's** \u2014 EdTech \u00b7 Series F Stage | CIS: 0.65 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Byju's at the **68th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$4386.4M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Byju's startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **38/100**, indicating weak technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **total_funding_usd**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+  },
+  "cis": {
+    "cis": 0.6544,
+    "ci_low": 0.5744,
+    "ci_high": 0.7344,
+    "signal": "BUY",
+    "percentile": 68,
+    "components": {
+      "valuation_score": 0.4,
+      "sentiment_score": 0.5,
+      "hype_score": 1.0,
+      "risk_score": 1.0,
+      "velocity_score": 0.38,
+      "funding_score": 0.964
+    }
+  },
+  "thesis": "**Byju's** \u2014 EdTech \u00b7 Series F Stage | CIS: 0.65 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Byju's at the **68th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$4386.4M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Byju's startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **38/100**, indicating weak technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **total_funding_usd**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "steps": [
+    {
+      "step": "Data Lake Lookup",
+      "status": "running",
+      "result": "Found in data lake \u2014 17 fields"
+    },
+    {
+      "step": "GitHub API",
+      "status": "running",
+      "result": "5 repos \u00b7 5 stars \u00b7 velocity 38"
+    },
+    {
+      "step": "FinBERT Sentiment",
+      "status": "running",
+      "result": "NEUTRAL \u00b7 compound 0.0 \u00b7 5 headlines"
+    },
+    {
+      "step": "Isolation Forest",
+      "status": "running",
+      "result": "LEGITIMATE"
+    },
+    {
+      "step": "R.A.I.S.E. Risk Audit",
+      "status": "running",
+      "result": "LOW"
+    },
+    {
+      "step": "SHAP Explainer",
+      "status": "running",
+      "result": "total_funding_usd"
+    },
+    {
+      "step": "CIS Engine",
+      "status": "running",
+      "result": "CIS: 0.654 \u2192 BUY"
+    },
+    {
+      "step": "Thesis Generator",
+      "status": "running",
+      "result": "Thesis generated"
+    }
+  ],
+  "timestamp": "2026-03-04T04:16:53.455016+00:00",
+  "cached": false
+}

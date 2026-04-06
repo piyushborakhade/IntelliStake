@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-03-03T00:44:44.852541",
+  "training_records": 37699,
+  "real_companies": 37699,
+  "features": [
+    "log_funding",
+    "trust_score",
+    "github_velocity_score",
+    "sentiment_cfs",
+    "company_age_years",
+    "log_employees",
+    "sector_enc",
+    "country_enc",
+    "funding_per_year",
+    "employee_efficiency",
+    "trust_x_gh"
+  ],
+  "models": {
+    "xgboost": {
+      "r2": 0.9645
+    },
+    "lightgbm": {
+      "r2": 0.9709
+    },
+    "catboost": {
+      "r2": 0.971
+    },
+    "ensemble_mlp": {
+      "r2": 0.9666,
+      "rmse_log": 0.3517
+    }
+  },
+  "top_features_by_shap": [
+    {
+      "feature": "log_funding",
+      "importance": 1.11521
+    },
+    {
+      "feature": "funding_per_year",
+      "importance": 0.37856
+    },
+    {
+      "feature": "employee_efficiency",
+      "importance": 0.23076
+    },
+    {
+      "feature": "log_employees",
+      "importance": 0.05717
+    },
+    {
+      "feature": "company_age_years",
+      "importance": 0.04817
+    }
+  ],
+  "hype_flags_detected": 50,
+  "autogluon": {
+    "best_model": "RandomForestMSE",
+    "best_r2": 0.9729,
+    "leaderboard_models": 9
+  }
+}
