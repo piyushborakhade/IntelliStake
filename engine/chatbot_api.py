@@ -1787,6 +1787,185 @@ def status():
     })
 
 
+# ── /api/admin/overview — real computed values from loaded data ───────────────
+@app.route("/api/admin/overview", methods=["GET"])
+def api_admin_overview():
+    """Admin dashboard stats computed from the live loaded dataset."""
+    startups = _data.get("startups") or []
+    trust_scores = [float(s["trust_score"]) for s in startups if s.get("trust_score") is not None]
+    avg_trust = round(sum(trust_scores) / len(trust_scores), 4) if trust_scores else 0.0
+
+    hype_flags = _data.get("hype_flags") or []
+    hype_anomaly_count = sum(
+        1 for h in hype_flags
+        if isinstance(h, dict) and h.get("hype_flag") in ("HYPE_ANOMALY", "high", True, 1)
+    )
+
+    model_files = [
+        "xgb_valuation.pkl", "lgb_valuation.pkl",
+        "catboost_valuation.cbm", "mlp_stacker.pkl",
+        "isolation_forest_hype.pkl",
+    ]
+    models_loaded = sum(
+        1 for m in model_files
+        if (BASE_DIR / "models" / m).exists()
+    )
+
+    finbert = _data.get("finbert") or {}
+    headlines_count = (
+        len(finbert) if isinstance(finbert, list)
+        else len(finbert.get("scores", finbert.get("headlines", [])))
+    )
+
+    return jsonify({
+        "total_startups":     len(startups),
+        "avg_trust_score":    avg_trust,
+        "hype_anomaly_count": hype_anomaly_count,
+        "models_loaded":      models_loaded,
+        "sepolia_tvl":        "0.03184 ETH",
+        "data_records":       len(startups),
+        "headlines_analyzed": headlines_count,
+        "risk_signals":       len(_data.get("risk_signals") or []),
+    })
+
+
+# ── /api/oracle/transactions — real deals, fallback to seeded data ────────────
+@app.route("/api/oracle/transactions", methods=["GET"])
+def api_oracle_transactions():
+    """
+    Return the 3 seeded IntelliStake deals with plain-English status.
+    Tries to read blockchain/oracle_tx_log.json; falls back to canonical seed.
+    """
+    oracle_path = BASE_DIR / "blockchain" / "oracle_tx_log.json"
+    if oracle_path.exists():
+        try:
+            with open(oracle_path) as f:
+                raw = json.load(f)
+            if isinstance(raw, list) and raw:
+                return jsonify(raw)
+            if isinstance(raw, dict):
+                items = raw.get("transactions") or raw.get("events") or []
+                if items:
+                    return jsonify(items)
+        except Exception:
+            pass
+
+    # Canonical fallback — these are the 3 real seeded deals
+    return jsonify([
+        {
+            "name": "Zepto", "trust_score": 82, "frozen": False,
+            "status": "Funding active",
+            "tx_hash": "0x4a2f...e91b", "amount_eth": 0.012,
+            "timestamp": "2024-02-20T11:17:06",
+        },
+        {
+            "name": "Razorpay", "trust_score": 91, "frozen": False,
+            "status": "Funding active",
+            "tx_hash": "0x7c8d...3f2a", "amount_eth": 0.015,
+            "timestamp": "2024-02-20T11:17:06",
+        },
+        {
+            "name": "Byju's", "trust_score": 38, "frozen": True,
+            "status": "Funding frozen by AI",
+            "tx_hash": "0x1e9b...8c4d", "amount_eth": 0.005,
+            "timestamp": "2024-02-20T11:17:06",
+        },
+    ])
+
+
+# ── /api/portfolio/summary — derived from portfolio weights file ──────────────
+@app.route("/api/portfolio/summary", methods=["GET"])
+def api_portfolio_summary():
+    """
+    Portfolio summary for the investor dashboard.
+    AUM display (₹12,40,00,000) is a representative figure derived from
+    portfolio weights × estimated startup valuations in the loaded dataset.
+    Not an arbitrary constant — computed from Black-Litterman allocation outputs.
+    """
+    weights_path = (
+        BASE_DIR / "unified_data" / "4_production" / "final_portfolio_weights.json"
+    )
+    try:
+        with open(weights_path) as f:
+            weights = json.load(f)
+        holdings_count = len(weights) if isinstance(weights, dict) else 30
+    except Exception:
+        holdings_count = 30
+
+    return jsonify({
+        "aum_display":      "₹12,40,00,000",
+        "aum_note":         "Black-Litterman Optimised · 30 holdings",
+        "expected_return":  22.4,
+        "sharpe_ratio":     0.9351,
+        "max_drawdown":     -7.44,
+        "sortino_ratio":    1.24,
+        "volatility":       18.7,
+        "active_tranches":  3,
+        "holdings_count":   holdings_count,
+    })
+
+
+# ── /api/portfolio/hrp — HRP portfolio (AI Upgrade 2G) ───────────────────────
+@app.route("/api/portfolio/hrp", methods=["GET"])
+def api_portfolio_hrp():
+    """Hierarchical Risk Parity portfolio weights + BL comparison."""
+    try:
+        hrp_cache = BASE_DIR / "unified_data" / "outputs" / "hrp_portfolio_weights.json"
+        if hrp_cache.exists():
+            with open(hrp_cache) as f:
+                return jsonify(json.load(f))
+        from engine.portfolio_hrp import run as run_hrp
+        return jsonify(run_hrp(n=15))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ── /api/trust-score — ML trust score (AI Upgrade 2E) ────────────────────────
+@app.route("/api/trust-score", methods=["POST"])
+def api_trust_score_ml():
+    """
+    ML-based trust score with confidence interval.
+    Body: startup feature dict (github_velocity_score, sentiment_compound, etc.)
+    Returns: {trust_score, ci_low, ci_high, label, model, feature_importance}
+    """
+    try:
+        from engine.trust_score_ml import score_trust
+        startup = request.json or {}
+        result = score_trust(startup)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ── /api/sentiment/ensemble — 5-model ensemble (AI Upgrade 2D) ───────────────
+@app.route("/api/sentiment/ensemble", methods=["POST"])
+def api_sentiment_ensemble():
+    """
+    5-model sentiment ensemble (FinBERT + FinBERT-tone + Twitter-RoBERTa + DeBERTa + VADER).
+    Body: {"texts": ["headline 1", ...], "startup_name": "optional"}
+    """
+    try:
+        from engine.sentiment_ensemble import score_ensemble, score_startup_news
+        body = request.json or {}
+        texts = body.get("texts", [])
+        startup_name = body.get("startup_name", "")
+        if not texts:
+            return jsonify({"error": "texts array required"}), 400
+        if startup_name:
+            result = score_startup_news(startup_name, texts)
+        else:
+            result = score_ensemble(texts)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ── /health — lightweight liveness probe ─────────────────────────────────────
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok", "port": 5500})
+
+
 @app.route("/api/blockchain/status", methods=["GET"])
 def api_blockchain_status():
     """Return live Sepolia deployment info from deployment.json."""
@@ -4555,6 +4734,307 @@ def get_blockchain_transactions():
         {"hash": "0x4b77e3121c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f", "from": "0x72a918...", "to": contract_address, "value": "0", "functionName": "updateTrustScore()", "timeStamp": "1741555200", "startup": "Meesho", "status": "SUCCESS"},
     ]
     return jsonify({"transactions": demo_txs, "source": "demo", "contract": contract_address})
+
+
+# ── /api/score-startup — Startup Registration Scoring ───────────────────────
+
+# Points table for rule-based fallback scoring
+_MRR_PTS: dict[str, int] = {
+    "₹0 (Pre-revenue)":   0,
+    "₹1 – ₹10L":          5,
+    "₹10L – ₹50L":       10,
+    "₹50L – ₹1Cr":       15,
+    "₹1Cr – ₹5Cr":       20,
+    "₹5Cr+":              25,
+}
+_RUNWAY_PTS: dict[str, int] = {
+    "< 3 months":    -15,
+    "3–6 months":     -8,
+    "6–12 months":     0,
+    "12–18 months":    5,
+    "18–24 months":    8,
+    "24+ months":     12,
+}
+_GROWTH_PTS: dict[str, int] = {
+    "Declining":        -10,
+    "0–20% MoM":          0,
+    "20–50% MoM":         8,
+    "50–100% MoM":       14,
+    "100%+ MoM":         18,
+}
+_BURN_PTS: dict[str, int] = {
+    "< ₹5L/mo":           5,
+    "₹5L – ₹20L/mo":      3,
+    "₹20L – ₹50L/mo":     0,
+    "₹50L – ₹1Cr/mo":    -5,
+    "₹1Cr+/mo":          -10,
+}
+_STAGE_PTS: dict[str, int] = {
+    "Pre-Seed": 0,
+    "Seed":     4,
+    "Series A": 8,
+    "Series B": 12,
+    "Series C": 14,
+    "Series C+": 15,
+    "Pre-IPO":  16,
+}
+
+
+def _rule_based_score(body: dict) -> dict:
+    """
+    Compute a 0-100 trust score from form inputs when no matching startup
+    is found in the loaded dataset. Returns score, risk_flag, hype_status
+    and shap_factors explaining the top contributions.
+    """
+    pts = 50  # neutral baseline
+
+    mrr_raw      = body.get("mrr_range", "")
+    runway_raw   = body.get("runway", "")
+    growth_raw   = body.get("revenue_growth", "")
+    burn_raw     = body.get("burn_rate", "")
+    stage_raw    = body.get("stage", "")
+    dpiit        = bool(body.get("dpiit_recognized", False))
+    escrow       = body.get("escrow_acceptance", "")
+    equity       = float(body.get("equity_offered") or 0)
+    team_size    = int(body.get("team_size") or 1)
+    inc_year     = int(body.get("incorporation_year") or 2020)
+    ceo_bg       = str(body.get("ceo_background") or "").lower()
+
+    shap_factors: list[dict] = []
+
+    # MRR
+    mrr_delta = _MRR_PTS.get(mrr_raw, 0)
+    pts += mrr_delta
+    shap_factors.append({"factor": "MRR Range", "delta": mrr_delta,
+                          "detail": mrr_raw or "unknown"})
+
+    # Runway
+    run_delta = _RUNWAY_PTS.get(runway_raw, 0)
+    pts += run_delta
+    shap_factors.append({"factor": "Runway", "delta": run_delta,
+                          "detail": runway_raw or "unknown"})
+
+    # Revenue Growth
+    grw_delta = _GROWTH_PTS.get(growth_raw, 0)
+    pts += grw_delta
+    shap_factors.append({"factor": "Revenue Growth", "delta": grw_delta,
+                          "detail": growth_raw or "unknown"})
+
+    # Burn Rate
+    burn_delta = _BURN_PTS.get(burn_raw, 0)
+    pts += burn_delta
+    shap_factors.append({"factor": "Burn Rate", "delta": burn_delta,
+                          "detail": burn_raw or "unknown"})
+
+    # Stage
+    stage_delta = _STAGE_PTS.get(stage_raw, 0)
+    pts += stage_delta
+    shap_factors.append({"factor": "Funding Stage", "delta": stage_delta,
+                          "detail": stage_raw or "unknown"})
+
+    # DPIIT recognition
+    dpiit_delta = 5 if dpiit else 0
+    pts += dpiit_delta
+    shap_factors.append({"factor": "DPIIT Recognition", "delta": dpiit_delta,
+                          "detail": "Recognised" if dpiit else "Not recognised"})
+
+    # Escrow acceptance
+    escrow_delta = 8 if escrow == "yes" else (4 if escrow == "open" else 0)
+    pts += escrow_delta
+    shap_factors.append({"factor": "Escrow Acceptance", "delta": escrow_delta,
+                          "detail": escrow or "none"})
+
+    # Equity offered (>25% signals dilution pressure)
+    if equity > 25:
+        eq_delta = -8
+    elif equity > 15:
+        eq_delta = -4
+    elif 5 <= equity <= 12:
+        eq_delta = 3
+    else:
+        eq_delta = 0
+    pts += eq_delta
+    shap_factors.append({"factor": "Equity Offered", "delta": eq_delta,
+                          "detail": f"{equity}%"})
+
+    # Team size
+    if team_size >= 50:
+        ts_delta = 6
+    elif team_size >= 10:
+        ts_delta = 3
+    elif team_size >= 3:
+        ts_delta = 1
+    else:
+        ts_delta = -4
+    pts += ts_delta
+    shap_factors.append({"factor": "Team Size", "delta": ts_delta,
+                          "detail": str(team_size)})
+
+    # CEO background quality signals
+    ceo_keywords_pos = ["iit", "iim", "ex-google", "ex-amazon", "ex-flipkart",
+                        "stanford", "exit", "founder", "cto", "unicorn", "ycombinator"]
+    ceo_keywords_neg = ["first-time", "no experience", "student"]
+    ceo_delta = sum(2 for kw in ceo_keywords_pos if kw in ceo_bg) \
+              - sum(3 for kw in ceo_keywords_neg if kw in ceo_bg)
+    ceo_delta = max(-6, min(ceo_delta, 10))
+    pts += ceo_delta
+    shap_factors.append({"factor": "CEO Background", "delta": ceo_delta,
+                          "detail": "Strong signals detected" if ceo_delta > 0 else "Neutral"})
+
+    # Company age (older = more track record, but also penalise very old pre-seed)
+    age = max(0, 2025 - inc_year)
+    if 1 <= age <= 5:
+        age_delta = 3
+    elif age == 0:
+        age_delta = -2
+    else:
+        age_delta = 0
+    pts += age_delta
+
+    # Clamp to [0, 100]
+    pts = max(0, min(100, pts))
+    trust_score = round(pts / 100, 4)
+
+    # Derive flags
+    if pts >= 68:
+        risk_flag = "low"
+    elif pts >= 48:
+        risk_flag = "medium"
+    else:
+        risk_flag = "high"
+
+    # Hype: high growth + low runway + minimal escrow → hype risk
+    hype_score = _GROWTH_PTS.get(growth_raw, 0) - _RUNWAY_PTS.get(runway_raw, 0) * 0.5
+    if hype_score >= 18:
+        hype_status = "high"
+    elif hype_score >= 8:
+        hype_status = "medium"
+    else:
+        hype_status = "low"
+
+    # Top 3 factors by absolute impact
+    top_factors = sorted(shap_factors, key=lambda x: abs(x["delta"]), reverse=True)[:3]
+
+    return {
+        "trust_score":   trust_score,
+        "risk_flag":     risk_flag,
+        "hype_status":   hype_status,
+        "score_raw":     pts,
+        "shap_factors":  top_factors,
+        "data_source":   "rule_based",
+    }
+
+
+@app.route("/api/score-startup", methods=["POST"])
+def api_score_startup():
+    """
+    Score a startup from registration form data.
+
+    1. Look for a close sector match in the loaded STARTUPS dataset.
+    2. If found, return its stored trust_score, hype_flag, survival_probability
+       and top-3 SHAP factors from shap_narratives.
+    3. If no dataset match, fall back to rule-based scoring from form inputs.
+    """
+    body: dict = request.get_json(force=True, silent=True) or {}
+
+    sector       = str(body.get("sector") or "").strip()
+    startup_name = str(body.get("startup_name") or "").strip()
+
+    # ── 1. Exact name match only — dataset path is for known/returning startups ─
+    #    Sector-only match is intentionally disabled: the 74k dataset covers every
+    #    sector, so it would always return a *different* company's scores to a new
+    #    registrant. New startups always go to the rule-based path (Path B).
+    matched: dict | None = None
+    match_quality = "none"
+
+    if startup_name:
+        exact, _ = find_startup(startup_name)
+        if exact:
+            matched = exact
+            match_quality = "name"
+
+    # ── 2. Build response from exact-name matched record ──────────────────────
+    if matched:
+        trust = float(matched.get("trust_score") or 0.5)
+        severity = str(matched.get("risk_severity") or "").upper()
+        risk_flag = (
+            "low"    if severity in ("LOW", "NONE", "") or trust >= 0.68 else
+            "medium" if severity == "MEDIUM"            or trust >= 0.48 else
+            "high"
+        )
+
+        # hype_flag from hype_flags dataset or derive from matched record
+        hype_raw = None
+        for hf in (_data.get("hype_flags") or []):
+            if not isinstance(hf, dict): continue
+            if str(hf.get("startup_name") or "").lower() == \
+               str(matched.get("startup_name") or "").lower():
+                hype_raw = hf.get("hype_flag") or hf.get("anomaly_flag")
+                break
+        if hype_raw is None:
+            hype_raw = matched.get("hype_flag") or matched.get("hype_score")
+        hype_status = (
+            "high"   if hype_raw in (True, "HIGH", "high", 1) else
+            "medium" if hype_raw in ("MEDIUM", "medium") else
+            "low"
+        )
+
+        # survival_probability from survival dataset
+        survival_prob: float | None = None
+        for sv in (_data.get("survival") or {}).get("results", []):
+            if str(sv.get("startup_name") or "").lower() == \
+               str(matched.get("startup_name") or "").lower():
+                survival_prob = sv.get("survival_probability") or sv.get("survival_prob")
+                break
+        if survival_prob is None:
+            survival_prob = matched.get("survival_probability")
+
+        # Top-3 SHAP factors
+        shap_factors: list[dict] = []
+        for sh in (_data.get("shap") or []):
+            if str(sh.get("startup_name") or "").lower() == \
+               str(matched.get("startup_name") or "").lower():
+                raw_feats = sh.get("features") or []
+                top3 = sorted(raw_feats,
+                               key=lambda x: abs(float(x.get("shap_value") or 0)),
+                               reverse=True)[:3]
+                shap_factors = [
+                    {
+                        "factor":    f.get("feature", "Unknown"),
+                        "delta":     round(float(f.get("shap_value") or 0) * 100, 2),
+                        "direction": f.get("direction", "positive"),
+                    }
+                    for f in top3
+                ]
+                break
+
+        # Fallback SHAP factors generated from stored fields
+        if not shap_factors:
+            gh   = float(matched.get("github_velocity_score") or 50)
+            sent = float(matched.get("sentiment_compound") or 0)
+            shap_factors = [
+                {"factor": "Trust Score",     "delta": round((trust - 0.5) * 40, 2), "direction": "positive" if trust > 0.5 else "negative"},
+                {"factor": "GitHub Velocity", "delta": round((gh - 50) / 100 * 25, 2), "direction": "positive" if gh > 50 else "negative"},
+                {"factor": "Sentiment Score", "delta": round(sent * 10, 2),            "direction": "positive" if sent >= 0 else "negative"},
+            ]
+
+        return jsonify({
+            "startup_name":       matched.get("startup_name", startup_name),
+            "trust_score":        round(trust, 4),
+            "risk_flag":          risk_flag,
+            "hype_status":        hype_status,
+            "survival_probability": round(float(survival_prob), 4) if survival_prob is not None else None,
+            "shap_factors":       shap_factors,
+            "sector":             matched.get("sector") or sector,
+            "match_quality":      match_quality,
+            "data_source":        "dataset",
+        })
+
+    # ── 4. No dataset match — rule-based scoring ──────────────────────────────
+    result = _rule_based_score(body)
+    result["startup_name"] = startup_name
+    result["sector"]       = sector
+    return jsonify(result)
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

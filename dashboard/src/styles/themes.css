@@ -54,6 +54,20 @@
   --border-secondary: rgba(255,255,255,0.13);
 }
 
+/* Theme 5 — Pure (light mode for presentations) */
+[data-theme="pure"] {
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #F5F5F7;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F0F0F5;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #9CA3AF;
+  --accent: #4F46E5;
+  --border-primary: rgba(0,0,0,0.08);
+  --border-secondary: rgba(0,0,0,0.14);
+}
+
 /* Default theme if none set */
 :root {
   --bg-primary: #0A0A0F;

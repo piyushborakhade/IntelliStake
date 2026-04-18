@@ -1,19 +1,20 @@
 """
 engine/valuation_stacked.py
 ============================
-IntelliStake — Stacked Ensemble Meta-Learner (Domain 2, AI)
+IntelliStake — Stacked Ensemble Meta-Learner v4 (Domain 2, AI)
 Optimised for Apple M4 Pro (MPS acceleration, all CPU cores)
 
 Architecture:
   Layer 1 (Base Learners):
-    - XGBoost   (hist method, n_jobs=-1 → uses all P-cores)
-    - LightGBM  (n_jobs=-1, Apple-tuned settings)
+    - XGBoost    (hist method, n_jobs=-1 → uses all P-cores)
+    - LightGBM   (n_jobs=-1, Apple-tuned settings)
+    - CatBoost   (CPU, ordered boosting, was in requirements but never wired — now active)
     - PyTorch TabMLP on MPS (Metal GPU) with automatic CPU fallback
 
   Layer 2 (Meta-Learner):
-    - Ridge Regression on stacked out-of-fold predictions
+    - BayesianRidge (replaces Ridge — probabilistic weights, better calibration)
 
-Target metric: Stacked ensemble R² > 0.93
+Target metric: Stacked ensemble R² > 0.96
 
 Output:
   unified_data/4_production/stacked_valuation_summary.json
@@ -187,7 +188,39 @@ def train_lightgbm(X_tr, y_tr):
     bar.n = bar.total; bar.refresh(); bar.close()
     return model
 
-# ── Base Learner 3: PyTorch TabMLP (MPS / CPU) ────────────────────────────────
+# ── Base Learner 3: CatBoost (ordered boosting, CPU) ─────────────────────────
+def train_catboost(X_tr, y_tr):
+    try:
+        from catboost import CatBoostRegressor
+        N = 600
+        bar = tqdm(total=N, desc="    CatBoost ", unit="tree", ncols=90,
+                   bar_format="    CatBoost |{bar:40}| {n_fmt:>4}/{total_fmt} trees",
+                   leave=False)
+
+        class _CBLogger:
+            def write(self, message): pass
+            def flush(self): pass
+
+        model = CatBoostRegressor(
+            iterations=N, learning_rate=0.03, depth=8,
+            loss_function="RMSE", eval_metric="R2",
+            subsample=0.85, colsample_bylevel=0.85,
+            random_seed=42, verbose=0,
+            early_stopping_rounds=40,
+            task_type="CPU",
+        )
+        from sklearn.model_selection import train_test_split
+        X_t, X_v, y_t, y_v = train_test_split(X_tr, y_tr, test_size=0.1, random_state=42)
+        model.fit(X_t, y_t, eval_set=(X_v, y_v), verbose=0)
+        bar.n = N; bar.refresh(); bar.close()
+        print(f"      ✓ CatBoost trained ({model.best_iteration_} rounds, best R²={model.best_score_['validation']['R2']:.5f})")
+        return model
+    except ImportError:
+        print("      [WARN] CatBoost not installed — skipping base learner 3")
+        return None
+
+
+# ── Base Learner 4: PyTorch TabMLP (MPS / CPU) ────────────────────────────────
 def train_tabmlp(X_tr, y_tr):
     try:
         import torch
@@ -265,11 +298,14 @@ def predict_l1(artifact, X: pd.DataFrame) -> np.ndarray:
 # ── OOF stacking ──────────────────────────────────────────────────────────────
 def build_oof(X, y, n_folds=5):
     from sklearn.model_selection import KFold
+    from sklearn.metrics import r2_score
     kf = KFold(n_splits=n_folds, shuffle=True, random_state=42)
 
     oof_xgb = np.zeros(len(X))
     oof_lgb = np.zeros(len(X))
+    oof_cat = np.zeros(len(X))
     oof_mlp = np.zeros(len(X))
+    has_cat = False
 
     print(f"  Running {n_folds}-fold CV on {len(X):,} real startup rows\n")
 
@@ -277,41 +313,50 @@ def build_oof(X, y, n_folds=5):
         X_tr, X_val = X.iloc[tr_idx], X.iloc[val_idx]
         y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
 
-        from sklearn.metrics import r2_score
         print(f"\n  ┌── Fold {fold}/{n_folds} ──────────── train={len(X_tr):,}  val={len(X_val):,}")
 
-        print(f"  ├ [1/3] XGBoost  (n_jobs=-1, 500 trees)")
+        print(f"  ├ [1/4] XGBoost   (n_jobs=-1, 500 trees)")
         xgb_m = train_xgboost(X_tr, y_tr)
         p_xgb  = xgb_m.predict(X_val)
         oof_xgb[val_idx] = p_xgb
         print(f"  │        val R² = {r2_score(y_val, p_xgb):.5f}")
 
-        print(f"  ├ [2/3] LightGBM (n_jobs=-1, 500 trees)")
+        print(f"  ├ [2/4] LightGBM  (n_jobs=-1, 500 trees)")
         lgb_m = train_lightgbm(X_tr, y_tr)
         p_lgb  = lgb_m.predict(X_val)
         oof_lgb[val_idx] = p_lgb
         print(f"  │        val R² = {r2_score(y_val, p_lgb):.5f}")
 
-        print(f"  ├ [3/3] TabMLP   (M4 MPS / CPU fallback)")
+        print(f"  ├ [3/4] CatBoost  (ordered boosting, 600 trees)")
+        cat_m = train_catboost(X_tr, y_tr)
+        if cat_m is not None:
+            p_cat = cat_m.predict(X_val)
+            oof_cat[val_idx] = p_cat
+            has_cat = True
+            print(f"  │        val R² = {r2_score(y_val, p_cat):.5f}")
+        else:
+            oof_cat[val_idx] = (p_xgb + p_lgb) / 2  # fallback: avg of XGB+LGB
+
+        print(f"  ├ [4/4] TabMLP    (M4 MPS / CPU fallback)")
         mlp_m = train_tabmlp(X_tr, y_tr)
         p_mlp  = predict_l1(mlp_m, X_val)
         oof_mlp[val_idx] = p_mlp
         print(f"  └        val R² = {r2_score(y_val, p_mlp):.5f}")
 
-    print()
-    return np.column_stack([oof_xgb, oof_lgb, oof_mlp])
+    print(f"\n  CatBoost active: {has_cat}")
+    return np.column_stack([oof_xgb, oof_lgb, oof_cat, oof_mlp]), has_cat
 
 # ── Meta-Learner ───────────────────────────────────────────────────────────────
 def train_meta(oof, y):
-    from sklearn.linear_model import Ridge
+    from sklearn.linear_model import BayesianRidge
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import r2_score
     scaler = StandardScaler()
     S = scaler.fit_transform(oof)
-    ridge = Ridge(alpha=1.0).fit(S, y)
-    r2 = r2_score(y, ridge.predict(S))
-    print(f"\n  Meta-Learner (Ridge) in-sample R² = {r2:.5f}")
-    return ridge, scaler, r2
+    meta = BayesianRidge(max_iter=500).fit(S, y)
+    r2 = r2_score(y, meta.predict(S))
+    print(f"\n  Meta-Learner (BayesianRidge) in-sample R² = {r2:.5f}")
+    return meta, scaler, r2
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 def run(top_n: int = 200, test_mode: bool = False, oof_n: int = 12000):
@@ -319,8 +364,8 @@ def run(top_n: int = 200, test_mode: bool = False, oof_n: int = 12000):
     from sklearn.metrics import r2_score, mean_absolute_error
 
     print("\n" + "═"*60)
-    print("  IntelliStake — Stacked Valuation Engine v3")
-    print("  XGBoost + LightGBM + TabMLP(MPS) → Ridge meta-learner")
+    print("  IntelliStake — Stacked Valuation Engine v4")
+    print("  XGBoost + LightGBM + CatBoost + TabMLP(MPS) → BayesianRidge meta-learner")
     print("  Optimised: Apple M4 Pro · all cores · MPS GPU")
     print("═"*60)
 
@@ -348,35 +393,44 @@ def run(top_n: int = 200, test_mode: bool = False, oof_n: int = 12000):
         X_oof, y_oof = X_train, y_train
 
     print("\n[3/6] Building 5-fold OOF predictions — live bars below ↓")
-    oof = build_oof(X_oof, y_oof, n_folds=5)
+    oof, has_cat = build_oof(X_oof, y_oof, n_folds=5)
 
-    print("\n[4/6] Training Ridge meta-learner …")
+    print("\n[4/6] Training BayesianRidge meta-learner …")
     meta, scaler, meta_r2 = train_meta(oof, y_oof)
 
     print("\n[5/6] Evaluating on hold-out test set …")
     xgb_f = train_xgboost(X_train, y_train)
-    print(f"    XGBoost  test R² = {r2_score(y_test, xgb_f.predict(X_test)):.5f}")
+    r2_xgb = r2_score(y_test, xgb_f.predict(X_test))
+    print(f"    XGBoost  test R² = {r2_xgb:.5f}")
+
     lgb_f = train_lightgbm(X_train, y_train)
-    print(f"    LightGBM test R² = {r2_score(y_test, lgb_f.predict(X_test)):.5f}")
+    r2_lgb = r2_score(y_test, lgb_f.predict(X_test))
+    print(f"    LightGBM test R² = {r2_lgb:.5f}")
+
+    cat_f = train_catboost(X_train, y_train)
+    p_cat_test = cat_f.predict(X_test) if cat_f is not None else (xgb_f.predict(X_test) + lgb_f.predict(X_test)) / 2
+    r2_cat = r2_score(y_test, p_cat_test)
+    print(f"    CatBoost test R² = {r2_cat:.5f}")
+
     mlp_f = train_tabmlp(X_train, y_train)
 
     test_stack = np.column_stack([
         xgb_f.predict(X_test),
         lgb_f.predict(X_test),
+        p_cat_test,
         predict_l1(mlp_f, X_test),
     ])
     stacked_pred = meta.predict(scaler.transform(test_stack))
-    r2_final = r2_score(y_test, stacked_pred)
+    r2_final  = r2_score(y_test, stacked_pred)
     mae_final = mean_absolute_error(np.expm1(y_test), np.expm1(stacked_pred))
-    r2_xgb   = r2_score(y_test, xgb_f.predict(X_test))
-    r2_lgb   = r2_score(y_test, lgb_f.predict(X_test))
 
-    print(f"\n  ╔══ Final Test Metrics ══════════════════════════════╗")
-    print(f"  ║  XGBoost  R²       = {r2_xgb:.5f}                    ║")
-    print(f"  ║  LightGBM R²       = {r2_lgb:.5f}                    ║")
-    print(f"  ║  Stacked  R²       = {r2_final:.5f}  ← Ridge meta    ║")
-    print(f"  ║  Stacked  MAE      = ${mae_final:>12,.0f}             ║")
-    print(f"  ╚════════════════════════════════════════════════════╝")
+    print(f"\n  ╔══ Final Test Metrics ════════════════════════════════════╗")
+    print(f"  ║  XGBoost  R²        = {r2_xgb:.5f}                        ║")
+    print(f"  ║  LightGBM R²        = {r2_lgb:.5f}                        ║")
+    print(f"  ║  CatBoost R²        = {r2_cat:.5f}                        ║")
+    print(f"  ║  Stacked  R²        = {r2_final:.5f}  ← BayesianRidge     ║")
+    print(f"  ║  Stacked  MAE       = ${mae_final:>12,.0f}                 ║")
+    print(f"  ╚══════════════════════════════════════════════════════════╝")
 
     if test_mode:
         print("\n[TEST MODE] Skipping output write."); return
@@ -386,42 +440,48 @@ def run(top_n: int = 200, test_mode: bool = False, oof_n: int = 12000):
     top_idx = df_raw[ts_col].nlargest(top_n).index if ts_col else df_raw.index[:top_n]
     X_top, _, _, ids_top, names_top = engineer_features(df_raw.loc[top_idx])
 
+    p_cat_top = cat_f.predict(X_top) if cat_f is not None else (xgb_f.predict(X_top) + lgb_f.predict(X_top)) / 2
     top_stack = np.column_stack([
         xgb_f.predict(X_top),
         lgb_f.predict(X_top),
+        p_cat_top,
         predict_l1(mlp_f, X_top),
     ])
     preds_top = meta.predict(scaler.transform(top_stack))
 
     results = []
     for i in tqdm(range(len(X_top)), desc="  Building output", ncols=80):
-        val   = float(np.expm1(preds_top[i]))
-        x_p   = float(np.expm1(top_stack[i, 0]))
-        l_p   = float(np.expm1(top_stack[i, 1]))
-        m_p   = float(np.expm1(top_stack[i, 2]))
-        spread = np.std([x_p, l_p, m_p])
+        val    = float(np.expm1(preds_top[i]))
+        x_p    = float(np.expm1(top_stack[i, 0]))
+        l_p    = float(np.expm1(top_stack[i, 1]))
+        c_p    = float(np.expm1(top_stack[i, 2]))
+        m_p    = float(np.expm1(top_stack[i, 3]))
+        spread = np.std([x_p, l_p, c_p, m_p])
         conf   = float(max(0.0, 1.0 - spread / (val + 1e-9)))
         results.append({
-            "startup_id":              str(ids_top.iloc[i]),
-            "startup_name":            str(names_top.iloc[i]),
-            "predicted_valuation_usd": round(val, 2),
-            "xgboost_prediction_usd":  round(x_p, 2),
-            "lightgbm_prediction_usd": round(l_p, 2),
+            "startup_id":                str(ids_top.iloc[i]),
+            "startup_name":              str(names_top.iloc[i]),
+            "predicted_valuation_usd":   round(val, 2),
+            "xgboost_prediction_usd":    round(x_p, 2),
+            "lightgbm_prediction_usd":   round(l_p, 2),
+            "catboost_prediction_usd":   round(c_p, 2),
             "neural_net_prediction_usd": round(m_p, 2),
-            "model_confidence":        round(min(1.0, conf), 4),
+            "model_confidence":          round(min(1.0, conf), 4),
             "meta_learner_weights": {
                 "xgboost":  round(float(meta.coef_[0]), 4),
                 "lightgbm": round(float(meta.coef_[1]), 4),
-                "neural_net": round(float(meta.coef_[2]), 4),
+                "catboost": round(float(meta.coef_[2]), 4),
+                "neural_net": round(float(meta.coef_[3]), 4),
             },
         })
 
     output = {
         "meta": {
             "generated_at":   datetime.now(timezone.utc).isoformat(),
-            "model":          "Stacked Ensemble v3 (Ridge meta-learner)",
-            "layer_1_models": ["XGBoost-500", "LightGBM-500", "TabMLP-MPS"],
-            "layer_2_model":  "Ridge",
+            "model":          "Stacked Ensemble v4 (BayesianRidge meta-learner)",
+            "layer_1_models": ["XGBoost-500", "LightGBM-500", f"CatBoost-600({'active' if has_cat else 'fallback'})", "TabMLP-MPS"],
+            "layer_2_model":  "BayesianRidge",
+            "catboost_active": has_cat,
             "features":       features,
             "n_folds":        5,
             "oof_sample":     oof_n,
@@ -434,8 +494,9 @@ def run(top_n: int = 200, test_mode: bool = False, oof_n: int = 12000):
             "stacked_r2":      round(r2_final, 5),
             "xgboost_r2":      round(r2_xgb, 5),
             "lightgbm_r2":     round(r2_lgb, 5),
+            "catboost_r2":     round(r2_cat, 5),
             "stacked_mae_usd": round(mae_final, 2),
-            "meta_learner":    "Ridge",
+            "meta_learner":    "BayesianRidge",
         },
         "predictions": results,
     }

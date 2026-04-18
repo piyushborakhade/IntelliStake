@@ -23,6 +23,7 @@ export const api = {
   },
   search: (query) => apiFetch(`/api/search?q=${encodeURIComponent(query)}`),
   portfolio: () => apiFetch('/api/portfolio'),
+  portfolioHrp: () => apiFetch('/api/portfolio/hrp'),
   montecarlo: () => apiFetch('/api/montecarlo'),
   oracle: () => apiFetch('/api/oracle'),
   escrow: () => apiFetch('/api/escrow'),

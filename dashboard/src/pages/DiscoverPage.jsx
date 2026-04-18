@@ -5,6 +5,8 @@
  */
 import { useState, useEffect, useMemo } from 'react';
 import StartupCard from '../components/shared/StartupCard';
+import { useWatchlist } from '../hooks/useWatchlist';
+import { useLens } from '../context/LensContext';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
@@ -47,7 +49,26 @@ export default function DiscoverPage({ onNav }) {
   const [trust,    setTrust]    = useState(TRUST_FILTERS[0]);
   const [search,   setSearch]   = useState('');
   const [sort,     setSort]     = useState('trust_desc');
-  const [mode]  = useState('user');
+  const { lens } = useLens();
+  const isAdmin  = lens === 'admin';
+  const [profileSectors, setProfileSectors] = useState([]);
+  const [sectorsToAvoid, setSectorsToAvoid] = useState([]);
+  const { toggle, isWatched } = useWatchlist();
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('intellistake_investor_profile');
+      if (raw) {
+        const profile = JSON.parse(raw);
+        if (Array.isArray(profile.sectors) && profile.sectors.length > 0) {
+          setProfileSectors(profile.sectors);
+        }
+        if (Array.isArray(profile.sectorsToAvoid) && profile.sectorsToAvoid.length > 0) {
+          setSectorsToAvoid(profile.sectorsToAvoid);
+        }
+      }
+    } catch (_) {}
+  }, []);
 
   useEffect(() => {
     fetch(`${API}/api/user/feed?limit=50`, {
@@ -61,6 +82,11 @@ export default function DiscoverPage({ onNav }) {
 
   const filtered = useMemo(() => {
     let list = [...startups];
+    // Investor mode: apply profile sector preference + exclusions
+    if (!isAdmin) {
+      if (profileSectors.length > 0) list = list.filter(s => profileSectors.includes(s.sector) || profileSectors.includes(s.industry));
+      if (sectorsToAvoid.length > 0) list = list.filter(s => !sectorsToAvoid.includes(s.sector) && !sectorsToAvoid.includes(s.industry));
+    }
     if (sector !== 'All') list = list.filter(s => s.sector === sector || s.industry === sector);
     if (stage  !== 'All') list = list.filter(s => s.funding_stage === stage);
     list = list.filter(s => (s.trust_score || 0) >= trust.min && (s.trust_score || 0) < (trust.max === 1 ? 1.01 : trust.max));
@@ -73,7 +99,7 @@ export default function DiscoverPage({ onNav }) {
       return 0;
     });
     return list;
-  }, [startups, sector, stage, trust, search, sort]);
+  }, [startups, sector, stage, trust, search, sort, profileSectors, sectorsToAvoid, isAdmin]);
 
   const pill = (active, onClick, label) => (
     <button onClick={onClick} style={{
@@ -91,12 +117,30 @@ export default function DiscoverPage({ onNav }) {
   return (
     <div style={{ padding: '28px 32px', height: '100%', overflowY: 'auto' }}>
       {/* Header */}
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 6 }}>Discover Startups</h1>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+          <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.03em' }}>Discover Startups</h1>
+          {isAdmin && (
+            <span style={{ fontSize: 10, padding: '3px 9px', borderRadius: 999, background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5', fontWeight: 700, letterSpacing: '0.06em' }}>ADMIN VIEW</span>
+          )}
+        </div>
         <p style={{ fontSize: 13, color: '#475569' }}>
-          {filtered.length.toLocaleString()} startups match your filters · Ranked by AI trust score
+          {isAdmin
+            ? `${filtered.length.toLocaleString()} startups · All sectors · Raw trust scores shown`
+            : `${filtered.length.toLocaleString()} startups match your profile · Ranked by AI trust score`}
         </p>
       </div>
+
+      {/* Investor: sector filter notice */}
+      {!isAdmin && (profileSectors.length > 0 || sectorsToAvoid.length > 0) && (
+        <div style={{ marginBottom: 18, padding: '10px 14px', borderRadius: 10, background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ fontSize: 12, color: '#818cf8' }}>
+            {profileSectors.length > 0 && <span>Showing: <strong>{profileSectors.slice(0,3).join(', ')}{profileSectors.length > 3 ? ` +${profileSectors.length - 3}` : ''}</strong></span>}
+            {sectorsToAvoid.length > 0 && <span style={{ marginLeft: 10, color: '#f87171' }}>Excluded: <strong>{sectorsToAvoid.join(', ')}</strong></span>}
+          </div>
+          <span style={{ fontSize: 11, color: '#334155' }}>From your investor profile</span>
+        </div>
+      )}
 
       {/* Search + Sort bar */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 18, flexWrap: 'wrap' }}>
@@ -152,18 +196,56 @@ export default function DiscoverPage({ onNav }) {
           <div style={{ fontSize: 13 }}>Try adjusting your sector or trust level filters</div>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {filtered.map((s, i) => (
-            <StartupCard
-              key={s.startup_name || i}
-              startup={s}
-              mode={mode}
-              variant="compact"
-              onView={() => onNav?.('company')}
-              onInvest={() => onNav?.('escrow')}
-              matchScore={Math.max(0.3, 0.98 - i * 0.04)}
-            />
-          ))}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: isAdmin ? 6 : 10 }}>
+          {isAdmin && (
+            /* Admin: table header row */
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 100px', gap: 12, padding: '6px 16px', fontSize: 10, color: '#334155', fontWeight: 700, letterSpacing: '0.07em' }}>
+              <span>STARTUP</span><span>SECTOR</span><span>STAGE</span><span>EMPLOYEES</span><span style={{ textAlign: 'right' }}>TRUST SCORE</span>
+            </div>
+          )}
+          {filtered.map((s, i) => {
+            const score = s.trust_score || 0;
+            const col   = score >= 0.7 ? '#10b981' : score >= 0.5 ? '#f59e0b' : '#ef4444';
+            return isAdmin ? (
+              /* Admin: compact data row */
+              <div key={s.startup_name || i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 100px', gap: 12, alignItems: 'center', padding: '10px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', transition: 'background 0.15s' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+              >
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}>{s.startup_name}</span>
+                <span style={{ fontSize: 11, color: '#64748b', background: 'rgba(255,255,255,0.04)', padding: '2px 8px', borderRadius: 6 }}>{s.sector || s.industry || '—'}</span>
+                <span style={{ fontSize: 11, color: '#475569' }}>{s.funding_stage || '—'}</span>
+                <span style={{ fontSize: 11, color: '#475569', fontFamily: 'DM Mono, monospace' }}>{s.employee_count?.toLocaleString() || '—'}</span>
+                <span style={{ fontSize: 13, fontWeight: 900, fontFamily: 'DM Mono, monospace', color: col, textAlign: 'right' }}>{score.toFixed(4)}</span>
+              </div>
+            ) : (
+              /* Investor: full card */
+              <div key={s.startup_name || i} style={{ position: 'relative' }}>
+                <StartupCard
+                  startup={s}
+                  mode="user"
+                  variant="compact"
+                  onView={() => onNav?.('company')}
+                  onInvest={() => onNav?.('escrow')}
+                  matchScore={Math.max(0.3, 0.98 - i * 0.04)}
+                />
+                <button
+                  onClick={() => toggle(s)}
+                  title={isWatched(s) ? 'Remove from watchlist' : 'Save to watchlist'}
+                  style={{
+                    position: 'absolute', top: 14, right: 14,
+                    background: isWatched(s) ? 'rgba(99,102,241,0.18)' : 'rgba(255,255,255,0.04)',
+                    border: `1px solid ${isWatched(s) ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.1)'}`,
+                    borderRadius: 8, padding: '5px 10px', fontSize: 14,
+                    cursor: 'pointer', transition: 'all 0.15s',
+                    color: isWatched(s) ? '#818cf8' : '#475569',
+                  }}
+                >
+                  {isWatched(s) ? '🔖' : '🏷️'}
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

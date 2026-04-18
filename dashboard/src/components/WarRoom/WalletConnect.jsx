@@ -28,6 +28,10 @@ export default function WalletConnect({ onClose }) {
   }
 
   async function getBalance(addr) {
+    if (typeof window.ethereum === 'undefined') {
+      setBalance('1.2500') // demo balance
+      return
+    }
     try {
       const bal = await window.ethereum.request({
         method: 'eth_getBalance',
@@ -90,13 +94,20 @@ export default function WalletConnect({ onClose }) {
       return
     }
 
+    // Demo mode: MetaMask not installed — simulate a transaction
+    if (typeof window.ethereum === 'undefined') {
+      const demoHash = '0x' + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
+      setTxHash(demoHash)
+      alert(`[DEMO] Simulated transaction!\nHash: ${demoHash}\nThis is a demo — install MetaMask for real Sepolia transactions.`)
+      return
+    }
+
     try {
-      // Simple ETH transfer to contract (demo)
       const txParams = {
         from: account,
         to: CONTRACT_ADDRESS,
         value: '0x2386F26FC10000', // 0.01 ETH in wei
-        data: '0x' // Empty data for simple transfer
+        data: '0x'
       }
 
       const hash = await window.ethereum.request({
@@ -105,10 +116,10 @@ export default function WalletConnect({ onClose }) {
       })
 
       setTxHash(hash)
-      alert(`Transaction sent! Hash: ${hash}\nView on Etherscan: https://sepolia.etherscan.io/tx/${hash}`)
+      alert(`Transaction sent!\nHash: ${hash}\nView: https://sepolia.etherscan.io/tx/${hash}`)
     } catch (e) {
       console.error('Transaction failed:', e)
-      alert('Transaction failed: ' + e.message)
+      alert('Transaction failed: ' + (e.message || 'Unknown error'))
     }
   }
 

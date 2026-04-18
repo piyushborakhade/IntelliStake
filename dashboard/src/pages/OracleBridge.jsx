@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSepoliaData } from '../hooks/useSepoliaData';
 
 const API = 'http://localhost:5500';
 
@@ -71,14 +72,19 @@ export default function OracleBridge({ onNav }) {
     const [chain, setChain] = useState(null);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('ALL');
+    const [oracleTxs, setOracleTxs] = useState([]);
+    const { data: sepoliaData } = useSepoliaData();
 
     useEffect(() => {
         Promise.all([
             fetch(`${API}/api/oracle`).then(r => r.json()).catch(() => null),
             fetch(`${API}/api/blockchain/status`).then(r => r.json()).catch(() => null),
-        ]).then(([oracleData, chainData]) => {
+            fetch(`${API}/api/oracle/transactions`).then(r => r.json()).catch(() => null),
+        ]).then(([oracleData, chainData, txData]) => {
             setData(oracleData);
             setChain(chainData);
+            if (Array.isArray(txData)) setOracleTxs(txData);
+            else if (txData?.transactions) setOracleTxs(txData.transactions);
             setLoading(false);
         });
     }, []);
@@ -176,22 +182,54 @@ export default function OracleBridge({ onNav }) {
                         ))}
                     </div>
 
-                    {/* Live Deals Panel — only when Sepolia is live */}
-                    {chain?.is_live && (
-                        <div className="card" style={{ marginTop: '1rem' }}>
-                            <div className="card-title">🚀 Live On-Chain Deals</div>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>TVL: {chain.tvl_eth} ETH · {chain.demo_deals_count} deals · Sepolia</div>
-                            {Object.entries(chain.seed_tx_hashes || {}).map(([startup, hash]) => (
-                                <div key={startup} style={{ marginBottom: '0.55rem', padding: '0.5rem 0.65rem', background: 'rgba(16,185,129,0.05)', borderRadius: 7, border: '1px solid rgba(16,185,129,0.15)' }}>
-                                    <div style={{ fontWeight: 700, fontSize: '0.78rem', color: '#10b981', marginBottom: '0.2rem' }}>{startup}</div>
-                                    <a href={chain.seed_tx_links?.[startup]} target="_blank" rel="noreferrer"
-                                        style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: '#60a5fa', textDecoration: 'none' }}>
-                                        {hash.slice(0, 32)}… ↗ Etherscan
-                                    </a>
-                                </div>
-                            ))}
+                    {/* Oracle Deals Table */}
+                    <div className="card" style={{ marginBottom: '1rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                            <div className="card-title" style={{ marginBottom: 0 }}>⛓️ Oracle Deals</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <div style={{
+                                    width: 7, height: 7, borderRadius: '50%',
+                                    background: sepoliaData.live ? '#10b981' : '#f59e0b',
+                                    animation: sepoliaData.live ? 'pulse 1.4s infinite' : 'none',
+                                }} />
+                                <span style={{ fontSize: 10, fontWeight: 700, color: sepoliaData.live ? '#10b981' : '#f59e0b' }}>
+                                    {sepoliaData.live ? 'SEPOLIA' : 'FALLBACK'}
+                                </span>
+                            </div>
                         </div>
-                    )}
+                        {loading ? (
+                            <div style={{ fontSize: 12, color: '#475569' }}>Loading…</div>
+                        ) : oracleTxs.length === 0 ? (
+                            <div style={{ fontSize: 12, color: '#475569' }}>No oracle transactions found</div>
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                {oracleTxs.slice(0, 3).map((deal, i) => {
+                                    const statusColor = deal.status === 'active' ? '#10b981' : deal.status === 'frozen' ? '#ef4444' : '#f59e0b';
+                                    const statusIcon  = deal.status === 'active' ? '🟢' : deal.status === 'frozen' ? '🔴' : '🟡';
+                                    return (
+                                        <div key={i} style={{
+                                            padding: '10px 12px', borderRadius: 9,
+                                            background: `${statusColor}08`, border: `1px solid ${statusColor}25`,
+                                        }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                                                <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#e2e8f0' }}>{deal.startup_name || deal.company}</span>
+                                                <span style={{ fontSize: 10, fontWeight: 800, color: statusColor }}>{statusIcon} {(deal.status || '').toUpperCase()}</span>
+                                            </div>
+                                            <div style={{ display: 'flex', gap: 12, fontSize: 11, color: '#64748b' }}>
+                                                <span>Trust: <span style={{ color: '#94a3b8', fontFamily: 'DM Mono, monospace' }}>{parseFloat(deal.trust_score || 0).toFixed(3)}</span></span>
+                                                {deal.amount && <span>Amount: <span style={{ color: '#94a3b8' }}>{deal.amount}</span></span>}
+                                            </div>
+                                            {deal.tx_hash && (
+                                                <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#06b6d4', marginTop: 4 }}>
+                                                    {deal.tx_hash.slice(0, 30)}…
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
 
                     <div className="card" style={{ marginTop: chain?.is_live ? '1rem' : '0' }}>
                         <div className="card-title">⚙️ How It Works</div>

@@ -3,9 +3,10 @@
  * Phase 2: User App. Greeting, 4 KPI cards, startup feed, right sidebar.
  * Connects to Flask API for live startup data.
  */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLens } from '../context/LensContext';
 import StartupCard from '../components/shared/StartupCard';
 import TrustRing from '../components/shared/TrustRing';
 
@@ -49,10 +50,28 @@ const MILESTONES = [
 export default function UserDashboard({ onNav }) {
   const { user } = useAuth();
   const navigate  = useNavigate();
+  const { lens }  = useLens();
+  const isAdmin   = lens === 'admin';
   const [startups, setStartups] = useState(MOCK_STARTUPS);
   const [loading,  setLoading]  = useState(true);
-  const [mode]  = useState('user');
   const [saved, setSaved] = useState(new Set());
+  const [profile, setProfile] = useState(null);
+  const [oracleTxs, setOracleTxs] = useState([]);
+  const [adminOverview, setAdminOverview] = useState(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('intellistake_investor_profile');
+      if (raw) setProfile(JSON.parse(raw));
+    } catch (_) {}
+    fetch(`${API}/api/oracle/transactions`).then(r => r.json()).then(d => {
+      const txs = Array.isArray(d) ? d : (d?.transactions || []);
+      setOracleTxs(txs.slice(0, 3));
+    }).catch(() => {});
+    if (isAdmin) {
+      fetch(`${API}/api/admin/overview`).then(r => r.json()).then(d => setAdminOverview(d)).catch(() => {});
+    }
+  }, [isAdmin]);
 
   const portfolioValue = useCount(284600);
   const weekChange     = useCount(3.2);
@@ -101,24 +120,83 @@ export default function UserDashboard({ onNav }) {
           <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 6 }}>
             {GREETING}, {displayName} 👋
           </h1>
-          <p style={{ fontSize: 14, color: '#475569' }}>
+          <p style={{ fontSize: 14, color: '#475569', marginBottom: profile ? 10 : 0 }}>
             Your portfolio is up <span style={{ color: '#10b981', fontWeight: 700 }}>+{weekChange}%</span> this week · {matches} new matches in your feed
           </p>
+          {profile ? (
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {profile.riskAppetite && (
+                <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8', fontWeight: 600 }}>
+                  Risk: {profile.riskAppetite}
+                </span>
+              )}
+              {profile.capital && (
+                <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', color: '#34d399', fontWeight: 600 }}>
+                  Capital: {profile.capital}
+                </span>
+              )}
+              {profile.stage && (
+                <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', color: '#fbbf24', fontWeight: 600 }}>
+                  Stage: {profile.stage}
+                </span>
+              )}
+              {Array.isArray(profile.sectors) && profile.sectors.slice(0, 3).map(s => (
+                <span key={s} style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)', color: '#a78bfa', fontWeight: 600 }}>
+                  {s}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div style={{ marginTop: 12, padding: '14px 18px', borderRadius: 12, background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#c7d2fe', marginBottom: 2 }}>Complete your investor profile</div>
+                <div style={{ fontSize: 12, color: '#475569' }}>Get personalized startup recommendations matched to your goals</div>
+              </div>
+              <button onClick={() => navigate('/onboarding')} style={{ padding: '8px 18px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#6366f1,#818cf8)', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>
+                Set up →
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* KPI Row */}
-        <div style={{ display: 'flex', gap: 14, marginBottom: 32, flexWrap: 'wrap' }}>
-          {card('Portfolio Value', `₹${(portfolioValue / 100000).toFixed(1)}L`, '+3.2% this week · 6 holdings', '#6366f1', '💰')}
-          {card('Top Performer', 'Razorpay', '🟢 Top Performer · FinTech', '#10b981', '⭐')}
-          {card('Risk Level', 'Balanced', 'Sharpe 0.93 · Good returns for the risk', '#f59e0b', '⚖️')}
-          {card('New Matches', `${matches} startups`, 'Matching your profile this week', '#8b5cf6', '✨')}
-        </div>
+        {/* KPI Row — admin vs investor */}
+        {isAdmin ? (
+          <div style={{ display: 'flex', gap: 14, marginBottom: 32, flexWrap: 'wrap' }}>
+            {card('Total Startups', adminOverview?.total_startups ?? '—', 'In IntelliStake database', '#6366f1', '🏢')}
+            {card('Avg Trust Score', adminOverview?.avg_trust_score ? `${(adminOverview.avg_trust_score * 100).toFixed(1)}` : '—', 'Across all scored startups', '#10b981', '🎯')}
+            {card('Hype Anomalies', adminOverview?.hype_anomaly_count ?? '—', 'Flagged this week', '#f59e0b', '⚠️')}
+            {card('Models Online', adminOverview?.models_loaded ?? '—', 'XGBoost + BL + Survival', '#8b5cf6', '🤖')}
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: 14, marginBottom: 32, flexWrap: 'wrap' }}>
+            {card('Portfolio Value', `₹${(portfolioValue / 100000).toFixed(1)}L`, '+3.2% this week · 6 holdings', '#6366f1', '💰')}
+            {card('Top Performer', 'Razorpay', '🟢 Strong startup · FinTech', '#10b981', '⭐')}
+            {card('Your Risk Level', profile?.riskAppetite ? profile.riskAppetite.charAt(0).toUpperCase() + profile.riskAppetite.slice(1) : 'Balanced', 'Based on your investor profile', '#f59e0b', '⚖️')}
+            {card('New Matches', `${matches} startups`, 'Matching your profile this week', '#8b5cf6', '✨')}
+          </div>
+        )}
+
+        {/* Admin: risk signal strip */}
+        {isAdmin && adminOverview?.risk_signals?.length > 0 && (
+          <div style={{ marginBottom: 24, padding: '14px 18px', borderRadius: 12, background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)' }}>
+            <div style={{ fontSize: 10, color: '#ef4444', fontWeight: 700, letterSpacing: '0.08em', marginBottom: 10 }}>⚠️ ACTIVE RISK SIGNALS</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {adminOverview.risk_signals.map((sig, i) => (
+                <span key={i} style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#fca5a5' }}>{sig}</span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Feed header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 2 }}>Your Personalised Feed</h2>
-            <p style={{ fontSize: 12, color: '#475569' }}>Ranked by match score · Updated daily</p>
+            <h2 style={{ fontSize: 17, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 2 }}>
+              {isAdmin ? 'Startup Intelligence Feed' : 'Your Personalised Feed'}
+            </h2>
+            <p style={{ fontSize: 12, color: '#475569' }}>
+              {isAdmin ? 'Raw trust scores · All sectors · Model-ranked' : 'Ranked by match score · Updated daily'}
+            </p>
           </div>
           <button onClick={() => navigate('/discover')} style={{
             padding: '7px 16px', borderRadius: 999, border: '1px solid rgba(99,102,241,0.3)',
@@ -135,16 +213,33 @@ export default function UserDashboard({ onNav }) {
                 <div key={i} style={{ height: 90, borderRadius: 16, background: 'rgba(255,255,255,0.03)', animation: 'skeleton-pulse 1.5s linear infinite', backgroundSize: '200% 100%', backgroundImage: 'linear-gradient(90deg, #0a0a0f 25%, #0d0d1a 50%, #0a0a0f 75%)' }} />
               ))
             : startups.slice(0, 8).map((s, i) => (
-                <StartupCard
-                  key={s.startup_name || i}
-                  startup={s}
-                  mode={mode}
-                  variant="compact"
-                  onView={() => onNav?.('company')}
-                  onSave={() => handleSave(s)}
-                  onInvest={() => onNav?.('escrow')}
-                  matchScore={0.95 - i * 0.07}
-                />
+                isAdmin ? (
+                  /* Admin view: compact row with raw decimal trust score + sector tag */
+                  <div key={s.startup_name || i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <TrustRing score={s.trust_score || 0} size={40} mode="admin" showLabel={false} strokeWidth={3} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 13, fontWeight: 700 }}>{s.startup_name}</div>
+                      <div style={{ fontSize: 11, color: '#475569' }}>{s.sector} · {s.funding_stage}</div>
+                    </div>
+                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 900, fontFamily: 'DM Mono, monospace', color: (s.trust_score || 0) >= 0.7 ? '#10b981' : (s.trust_score || 0) >= 0.5 ? '#f59e0b' : '#ef4444' }}>
+                        {(s.trust_score || 0).toFixed(4)}
+                      </div>
+                      <div style={{ fontSize: 10, color: '#334155', fontFamily: 'DM Mono, monospace' }}>TRUST SCORE</div>
+                    </div>
+                  </div>
+                ) : (
+                  <StartupCard
+                    key={s.startup_name || i}
+                    startup={s}
+                    mode="user"
+                    variant="compact"
+                    onView={() => onNav?.('company')}
+                    onSave={() => handleSave(s)}
+                    onInvest={() => onNav?.('escrow')}
+                    matchScore={0.95 - i * 0.07}
+                  />
+                )
               ))
           }
         </div>
@@ -203,21 +298,33 @@ export default function UserDashboard({ onNav }) {
           </button>
         </div>
 
-        {/* Trust Score Alerts */}
+        {/* Oracle Feed */}
         <div style={{ padding: '20px', borderRadius: 16, background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-          <div style={{ fontSize: 11, color: '#475569', fontWeight: 700, letterSpacing: '0.06em', marginBottom: 14 }}>🔔 TRUST ALERTS</div>
-          {[
-            { name: "Byju's", change: '-0.06', score: 0.38, bad: true },
-            { name: 'Razorpay', change: '+0.02', score: 0.91, bad: false },
-          ].map(a => (
-            <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-              <TrustRing score={a.score} size={36} mode="user" showLabel={false} strokeWidth={3} />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700 }}>{a.name}</div>
-                <div style={{ fontSize: 11, color: a.bad ? '#ef4444' : '#10b981', fontFamily: 'DM Mono, monospace' }}>{a.change} this week</div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+            <div style={{ fontSize: 11, color: '#475569', fontWeight: 700, letterSpacing: '0.06em' }}>⛓️ ORACLE FEED</div>
+            <button onClick={() => onNav?.('oracle')} style={{ fontSize: 10, background: 'none', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 5, padding: '2px 7px', color: '#334155', cursor: 'pointer' }}>View →</button>
+          </div>
+          {(oracleTxs.length > 0 ? oracleTxs : [
+            { startup_name: 'Zepto',    status: 'active',  trust_score: 0.847, action: 'APPROVE_TRANCHE' },
+            { startup_name: "Byju's",   status: 'frozen',  trust_score: 0.381, action: 'FREEZE' },
+            { startup_name: 'Razorpay', status: 'active',  trust_score: 0.912, action: 'ORACLE_PUSH' },
+          ]).map((tx, i) => {
+            const name  = tx.startup_name || tx.company || '—';
+            const score = parseFloat(tx.trust_score || 0);
+            const col   = score >= 0.7 ? '#10b981' : score >= 0.5 ? '#f59e0b' : '#ef4444';
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                <TrustRing score={score} size={36} mode="user" showLabel={false} strokeWidth={3} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#e2e8f0' }}>{name}</div>
+                  <div style={{ fontSize: 10, color: col, fontFamily: 'DM Mono, monospace', fontWeight: 700 }}>
+                    {tx.status === 'frozen' ? '🔴 FROZEN' : tx.status === 'active' ? '🟢 ACTIVE' : (tx.action || '').replace(/_/g, ' ')}
+                  </div>
+                </div>
+                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, fontWeight: 800, color: col, flexShrink: 0 }}>{score.toFixed(3)}</span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

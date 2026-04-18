@@ -269,8 +269,16 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
+    // isPro: ADMIN and PORTFOLIO_MANAGER have full access; ANALYST is free tier
+    // Can be overridden by setting intellistake_pro=1 in localStorage (for demo)
+    const isPro = user
+        ? (user.role === 'ADMIN' || user.role === 'PORTFOLIO_MANAGER' || localStorage.getItem('intellistake_pro') === '1')
+        : false;
+
+    const isAdmin = user?.role === 'ADMIN';
+
     return (
-        <AuthCtx.Provider value={{ user, loading, login, register, logout, getChainStats }}>
+        <AuthCtx.Provider value={{ user, loading, login, register, logout, getChainStats, isPro, isAdmin }}>
             {children}
         </AuthCtx.Provider>
     );

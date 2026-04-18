@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSepoliaData } from '../hooks/useSepoliaData';
 
 const API = 'http://localhost:5500';
 
@@ -59,6 +60,7 @@ export default function Escrow() {
             .catch(() => setLoading(false));
     }, []);
 
+    const { data: sepoliaData, loading: sepoliaLoading } = useSepoliaData();
     const contracts = data?.escrow_contracts || [];
     const summary = data?.summary || {};
     const current = contracts[selected];
@@ -76,6 +78,38 @@ export default function Escrow() {
                     <div className="page-title">🔐 Milestone Escrow</div>
                     <div className="page-sub">Smart contract escrow — funds released in 4 tranches based on oracle-verified AI milestones</div>
                 </div>
+            </div>
+
+            {/* Sepolia live status strip */}
+            <div style={{
+                display: 'flex', alignItems: 'center', gap: 16, marginBottom: '1.25rem',
+                padding: '10px 16px', borderRadius: 10,
+                background: sepoliaData.live ? 'rgba(16,185,129,0.06)' : 'rgba(245,158,11,0.06)',
+                border: `1px solid ${sepoliaData.live ? 'rgba(16,185,129,0.2)' : 'rgba(245,158,11,0.2)'}`,
+                fontSize: 12,
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{
+                        width: 8, height: 8, borderRadius: '50%',
+                        background: sepoliaData.live ? '#10b981' : '#f59e0b',
+                        boxShadow: sepoliaData.live ? '0 0 8px #10b981' : 'none',
+                        animation: sepoliaData.live ? 'pulse 1.4s infinite' : 'none',
+                    }} />
+                    <span style={{ fontWeight: 700, color: sepoliaData.live ? '#10b981' : '#f59e0b' }}>
+                        {sepoliaLoading ? 'Connecting…' : sepoliaData.live ? 'Sepolia Live' : 'RPC Fallback'}
+                    </span>
+                </div>
+                {[
+                    { label: 'Token', value: sepoliaData.tokenSymbol },
+                    { label: 'Supply', value: sepoliaData.totalSupply },
+                    { label: 'Deals', value: sepoliaData.investmentCount },
+                    { label: 'Block', value: sepoliaData.blockNumber ? `#${sepoliaData.blockNumber.toLocaleString()}` : '—' },
+                ].map(kv => (
+                    <div key={kv.label} style={{ display: 'flex', gap: 4, alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.06)', paddingLeft: 12 }}>
+                        <span style={{ color: '#475569', fontSize: 11 }}>{kv.label}</span>
+                        <span style={{ fontFamily: 'DM Mono, monospace', fontWeight: 700, color: '#94a3b8' }}>{kv.value ?? '—'}</span>
+                    </div>
+                ))}
             </div>
 
             {/* Summary KPIs */}

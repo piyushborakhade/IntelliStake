@@ -4,10 +4,10 @@ import { api } from '../../utils/api'
 import NotificationPanel from './NotificationPanel'
 
 const THEMES = [
-  { id: 'void', color: '#2D7EF8', label: 'Void' },
-  { id: 'carbon', color: '#F5A623', label: 'Carbon' },
-  { id: 'aurora', color: '#1DB972', label: 'Aurora' },
-  { id: 'slate', color: '#7C5CFC', label: 'Slate' },
+  { id: 'void',   label: '● Void',    desc: 'Deep black terminal (default)' },
+  { id: 'aurora', label: '● Aurora',  desc: 'Dark green accents'            },
+  { id: 'slate',  label: '● Slate',   desc: 'Dark blue-slate'               },
+  { id: 'pure',   label: '○ Light',   desc: 'Light mode for presentations'  },
 ]
 
 export default function TopBar() {
@@ -53,7 +53,7 @@ export default function TopBar() {
           <span style={{ color: '#F0F0F5' }}>INTELLI</span>
           <span style={{ color: '#2D7EF8' }}>STAKE</span>
         </span>
-        <span style={{ fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.08em' }}>WAR ROOM</span>
+        <span style={{ fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.08em' }}>Investment Intelligence Platform</span>
         <div style={{ width: 1, height: 16, background: 'var(--border-primary)', margin: '0 4px' }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#1DB972' }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#1DB972', animation: 'pulse 1.4s infinite' }} />
@@ -71,26 +71,28 @@ export default function TopBar() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button onClick={() => setActiveOverlay('globe')} style={{ background: 'none', border: '1px solid var(--border-primary)', borderRadius: 6, padding: '4px 10px', color: 'var(--text-secondary)', fontSize: 11, cursor: 'pointer' }}>
-          Globe
-        </button>
-        <button onClick={() => setActiveOverlay('network')} style={{ background: 'none', border: '1px solid var(--border-primary)', borderRadius: 6, padding: '4px 10px', color: 'var(--text-secondary)', fontSize: 11, cursor: 'pointer' }}>
-          Network
-        </button>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 2, alignItems: 'center', background: 'var(--bg-surface)', border: '1px solid var(--border-primary)', borderRadius: 8, padding: 3 }}>
           {THEMES.map(t => (
-            <div
+            <button
               key={t.id}
               onClick={() => switchTheme(t.id)}
-              title={t.label}
+              title={t.desc}
               style={{
-                width: 10, height: 10, borderRadius: '50%', background: t.color,
-                cursor: 'pointer', border: theme === t.id ? '2px solid #fff' : '2px solid transparent',
-                transition: 'all 0.15s', boxShadow: theme === t.id ? `0 0 8px ${t.color}` : 'none'
+                background: theme === t.id ? 'var(--bg-primary)' : 'transparent',
+                border: 'none',
+                borderRadius: 6,
+                padding: '3px 10px',
+                color: theme === t.id ? 'var(--text-primary)' : 'var(--text-muted)',
+                fontSize: 11,
+                fontWeight: theme === t.id ? 600 : 400,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+                boxShadow: theme === t.id ? '0 1px 3px rgba(0,0,0,0.2)' : 'none',
+                whiteSpace: 'nowrap',
               }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-            />
+            >
+              {t.label}
+            </button>
           ))}
         </div>
         <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setShowNotifications(!showNotifications)}>

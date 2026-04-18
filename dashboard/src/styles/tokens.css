@@ -1,0 +1,67 @@
+/* ============================================================
+   IntelliStake — Design Token Layer v5
+   Single source of truth. Import once in main.jsx.
+   All components should reference these vars, not raw hex.
+   ============================================================ */
+
+:root {
+  /* ── Admin surfaces — deep blue-slate (Vercel/Linear) ── */
+  --admin-bg-base:        #0A0C10;
+  --admin-bg-surface:     #0F1117;
+  --admin-bg-elevated:    #161B24;
+  --admin-bg-overlay:     #1C2333;
+  --admin-border:         rgba(255,255,255,0.07);
+  --admin-border-strong:  rgba(255,255,255,0.13);
+
+  /* ── User surfaces — warm dark (Coinbase/Robinhood) ── */
+  --user-bg-base:         #0D0E12;
+  --user-bg-surface:      #13141A;
+  --user-bg-elevated:     #1A1B23;
+  --user-bg-overlay:      #21222D;
+  --user-border:          rgba(255,255,255,0.06);
+  --user-border-strong:   rgba(255,255,255,0.11);
+
+  /* ── Shared accent palette ── */
+  --accent-indigo:        #6366F1;
+  --accent-indigo-dim:    rgba(99,102,241,0.15);
+  --accent-indigo-glow:   rgba(99,102,241,0.25);
+  --accent-emerald:       #10B981;
+  --accent-emerald-dim:   rgba(16,185,129,0.12);
+  --accent-amber:         #F59E0B;
+  --accent-amber-dim:     rgba(245,158,11,0.12);
+  --accent-red:           #EF4444;
+  --accent-red-dim:       rgba(239,68,68,0.12);
+  --accent-violet:        #8B5CF6;
+
+  /* ── Text hierarchy ── */
+  --text-primary:         rgba(255,255,255,0.92);
+  --text-secondary:       rgba(255,255,255,0.55);
+  --text-tertiary:        rgba(255,255,255,0.30);
+  --text-accent:          #6366F1;
+
+  /* ── Trust score semantic colors ── */
+  --trust-high:           #10B981;
+  --trust-medium:         #F59E0B;
+  --trust-low:            #EF4444;
+
+  /* ── Spacing scale ── */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;
+  --space-4: 16px;  --space-5: 20px;  --space-6: 24px;
+  --space-8: 32px;  --space-10: 40px; --space-12: 48px;
+
+  /* ── Radius ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* ── Shadows ── */
+  --shadow-card:     0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  --shadow-elevated: 0 4px 16px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+  --shadow-modal:    0 24px 64px rgba(0,0,0,0.7);
+
+  /* ── Typography ── */
+  --font-sans:    'Inter', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', 'DM Mono', 'Fira Code', monospace;
+  --font-display: 'Cabinet Grotesk', 'Inter', sans-serif;
+}

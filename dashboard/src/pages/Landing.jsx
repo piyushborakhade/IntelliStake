@@ -483,6 +483,97 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      <section id="pricing" style={{ padding: '100px 24px', background: 'linear-gradient(180deg, #050508 0%, #080812 100%)' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: '#818cf8', fontFamily: 'DM Mono, monospace', marginBottom: 16 }}>PRICING</div>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#f0f4ff', fontFamily: 'Cabinet Grotesk, DM Sans, sans-serif', marginBottom: 16 }}>
+              Start free. Scale to Pro.
+            </h2>
+            <p style={{ fontSize: 16, color: '#475569', maxWidth: 480, margin: '0 auto' }}>
+              Every investor gets AI-powered deal flow. Pro unlocks the institutional toolset.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            {/* Free */}
+            <div style={{
+              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: 20, padding: '36px 32px',
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#64748b', letterSpacing: '0.06em', marginBottom: 12 }}>FREE</div>
+              <div style={{ fontSize: 42, fontWeight: 900, color: '#f0f4ff', fontFamily: 'Cabinet Grotesk, DM Sans, sans-serif', marginBottom: 4 }}>₹0</div>
+              <div style={{ fontSize: 13, color: '#475569', marginBottom: 32 }}>Forever free · No credit card</div>
+              <button onClick={() => navigate('/login')} style={{
+                width: '100%', background: 'rgba(99,102,241,0.12)', color: '#818cf8',
+                border: '1px solid rgba(99,102,241,0.3)', borderRadius: 12, padding: '12px 0',
+                fontSize: 14, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginBottom: 32,
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.22)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.12)'; }}>
+                Get Started →
+              </button>
+              {[
+                'AI trust scores for 74,000+ startups',
+                'Discover + Watchlist (up to 20)',
+                'Basic portfolio simulation',
+                'Sector heatmap & news feed',
+                'Community deal alerts',
+              ].map(f => (
+                <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 12 }}>
+                  <span style={{ color: '#10b981', fontSize: 14, flexShrink: 0, marginTop: 1 }}>✓</span>
+                  <span style={{ fontSize: 13, color: '#94a3b8' }}>{f}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Pro */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.08) 100%)',
+              border: '1px solid rgba(99,102,241,0.35)',
+              borderRadius: 20, padding: '36px 32px', position: 'relative', overflow: 'hidden',
+              boxShadow: '0 0 60px rgba(99,102,241,0.15)',
+            }}>
+              <div style={{ position: 'absolute', top: 16, right: 20, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff', borderRadius: 999, fontSize: 10, fontWeight: 800, padding: '4px 12px', letterSpacing: '0.06em' }}>MOST POPULAR</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#818cf8', letterSpacing: '0.06em', marginBottom: 12 }}>PRO</div>
+              <div style={{ fontSize: 42, fontWeight: 900, color: '#f0f4ff', fontFamily: 'Cabinet Grotesk, DM Sans, sans-serif', marginBottom: 4 }}>₹999<span style={{ fontSize: 18, fontWeight: 500, color: '#64748b' }}>/mo</span></div>
+              <div style={{ fontSize: 13, color: '#475569', marginBottom: 32 }}>Cancel anytime · Instant access</div>
+              <button onClick={() => navigate('/login')} style={{
+                width: '100%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff',
+                border: 'none', borderRadius: 12, padding: '12px 0',
+                fontSize: 14, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginBottom: 32,
+                boxShadow: '0 8px 24px rgba(99,102,241,0.4)',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(99,102,241,0.55)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 24px rgba(99,102,241,0.4)'; }}>
+                Start Pro →
+              </button>
+              {[
+                'Everything in Free',
+                'HRP Portfolio Optimiser (BL vs HRP)',
+                'AI Trade Signals — BUY/HOLD/SELL',
+                'SHAP explainability per startup',
+                'Risk Auditor — multi-factor scores',
+                '5-model Sentiment Feed (FinBERT + RoBERTa)',
+                'Real-time Bloomberg-style signals',
+                'Smart escrow simulation',
+                'Priority deal alerts',
+              ].map(f => (
+                <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 12 }}>
+                  <span style={{ color: '#818cf8', fontSize: 14, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                  <span style={{ fontSize: 13, color: '#c7d2fe' }}>{f}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 32, fontSize: 12, color: '#1e293b', fontFamily: 'DM Mono, monospace' }}>
+            Academic demo — all plans free during capstone evaluation · NMIMS MCA 2025-26
+          </div>
+        </div>
+      </section>
+
       {/* ── FOOTER ────────────────────────────────────────────────────────── */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '60px 48px 40px', background: '#050508' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>

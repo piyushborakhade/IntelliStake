@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth, ROLES } from '../context/AuthContext';
 import CommandPalette from './shared/CommandPalette';
 import LensToggle from './shared/LensToggle';
+import { useTheme, THEME_COLORS } from '../hooks/useTheme';
+import { useWatchlist } from '../hooks/useWatchlist';
 
 const API = 'http://localhost:5500';
 
@@ -106,8 +108,8 @@ NAV.forEach(n => {
     (n.items || []).forEach(i => { ALL_PAGES[i.id] = { label: i.label, group: n.label }; });
 });
 // Also register new page IDs not in NAV
-['dashboard','discover','my-portfolio','onboarding','admin-users','admin-monitor','admin-contracts'].forEach(id => {
-    const labels = { dashboard: 'Dashboard', discover: 'Discover', 'my-portfolio': 'My Portfolio', onboarding: 'Onboarding', 'admin-users': 'User Management', 'admin-monitor': 'Model Monitor', 'admin-contracts': 'Contract Console' };
+['dashboard','discover','my-portfolio','watchlist','onboarding','admin-users','admin-monitor','admin-contracts'].forEach(id => {
+    const labels = { dashboard: 'Dashboard', discover: 'Discover', 'my-portfolio': 'My Portfolio', watchlist: 'Watchlist', onboarding: 'Onboarding', 'admin-users': 'User Management', 'admin-monitor': 'Model Monitor', 'admin-contracts': 'Contract Console' };
     ALL_PAGES[id] = { label: labels[id] || id, group: id.startsWith('admin') ? 'Command' : 'User App' };
 });
 
@@ -342,7 +344,8 @@ export function TopNav({ activePage, onNav }) {
     const navigate = useNavigate();
     const navRef = useRef(null);
     const isAdmin = user?.role === 'ADMIN';
-    const [lensMode, setLensMode] = useState('admin'); // admin sees admin by default
+    const { theme, setTheme } = useTheme();
+    const { count: watchCount } = useWatchlist();
 
     useEffect(() => {
         const checkStatus = () => {
@@ -428,8 +431,44 @@ export function TopNav({ activePage, onNav }) {
             <div className="top-nav-actions">
                 {/* LensToggle — admin only */}
                 {isAdmin && (
-                    <LensToggle mode={lensMode} onChange={setLensMode} />
+                    <LensToggle />
                 )}
+
+                {/* Watchlist */}
+                <button
+                    onClick={() => handleNav('watchlist')}
+                    title="My Watchlist"
+                    style={{
+                        position: 'relative', padding: '5px 10px', borderRadius: 8,
+                        border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)',
+                        color: '#475569', fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4,
+                    }}
+                >
+                    🔖
+                    {watchCount > 0 && (
+                        <span style={{
+                            position: 'absolute', top: -4, right: -4,
+                            minWidth: 16, height: 16, borderRadius: 8,
+                            background: '#6366f1', color: '#fff',
+                            fontSize: 9, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            padding: '0 3px',
+                        }}>{watchCount}</span>
+                    )}
+                </button>
+
+                {/* Theme dots */}
+                <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+                    {Object.entries(THEME_COLORS).map(([name, color]) => (
+                        <button key={name} onClick={() => setTheme(name)} title={name} style={{
+                            width: 14, height: 14, borderRadius: '50%', background: color,
+                            border: 'none', cursor: 'pointer',
+                            opacity: theme === name ? 1 : 0.35,
+                            outline: theme === name ? `2px solid ${color}` : 'none',
+                            outlineOffset: 2, transition: 'opacity 0.2s, outline 0.2s',
+                            flexShrink: 0,
+                        }} />
+                    ))}
+                </div>
 
                 {/* ⌘K search */}
                 <button

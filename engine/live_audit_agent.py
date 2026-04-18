@@ -354,17 +354,35 @@ def lookup_historical(startup_name: str) -> Optional[dict]:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def compute_live_trust(github_score: float, sentiment_score: float,
-                       pedigree_score: float = 0.5) -> float:
+                       pedigree_score: float = 0.5,
+                       extra_features: Optional[dict] = None) -> float:
     """
-    Live Trust Score using same 3-factor model as risk_auditor.py:
-      55% GitHub velocity  |  25% Pedigree (neutral 0.5 default)  |  20% Sentiment
+    Live Trust Score — now ML-based (XGBoost + CalibratedClassifierCV).
+    Falls back to old 55/25/20 formula if model not yet trained.
+
+    Old formula (replaced):
+      trust = 0.55 * github + 0.25 * pedigree + 0.20 * sentiment
+    New model:
+      P(high_trust | R.A.I.S.E. features) via XGBoost calibrated classifier
     """
-    return round(
-        0.55 * github_score
-        + 0.25 * pedigree_score
-        + 0.20 * sentiment_score,
-        4
-    )
+    try:
+        from engine.trust_score_ml import score_trust
+        features = {
+            "github_velocity_score": github_score,
+            "sentiment_compound":    sentiment_score,
+            "execution_score":       pedigree_score,
+            **(extra_features or {}),
+        }
+        result = score_trust(features)
+        return result["trust_score"]
+    except Exception:
+        # Graceful fallback to original formula
+        return round(
+            0.55 * github_score
+            + 0.25 * pedigree_score
+            + 0.20 * sentiment_score,
+            4
+        )
 
 
 def evaluate_warning(live_trust: float, historical: Optional[dict]) -> dict:

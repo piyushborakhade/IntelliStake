@@ -27,13 +27,26 @@ function generateGBMPaths(numPaths = 10, weeks = 52) {
   })
 }
 
+function fmtInr(val) {
+  if (!val && val !== 0) return '₹—'
+  const n = Number(val)
+  if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`
+  if (n >= 1e5) return `₹${(n / 1e5).toFixed(1)} L`
+  return `₹${n.toLocaleString('en-IN')}`
+}
+
 export default function CommandCenter() {
   const { portfolio } = useApp()
   const [mc, setMc] = useState(null)
+  const [summary, setSummary] = useState(null)
   const chartRef = useRef(null)
   const chartInstance = useRef(null)
 
   useEffect(() => {
+    // Fetch live portfolio summary for AUM
+    api.portfolio?.()
+      .then(d => { if (d) setSummary(d) })
+      .catch(() => {})
     api.montecarlo().then(d => {
       if (d) {
         const paths = d.paths || d.simulations || d.monte_carlo_paths || d.results || []
@@ -88,13 +101,30 @@ export default function CommandCenter() {
 
   const rawHoldings = portfolio?.holdings || portfolio?.weights || portfolio?.allocations || portfolio?.portfolio || []
   const holdings = rawHoldings.length > 0 ? rawHoldings : DEMO_HOLDINGS
+
+  // Derive AUM: prefer live summary, then portfolio weights × notional, then fallback
+  const liveAUM = summary?.aum || summary?.total_value || summary?.portfolio_value
+  const derivedAUM = holdings.reduce((sum, h) => {
+    const w = parseFloat(h.weight || h.allocation || h.portfolio_weight || h.pct || 0)
+    return sum + w * 1_00_00_000
+  }, 0)
+  const aum = liveAUM || (derivedAUM > 0 ? derivedAUM : 1_00_00_000)
+
+  // Derive metrics: prefer live, fall back to computed or display value
+  const expReturn = summary?.expected_return != null
+    ? `${(summary.expected_return * 100).toFixed(1)}%`
+    : `${((holdings.reduce((s, h) => s + (h.trust_score || 0.7), 0) / holdings.length) * 32 - 2).toFixed(1)}%`
+  const volatility = summary?.volatility != null ? `${(summary.volatility * 100).toFixed(1)}%` : '18.7%'
+  const sharpe     = summary?.sharpe_ratio != null ? summary.sharpe_ratio.toFixed(4) : '0.9351'
+  const drawdown   = summary?.max_drawdown  != null ? `${(summary.max_drawdown * 100).toFixed(2)}%` : '-7.44%'
+
   const metrics = [
-    { label: 'Expected Return', value: '22.4%', color: '#1DB972' },
-    { label: 'Volatility', value: '18.7%', color: '#F5A623' },
-    { label: 'Sharpe Ratio', value: '0.9351', color: '#F0F0F5' },
-    { label: 'Sortino Ratio', value: '1.24', color: '#F0F0F5' },
-    { label: 'Max Drawdown', value: '-7.44%', color: '#E5484D' },
-    { label: 'Active Tranches', value: '3 / 3', color: '#1DB972' },
+    { label: 'Expected Return', value: expReturn, color: '#1DB972' },
+    { label: 'Volatility',      value: volatility, color: '#F5A623' },
+    { label: 'Sharpe Ratio',    value: sharpe,     color: '#F0F0F5' },
+    { label: 'Sortino Ratio',   value: '1.24',     color: '#F0F0F5' },
+    { label: 'Max Drawdown',    value: drawdown,   color: '#E5484D' },
+    { label: 'Active Tranches', value: '3 / 3',    color: '#1DB972' },
   ]
 
   return (
@@ -106,9 +136,11 @@ export default function CommandCenter() {
       <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--border-primary)' }}>
         <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 2 }}>Assets Under Management</div>
         <div style={{ fontSize: 28, fontWeight: 300, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', letterSpacing: '-0.02em' }}>
-          ₹1,00,00,000
+          {fmtInr(aum)}
         </div>
-        <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Black-Litterman Optimized · 30 holdings</div>
+        <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
+          Black-Litterman Optimized · {holdings.length} holdings
+        </div>
       </div>
 
       <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, borderBottom: '1px solid var(--border-primary)' }}>

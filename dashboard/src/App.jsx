@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { LensProvider } from './context/LensContext';
 import './index.css';
 
 // Layout
@@ -42,11 +43,18 @@ import InvestmentCommittee from './pages/InvestmentCommittee';
 import ScenarioAnalysis from './pages/ScenarioAnalysis';
 import InvestmentAgent from './pages/InvestmentAgent';
 
+// Public pages
+import StartupRegisterPage from './pages/StartupRegisterPage';
+
+// Warm investor UI (standalone)
+import UserShell from './pages/UserShell';
+
 // Phase 2 — User App pages
 import UserDashboard from './pages/UserDashboard';
 import DiscoverPage from './pages/DiscoverPage';
 import OnboardingWizard from './pages/OnboardingWizard';
 import PortfolioUserView from './pages/PortfolioUserView';
+import WatchlistPage from './pages/WatchlistPage';
 
 // Phase 3 — Admin Console
 import AdminDashboard from './pages/AdminDashboard';
@@ -91,6 +99,7 @@ const PAGE_ROUTES = [
   { path: '/dashboard',          Component: UserDashboard    },
   { path: '/discover',           Component: DiscoverPage     },
   { path: '/my-portfolio',       Component: PortfolioUserView },
+  { path: '/watchlist',          Component: WatchlistPage    },
 
   // Phase 3 — Admin Console  
   { path: '/admin',              Component: AdminDashboard    },
@@ -101,7 +110,8 @@ const PAGE_ROUTES = [
 
 // Standalone routes (outside AppShell — full screen)
 const STANDALONE_ROUTES = [
-  { path: '/onboarding', Component: OnboardingWizard },
+  { path: '/onboarding', Component: OnboardingWizard, exact: true  },
+  { path: '/u/',         Component: UserShell,         exact: false },
 ];
 
 
@@ -125,9 +135,10 @@ function AppRoutes() {
   if (standaloneMatch) {
     return (
       <Routes>
-        {STANDALONE_ROUTES.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component onNav={handleNav} />} />
+        {STANDALONE_ROUTES.map(({ path, Component, exact }) => (
+          <Route key={path} path={exact ? path : `${path}*`} element={<Component onNav={handleNav} />} />
         ))}
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     );
   }
@@ -157,6 +168,7 @@ function PublicRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/boot" element={<BootSequence />} />
       <Route path="/warroom" element={<WarRoom />} />
+      <Route path="/register/startup" element={<StartupRegisterPage />} />
       <Route path="/home" element={
         user
           ? <Navigate to="/home" replace />
@@ -204,13 +216,15 @@ class ErrorBoundary extends React.Component {
 // ── Root ──────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ErrorBoundary>
-          <AuthLoader />
-        </ErrorBoundary>
-      </BrowserRouter>
-    </AuthProvider>
+    <LensProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <AuthLoader />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </AuthProvider>
+    </LensProvider>
   );
 }
 

@@ -56,8 +56,13 @@ export default function Login() {
     if (!email || !password) { setError('Please fill in all fields.'); triggerShake(); return; }
     setLoading(true);
     try {
-      await login(email, password);
-      navigate('/boot');
+      const userData = await login(email, password);
+      // ANALYST → warm investor UI; admin/PM → War Room boot
+      if (userData?.role === 'ANALYST') {
+        navigate('/u/portfolio');
+      } else {
+        navigate('/boot');
+      }
     } catch (err) {
       setError(err.message);
       triggerShake();
@@ -85,7 +90,8 @@ export default function Login() {
     setError('');
     try {
       await register(regEmail, regPass, regName, 'ANALYST');
-      navigate('/boot');
+      // New registrations are always ANALYST → investor UI
+      navigate('/u/portfolio');
     } catch (err) {
       setError(err.message);
       triggerShake();
