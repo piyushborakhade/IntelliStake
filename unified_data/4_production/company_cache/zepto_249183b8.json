@@ -1,5 +1,5 @@
 {
-  "company": "Zepto",
+  "company": "zepto",
   "data_source": "data_lake",
   "profile": {
     "startup_name": "Zepto",
@@ -19,16 +19,55 @@
     "data_source": "verified_real",
     "investors": "",
     "is_real": true,
-    "github_stars": 30395,
+    "nlp_dim_0": -0.00949,
+    "nlp_dim_1": 0.01828,
+    "nlp_dim_2": -0.04818,
+    "nlp_dim_3": 0.00496,
+    "nlp_dim_4": 0.04608,
+    "nlp_dim_5": -0.03422,
+    "nlp_dim_6": 0.02524,
+    "nlp_dim_7": 0.0413,
+    "description_richness": 1.0,
+    "sector_similarity_score": 0.4589,
+    "has_nlp_features": true,
+    "sector_ps_median": 12.5,
+    "sector_pe_median": 60.0,
+    "vc_deal_count_2024": 278,
+    "avg_round_size_usd": 22000000.0,
+    "gdp_growth_pct_2024": 6.495,
+    "gdp_growth_pct_2023": 9.191,
+    "gdp_growth_pct_2022": 7.609,
+    "gdp_growth_pct_2021": 9.69,
+    "gdp_growth_pct_2020": -5.778,
+    "gdp_growth_pct": 6.495,
+    "inflation_pct_2024": 4.953,
+    "inflation_pct_2023": 5.649,
+    "inflation_pct_2022": 6.699,
+    "inflation_pct_2021": 5.131,
+    "inflation_pct_2020": 6.623,
+    "inflation_pct": 4.953,
+    "lending_rate_pct_2022": 8.567,
+    "lending_rate_pct_2021": 8.698,
+    "lending_rate_pct_2020": 9.15,
+    "lending_rate_pct_2019": 9.466,
+    "lending_rate_pct_2018": 9.454,
+    "lending_rate_pct": 8.567,
+    "mkt_cap_pct_gdp_2024": 131.241,
+    "mkt_cap_pct_gdp_2023": 119.284,
+    "mkt_cap_pct_gdp_2022": 101.233,
+    "mkt_cap_pct_gdp_2021": 112.021,
+    "mkt_cap_pct_gdp_2020": 95.425,
+    "mkt_cap_pct_gdp": 131.241,
+    "github_stars": 30282,
     "github_repos": 5,
     "top_repo": "madrobby/zepto",
     "finbert_label": "NEUTRAL",
     "finbert_compound": 0.0105,
     "headlines_found": 5,
     "sample_headlines": [
-      "\"Zepto startup india\" - Google News",
+      "\"zepto startup india\" - Google News",
       "Zepto, DPIIT shortlist 8 startups in first cohort of Zepto Nova innovation challenge - Entrackr",
-      "Startup India Initiative: DPIIT joins hands with Hero MotoCorp &amp; Zepto to boost early-stage startups - Zee Business"
+      "Got to go behind the scenes at Zepto\u2019s fully operational dark store set up right inside Bharat Mandapam during the India AI Summit, and it was one of the more fascinating real-world demos of Indian tech execution on display this week. Placed an order on the s - LinkedIn"
     ],
     "classification": "LEGITIMATE",
     "risk_severity": "LOW",
@@ -49,7 +88,7 @@
         "funding_score": 0.846
       }
     },
-    "investment_thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+    "investment_thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
   },
   "cis": {
     "cis": 0.7056,
@@ -66,17 +105,17 @@
       "funding_score": 0.846
     }
   },
-  "thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "thesis": "**Zepto** \u2014 eCommerce \u00b7 Series C Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Zepto at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$287.7M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"zepto startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **100/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
   "steps": [
     {
       "step": "Data Lake Lookup",
       "status": "running",
-      "result": "Found in data lake \u2014 17 fields"
+      "result": "Found in data lake \u2014 56 fields"
     },
     {
       "step": "GitHub API",
       "status": "running",
-      "result": "5 repos \u00b7 30,395 stars \u00b7 velocity 100"
+      "result": "5 repos \u00b7 30,282 stars \u00b7 velocity 100"
     },
     {
       "step": "FinBERT Sentiment",
@@ -109,6 +148,6 @@
       "result": "Thesis generated"
     }
   ],
-  "timestamp": "2026-03-02T18:48:10.217415+00:00",
+  "timestamp": "2026-04-24T14:11:25.133132+00:00",
   "cached": false
 }

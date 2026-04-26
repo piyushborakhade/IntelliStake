@@ -1,0 +1,38 @@
+{
+  "r2_test": 0.4151,
+  "r2_train": 0.9816,
+  "median_ape_pct": 66.5,
+  "n_features": 29,
+  "train_records": 28572,
+  "test_records": 13018,
+  "cv_r2_mean": 0.98,
+  "cv_r2_std": 0.0037,
+  "overfit_gap": 0.5665,
+  "model_version": "v6_fast",
+  "leakage_checked": true,
+  "split_method": "time-based (\u22642014 train, >2014 test)",
+  "generated_at": "2026-04-24T13:49:59.846237+00:00",
+  "showcase_predictions": [
+    {
+      "company": "Digital Currency Group",
+      "sector": "FinTech",
+      "predicted_usd": 10182488269,
+      "actual_usd": 10000000000,
+      "error_pct": 1.8
+    },
+    {
+      "company": "Hive",
+      "sector": "AI/ML",
+      "predicted_usd": 2105722700,
+      "actual_usd": 2000000000,
+      "error_pct": 5.3
+    },
+    {
+      "company": "InSightec",
+      "sector": "HealthTech",
+      "predicted_usd": 1388424309,
+      "actual_usd": 1300000000,
+      "error_pct": 6.8
+    }
+  ]
+}

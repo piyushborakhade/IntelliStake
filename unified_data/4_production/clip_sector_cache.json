@@ -1,0 +1,1019 @@
+{
+  "zepto": {
+    "startup_name": "Zepto",
+    "description_used": "Zepto is a 10-minute grocery delivery app operating in Indian metros.",
+    "predicted_sector": "FoodTech",
+    "top_sectors": [
+      {
+        "sector": "FoodTech",
+        "confidence": 0.9573
+      },
+      {
+        "sector": "PropTech",
+        "confidence": 0.016
+      },
+      {
+        "sector": "Logistics",
+        "confidence": 0.0091
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.004,
+      "EdTech": 0.0039,
+      "HealthTech": 0.0004,
+      "AgriTech": 0.0019,
+      "E-Commerce": 0.0064,
+      "Logistics": 0.0091,
+      "SaaS": 0.0004,
+      "AI/ML": 0.0003,
+      "CleanTech": 0.0,
+      "BioTech": 0.0,
+      "Gaming": 0.0,
+      "PropTech": 0.016,
+      "FoodTech": 0.9573,
+      "CyberSecurity": 0.0002,
+      "DeepTech": 0.0
+    },
+    "model": "openai/clip-vit-base-patch32 (zero-shot LVM)",
+    "architecture": "CLIP text encoder \u2014 ViT-B/32 transformer",
+    "classification_type": "zero-shot (no fine-tuning required)",
+    "timestamp": "2026-04-20T16:24:33.638628+00:00",
+    "from_cache": false
+  },
+  "razorpay": {
+    "startup_name": "Razorpay",
+    "description_used": "Razorpay provides payment gateway, corporate cards, and banking APIs for businesses.",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.8323
+      },
+      {
+        "sector": "SaaS",
+        "confidence": 0.0509
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.048
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.8323,
+      "EdTech": 0.0207,
+      "HealthTech": 0.0004,
+      "AgriTech": 0.0014,
+      "E-Commerce": 0.048,
+      "Logistics": 0.0059,
+      "SaaS": 0.0509,
+      "AI/ML": 0.0065,
+      "CleanTech": 0.0002,
+      "BioTech": 0.0004,
+      "Gaming": 0.0034,
+      "PropTech": 0.0019,
+      "FoodTech": 0.0003,
+      "CyberSecurity": 0.0272,
+      "DeepTech": 0.0004
+    },
+    "model": "openai/clip-vit-base-patch32 (zero-shot LVM)",
+    "architecture": "CLIP text encoder \u2014 ViT-B/32 transformer",
+    "classification_type": "zero-shot (no fine-tuning required)",
+    "timestamp": "2026-04-20T16:24:33.648346+00:00",
+    "from_cache": false
+  },
+  "byju's": {
+    "startup_name": "Byju's",
+    "description_used": "Byju's is an online learning platform offering K-12 and competitive exam preparation.",
+    "predicted_sector": "EdTech",
+    "top_sectors": [
+      {
+        "sector": "EdTech",
+        "confidence": 0.9837
+      },
+      {
+        "sector": "AI/ML",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0024
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0017,
+      "EdTech": 0.9837,
+      "HealthTech": 0.0006,
+      "AgriTech": 0.0002,
+      "E-Commerce": 0.0024,
+      "Logistics": 0.0005,
+      "SaaS": 0.0019,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0,
+      "BioTech": 0.0008,
+      "Gaming": 0.0012,
+      "PropTech": 0.0002,
+      "FoodTech": 0.0,
+      "CyberSecurity": 0.0009,
+      "DeepTech": 0.0002
+    },
+    "model": "openai/clip-vit-base-patch32 (zero-shot LVM)",
+    "architecture": "CLIP text encoder \u2014 ViT-B/32 transformer",
+    "classification_type": "zero-shot (no fine-tuning required)",
+    "timestamp": "2026-04-20T16:24:33.657961+00:00",
+    "from_cache": false
+  },
+  "zepto is a quick grocery delivery startup in india": {
+    "startup_name": "unknown",
+    "description_used": "Zepto is a quick grocery delivery startup in India",
+    "predicted_sector": "Logistics",
+    "top_sectors": [
+      {
+        "sector": "Logistics",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FoodTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.0057,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.4629,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.4629,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-20T17:58:21.078500+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "razorpay payment gateway for merchants and businesses": {
+    "startup_name": "unknown",
+    "description_used": "Razorpay payment gateway for merchants and businesses",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.8526
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0105
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0105
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.8526,
+      "EdTech": 0.0105,
+      "HealthTech": 0.0105,
+      "AgriTech": 0.0105,
+      "E-Commerce": 0.0105,
+      "Logistics": 0.0105,
+      "SaaS": 0.0105,
+      "AI/ML": 0.0105,
+      "CleanTech": 0.0105,
+      "BioTech": 0.0105,
+      "Gaming": 0.0105,
+      "PropTech": 0.0105,
+      "FoodTech": 0.0105,
+      "CyberSecurity": 0.0105,
+      "DeepTech": 0.0105
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-20T18:11:34.414925+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "quick commerce delivery app for tier 2 cities": {
+    "startup_name": "unknown",
+    "description_used": "Quick commerce delivery app for tier 2 cities",
+    "predicted_sector": "Logistics",
+    "top_sectors": [
+      {
+        "sector": "Logistics",
+        "confidence": 0.8526
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0105
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0105
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0105,
+      "EdTech": 0.0105,
+      "HealthTech": 0.0105,
+      "AgriTech": 0.0105,
+      "E-Commerce": 0.0105,
+      "Logistics": 0.8526,
+      "SaaS": 0.0105,
+      "AI/ML": 0.0105,
+      "CleanTech": 0.0105,
+      "BioTech": 0.0105,
+      "Gaming": 0.0105,
+      "PropTech": 0.0105,
+      "FoodTech": 0.0105,
+      "CyberSecurity": 0.0105,
+      "DeepTech": 0.0105
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T03:46:18.152925+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "ola": {
+    "startup_name": "Ola",
+    "description_used": "Ola operates ride-hailing, electric scooters, and EV manufacturing targeting Indian urban mobility.",
+    "predicted_sector": "AI/ML",
+    "top_sectors": [
+      {
+        "sector": "AI/ML",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "CleanTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.0057,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.4629,
+      "CleanTech": 0.4629,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T04:43:20.031994+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "pharmeasy": {
+    "startup_name": "Pharmeasy",
+    "description_used": "PharmEasy is an online pharmacy and diagnostic platform delivering medicines and health tests across India.",
+    "predicted_sector": "HealthTech",
+    "top_sectors": [
+      {
+        "sector": "HealthTech",
+        "confidence": 0.9451
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0039
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0039
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0039
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0039
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0039,
+      "EdTech": 0.0039,
+      "HealthTech": 0.9451,
+      "AgriTech": 0.0039,
+      "E-Commerce": 0.0039,
+      "Logistics": 0.0039,
+      "SaaS": 0.0039,
+      "AI/ML": 0.0039,
+      "CleanTech": 0.0039,
+      "BioTech": 0.0039,
+      "Gaming": 0.0039,
+      "PropTech": 0.0039,
+      "FoodTech": 0.0039,
+      "CyberSecurity": 0.0039,
+      "DeepTech": 0.0039
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T04:43:37.745416+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "navi": {
+    "startup_name": "Navi",
+    "description_used": "Navi Technologies provides microloans, health insurance, and mutual fund investments via a mobile app.",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.4629,
+      "EdTech": 0.0057,
+      "HealthTech": 0.4629,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T04:43:43.772521+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "devyush": {
+    "startup_name": "devYUSH",
+    "description_used": "Sells slutty clothes to calvin baddies",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0667
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0667,
+      "EdTech": 0.0667,
+      "HealthTech": 0.0667,
+      "AgriTech": 0.0667,
+      "E-Commerce": 0.0667,
+      "Logistics": 0.0667,
+      "SaaS": 0.0667,
+      "AI/ML": 0.0667,
+      "CleanTech": 0.0667,
+      "BioTech": 0.0667,
+      "Gaming": 0.0667,
+      "PropTech": 0.0667,
+      "FoodTech": 0.0667,
+      "CyberSecurity": 0.0667,
+      "DeepTech": 0.0667
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T04:44:54.070815+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "ayux": {
+    "startup_name": "Ayux",
+    "description_used": "Ayux is a 60 minute clothing brand directly to your access and also has easy returns and refunds but they also have bigbasket type access",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0667
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0667
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0667,
+      "EdTech": 0.0667,
+      "HealthTech": 0.0667,
+      "AgriTech": 0.0667,
+      "E-Commerce": 0.0667,
+      "Logistics": 0.0667,
+      "SaaS": 0.0667,
+      "AI/ML": 0.0667,
+      "CleanTech": 0.0667,
+      "BioTech": 0.0667,
+      "Gaming": 0.0667,
+      "PropTech": 0.0667,
+      "FoodTech": 0.0667,
+      "CyberSecurity": 0.0667,
+      "DeepTech": 0.0667
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:10:16.195182+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "byjus": {
+    "startup_name": "Byjus",
+    "description_used": "Byjus provides online learning, tutoring, and exam preparation for students.",
+    "predicted_sector": "EdTech",
+    "top_sectors": [
+      {
+        "sector": "EdTech",
+        "confidence": 0.9451
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0039
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0039
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0039,
+      "EdTech": 0.9451,
+      "HealthTech": 0.0039,
+      "AgriTech": 0.0039,
+      "E-Commerce": 0.0039,
+      "Logistics": 0.0039,
+      "SaaS": 0.0039,
+      "AI/ML": 0.0039,
+      "CleanTech": 0.0039,
+      "BioTech": 0.0039,
+      "Gaming": 0.0039,
+      "PropTech": 0.0039,
+      "FoodTech": 0.0039,
+      "CyberSecurity": 0.0039,
+      "DeepTech": 0.0039
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:17:06.939960+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "ather": {
+    "startup_name": "Ather",
+    "description_used": "Ather builds electric scooters and EV charging infrastructure.",
+    "predicted_sector": "CleanTech",
+    "top_sectors": [
+      {
+        "sector": "CleanTech",
+        "confidence": 0.8526
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0105
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0105
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0105,
+      "EdTech": 0.0105,
+      "HealthTech": 0.0105,
+      "AgriTech": 0.0105,
+      "E-Commerce": 0.0105,
+      "Logistics": 0.0105,
+      "SaaS": 0.0105,
+      "AI/ML": 0.0105,
+      "CleanTech": 0.8526,
+      "BioTech": 0.0105,
+      "Gaming": 0.0105,
+      "PropTech": 0.0105,
+      "FoodTech": 0.0105,
+      "CyberSecurity": 0.0105,
+      "DeepTech": 0.0105
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:17:06.941136+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "pharmeasy|k3": {
+    "startup_name": "PharmEasy",
+    "description_used": "PharmEasy delivers medicines and diagnostics through a mobile health platform.",
+    "predicted_sector": "HealthTech",
+    "top_sectors": [
+      {
+        "sector": "HealthTech",
+        "confidence": 0.92
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.92,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:17:33.375729+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "pharmeasy|k5": {
+    "startup_name": "PharmEasy",
+    "description_used": "PharmEasy delivers medicines and diagnostics through a mobile health platform.",
+    "predicted_sector": "HealthTech",
+    "top_sectors": [
+      {
+        "sector": "HealthTech",
+        "confidence": 0.92
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.92,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:17:33.376643+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "razorpay|k3": {
+    "startup_name": "Razorpay",
+    "description_used": "Razorpay provides payment gateway APIs, digital banking and corporate cards for businesses.",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.7194
+      },
+      {
+        "sector": "SaaS",
+        "confidence": 0.2418
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.003
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.7194,
+      "EdTech": 0.003,
+      "HealthTech": 0.003,
+      "AgriTech": 0.003,
+      "E-Commerce": 0.003,
+      "Logistics": 0.003,
+      "SaaS": 0.2418,
+      "AI/ML": 0.003,
+      "CleanTech": 0.003,
+      "BioTech": 0.003,
+      "Gaming": 0.003,
+      "PropTech": 0.003,
+      "FoodTech": 0.003,
+      "CyberSecurity": 0.003,
+      "DeepTech": 0.003
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:18:16.653929+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "razorpay|k5": {
+    "startup_name": "Razorpay",
+    "description_used": "Razorpay provides payment gateway APIs, digital banking and corporate cards for businesses.",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.7194
+      },
+      {
+        "sector": "SaaS",
+        "confidence": 0.2418
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.003
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.003
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.003
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.7194,
+      "EdTech": 0.003,
+      "HealthTech": 0.003,
+      "AgriTech": 0.003,
+      "E-Commerce": 0.003,
+      "Logistics": 0.003,
+      "SaaS": 0.2418,
+      "AI/ML": 0.003,
+      "CleanTech": 0.003,
+      "BioTech": 0.003,
+      "Gaming": 0.003,
+      "PropTech": 0.003,
+      "FoodTech": 0.003,
+      "CyberSecurity": 0.003,
+      "DeepTech": 0.003
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T05:18:16.655130+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "byju's|k5": {
+    "startup_name": "Byju's",
+    "description_used": "Byju's is an online education platform offering K-12 curriculum, competitive exam preparation, and live tutoring.",
+    "predicted_sector": "EdTech",
+    "top_sectors": [
+      {
+        "sector": "EdTech",
+        "confidence": 0.9582
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.003
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.003
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.003
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.003
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.003,
+      "EdTech": 0.9582,
+      "HealthTech": 0.003,
+      "AgriTech": 0.003,
+      "E-Commerce": 0.003,
+      "Logistics": 0.003,
+      "SaaS": 0.003,
+      "AI/ML": 0.003,
+      "CleanTech": 0.003,
+      "BioTech": 0.003,
+      "Gaming": 0.003,
+      "PropTech": 0.003,
+      "FoodTech": 0.003,
+      "CyberSecurity": 0.003,
+      "DeepTech": 0.003
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T07:02:07.435469+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "ola|k5": {
+    "startup_name": "Ola",
+    "description_used": "Ola operates ride-hailing, electric scooters, and EV manufacturing targeting Indian urban mobility.",
+    "predicted_sector": "AI/ML",
+    "top_sectors": [
+      {
+        "sector": "AI/ML",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "CleanTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.0057,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.4629,
+      "CleanTech": 0.4629,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T07:02:12.603616+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "zepto|k5": {
+    "startup_name": "Zepto",
+    "description_used": "Zepto is a 10-minute instant grocery delivery app operating in Indian metro cities using dark stores.",
+    "predicted_sector": "Logistics",
+    "top_sectors": [
+      {
+        "sector": "Logistics",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FoodTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.0057,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.4629,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.4629,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T07:02:16.673106+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "navi|k5": {
+    "startup_name": "Navi",
+    "description_used": "Navi Technologies provides microloans, health insurance, and mutual fund investments via a mobile app.",
+    "predicted_sector": "FinTech",
+    "top_sectors": [
+      {
+        "sector": "FinTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "AgriTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "E-Commerce",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.4629,
+      "EdTech": 0.0057,
+      "HealthTech": 0.4629,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.0057,
+      "SaaS": 0.0057,
+      "AI/ML": 0.0057,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-21T07:02:18.308421+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  },
+  "piyushai|k5": {
+    "startup_name": "PiyushAI",
+    "description_used": "PiyushAI is a 10 minute condom delivery app which also collects your used condoms back for recycling",
+    "predicted_sector": "Logistics",
+    "top_sectors": [
+      {
+        "sector": "Logistics",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "AI/ML",
+        "confidence": 0.4629
+      },
+      {
+        "sector": "FinTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "EdTech",
+        "confidence": 0.0057
+      },
+      {
+        "sector": "HealthTech",
+        "confidence": 0.0057
+      }
+    ],
+    "all_scores": {
+      "FinTech": 0.0057,
+      "EdTech": 0.0057,
+      "HealthTech": 0.0057,
+      "AgriTech": 0.0057,
+      "E-Commerce": 0.0057,
+      "Logistics": 0.4629,
+      "SaaS": 0.0057,
+      "AI/ML": 0.4629,
+      "CleanTech": 0.0057,
+      "BioTech": 0.0057,
+      "Gaming": 0.0057,
+      "PropTech": 0.0057,
+      "FoodTech": 0.0057,
+      "CyberSecurity": 0.0057,
+      "DeepTech": 0.0057
+    },
+    "model": "openai/clip-vit-base-patch32 (proxy runtime mode)",
+    "architecture": "keyword-overlap proxy (CLIP-compatible API shape)",
+    "classification_type": "zero-shot proxy",
+    "timestamp": "2026-04-24T17:17:59.986208+00:00",
+    "from_cache": false,
+    "mode": "proxy"
+  }
+}

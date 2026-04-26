@@ -4,9 +4,9 @@
  */
 
 export const CONTRACTS = {
-  IdentityRegistry:        '0x3427daC36B47A1a1DC1a77F9A15D1d1dae49689F',
-  IntelliStakeToken:       '0x7F0ADbC1Ee87Bda71A55DAD23E6B2FAbf3578Bb',
-  IntelliStakeInvestment:  '0x1a95A8E33E0B5B93e5d45EB3A4DB53AfC4904c7',
+  IdentityRegistry:        '0x3427a20B61033e8D5A5bac25aff3EB1C7569689F',
+  IntelliStakeToken:       '0x7F0A6bD2A655C523B42A97B98298e34B8E69e8Bb',
+  IntelliStakeInvestment:  '0x1a955Dd02199781DFeBFDfE548786ecdd875f4c7',
 };
 
 // ERC-20 minimal ABI for IST token reads

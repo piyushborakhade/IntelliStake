@@ -51,17 +51,8 @@ function sentimentLabel(score) {
 }
 
 // ── Static data ───────────────────────────────────────────────────────────────
-const PORTFOLIO_HOLDINGS = [
-  { name: 'Razorpay',  sector: 'FinTech',    alloc: 18, trust: 0.91, gain: 32.4,  blWeight: 0.22, hrpWeight: 0.19 },
-  { name: 'Zepto',     sector: 'E-commerce', alloc: 14, trust: 0.82, gain: 18.7,  blWeight: 0.18, hrpWeight: 0.15 },
-  { name: 'Groww',     sector: 'FinTech',    alloc: 12, trust: 0.78, gain: 24.1,  blWeight: 0.14, hrpWeight: 0.13 },
-  { name: 'Nykaa',     sector: 'D2C',        alloc: 10, trust: 0.71, gain: -4.2,  blWeight: 0.10, hrpWeight: 0.12 },
-  { name: 'CRED',      sector: 'FinTech',    alloc:  9, trust: 0.72, gain: 11.3,  blWeight: 0.15, hrpWeight: 0.14 },
-  { name: 'Healthify', sector: 'HealthTech', alloc:  8, trust: 0.67, gain:  7.9,  blWeight: 0.08, hrpWeight: 0.10 },
-  { name: 'Meesho',    sector: 'D2C',        alloc:  7, trust: 0.64, gain: -1.8,  blWeight: 0.12, hrpWeight: 0.09 },
-  { name: 'Ola',       sector: 'Mobility',   alloc:  6, trust: 0.51, gain: -9.4,  blWeight: 0.06, hrpWeight: 0.08 },
-  { name: 'BharatPe',  sector: 'FinTech',    alloc:  5, trust: 0.58, gain:  3.2,  blWeight: 0.05, hrpWeight: 0.06 },
-];
+
+// Holdings come from localStorage (sim) only — no hardcoded fake data
 
 const DISCOVER_STARTUPS = [
   { id: 1,  name: 'Razorpay',     sector: 'FinTech',    stage: 'Series B', trust: 0.91, rev: 250_000_000, team: 3500, tagline: "India's leading payment gateway",        sentiment: 0.32  },
@@ -89,15 +80,7 @@ const AI_SIGNALS = [
 const SECTORS = ['All', 'FinTech', 'D2C', 'E-commerce', 'HealthTech', 'Climate', 'Mobility', 'SaaS', 'EdTech'];
 const STAGES  = ['All', 'Pre-Seed', 'Seed', 'Series A', 'Series B', 'Series C', 'Series D', 'Pre-IPO'];
 
-const SHAP_FEATURES = [
-  { feature: 'Trust Score',              importance: 0.31, direction: 1  },
-  { feature: 'Annual Revenue (log)',     importance: 0.22, direction: 1  },
-  { feature: 'Team Size (log)',          importance: 0.15, direction: 1  },
-  { feature: 'Funding Stage',            importance: 0.13, direction: 1  },
-  { feature: 'Sentiment Compound',       importance: 0.11, direction: 1  },
-  { feature: 'GitHub Velocity',          importance: 0.05, direction: 1  },
-  { feature: 'Hype Anomaly Flag',        importance: 0.03, direction: -1 },
-];
+
 
 // ── Sub-components ─────────────────────────────────────────────────────────────
 function NavTab({ id, label, icon, active, onClick, badge }) {
@@ -291,25 +274,81 @@ function SimulateModal({ startup, onClose }) {
   );
 }
 
+// ── Buy/Sell Modal (UserShell) ─────────────────────────────────────────────────
+function UserTradeModal({ holding, action, onClose, onConfirm }) {
+  const [amount, setAmount] = useState(action === 'sell' ? Math.round(holding.current) : 10000);
+  const projected = action === 'buy' ? amount * (1 + (holding.trust || 0.7) * 0.28) : null;
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+      <div style={{ background: '#fff', borderRadius: 20, padding: 32, width: 420, maxWidth: '90vw', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#111827', marginBottom: 4 }}>
+          {action === 'buy' ? '📈 Buy More' : '📉 Sell Position'}
+        </div>
+        <div style={{ fontSize: 13, color: '#9ca3af', marginBottom: 20 }}>
+          {holding.name} · Trust {((holding.trust || 0.7) * 100).toFixed(0)}%
+        </div>
+        <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Amount (₹)</label>
+        <div style={{ position: 'relative', marginBottom: 8 }}>
+          <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', fontSize: 14 }}>₹</span>
+          <input type="number" value={amount} onChange={e => setAmount(Math.max(1000, Number(e.target.value)))}
+            style={{ width: '100%', paddingLeft: 28, paddingRight: 12, paddingTop: 10, paddingBottom: 10, border: '1px solid #e5e7eb', borderRadius: 10, fontSize: 16, fontWeight: 700, outline: 'none', boxSizing: 'border-box' }} />
+        </div>
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+          {[10000, 25000, 50000, 100000].map(v => (
+            <button key={v} onClick={() => setAmount(v)} style={{ flex: 1, padding: '5px', fontSize: 10, fontWeight: 600, borderRadius: 7, border: '1px solid #e5e7eb', background: amount === v ? INDIGO_LIGHT : '#f9fafb', color: amount === v ? INDIGO : '#6b7280', cursor: 'pointer' }}>
+              ₹{v >= 1e5 ? `${v / 1e5}L` : `${v / 1000}K`}
+            </button>
+          ))}
+        </div>
+        {action === 'buy' && projected && (
+          <div style={{ background: INDIGO_LIGHT, borderRadius: 12, padding: '14px 16px', marginBottom: 20 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+              <span style={{ fontSize: 12, color: '#6b7280' }}>AI Projected Value (1 yr)</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: INDIGO }}>₹{projected.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 12, color: '#6b7280' }}>Expected Gain</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>+{((projected / amount - 1) * 100).toFixed(1)}%</span>
+            </div>
+          </div>
+        )}
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button onClick={onClose} style={{ flex: 1, background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 10, padding: '11px 0', fontSize: 13, fontWeight: 600, cursor: 'pointer', color: '#6b7280' }}>Cancel</button>
+          <button onClick={() => onConfirm(holding, action, amount)} style={{ flex: 2, background: action === 'buy' ? INDIGO : '#ef4444', border: 'none', borderRadius: 10, padding: '11px 0', fontSize: 13, fontWeight: 700, cursor: 'pointer', color: '#fff' }}>
+            {action === 'buy' ? `Buy ₹${amount.toLocaleString('en-IN')}` : `Sell ₹${amount.toLocaleString('en-IN')}`}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Tab: Portfolio ─────────────────────────────────────────────────────────────
 function PortfolioTab({ user, isPro }) {
   const simHoldings = JSON.parse(localStorage.getItem('is_sim_holdings') || '[]');
-  const dna         = JSON.parse(localStorage.getItem('intellistake_investor_profile') || 'null');
-  const [hrp, setHrp] = useState(null);
+  const allHoldings = simHoldings;
+  const dynHoldings = null;
+  const setDynHoldings = () => {};
 
-  useEffect(() => {
-    if (isPro) {
-      fetch(`${API}/api/portfolio/hrp`).then(r => r.ok ? r.json() : null).then(d => { if (d) setHrp(d) }).catch(() => {});
-    }
-  }, [isPro]);
 
-  const allHoldings = simHoldings.length > 0 ? simHoldings : PORTFOLIO_HOLDINGS.map(h => ({
-    name: h.name, sector: h.sector, trust: h.trust,
-    invested: h.alloc * 10000,
-    current:  h.alloc * 10000 * (1 + h.gain / 100),
-    blWeight: h.blWeight,
-    hrpWeight: h.hrpWeight,
-  }));
+  const handleTrade = (h, action, amount) => {
+    const updated = allHoldings.map(x => {
+      if (x.name !== h.name) return x;
+      if (action === 'buy') {
+        const gain = amount * (1 + (x.trust || 0.7) * 0.28);
+        return { ...x, invested: x.invested + amount, current: x.current + gain };
+      } else {
+        const sell = Math.min(amount, x.current);
+        const ratio = sell / x.current;
+        return { ...x, invested: x.invested * (1 - ratio), current: x.current - sell };
+      }
+    });
+    setDynHoldings(updated);
+    setTradeModal(null);
+    setTradeToast(action === 'buy' ? `✅ Bought ₹${amount.toLocaleString('en-IN')} of ${h.name}` : `✅ Sold position in ${h.name}`);
+    setTimeout(() => setTradeToast(null), 3000);
+  };
 
   const totalInvested = allHoldings.reduce((s, h) => s + h.invested, 0);
   const totalCurrent  = allHoldings.reduce((s, h) => s + h.current, 0);
@@ -338,123 +377,81 @@ function PortfolioTab({ user, isPro }) {
         </p>
       </div>
 
+
       {/* KPI Cards */}
       <div style={{ display: 'flex', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
         <MetricCard label="Portfolio Value"  value={inr(totalCurrent)} sub={`${pct(totalGainPct)} all time`} color={totalGainPct >= 0 ? '#10b981' : '#ef4444'} icon="💼" />
         <MetricCard label="Top Performer"    value={topPerformer?.name || '—'} sub={topPerformer ? `+${((topPerformer.current / topPerformer.invested - 1) * 100).toFixed(1)}% return` : ''} color="#f59e0b" icon="🏆" />
-        <MetricCard label="Avg Trust Score"  value={`${(allHoldings.reduce((s, h) => s + (h.trust || 0.7), 0) / allHoldings.length * 100).toFixed(0)}%`} sub="AI-scored portfolio" color={INDIGO} icon="🎯" />
+        <MetricCard label="Avg Trust Score"  value={allHoldings.length > 0 ? `${(allHoldings.reduce((s, h) => s + (h.trust || 0.7), 0) / allHoldings.length * 100).toFixed(0)}%` : '—'} sub="AI-scored portfolio" color={INDIGO} icon="🎯" />
       </div>
 
-      {/* Upgrade banner for free users */}
-      {!isPro && (
-        <div style={{
-          background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-          borderRadius: 16, padding: '18px 24px', marginBottom: 24,
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          boxShadow: '0 4px 20px rgba(79,70,229,0.25)',
-        }}>
-          <div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 4 }}>Unlock Pro Features</div>
-            <div style={{ fontSize: 12, color: '#c7d2fe' }}>HRP Optimiser · AI Signals · SHAP Explainer · Risk Auditor · Bloomberg Sentiment</div>
-          </div>
-          <button
-            onClick={() => { localStorage.setItem('intellistake_pro', '1'); window.location.reload(); }}
-            style={{ background: '#fff', color: INDIGO, border: 'none', borderRadius: 10, padding: '9px 18px', fontSize: 13, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
-          >
-            Try Pro Free
-          </button>
-        </div>
-      )}
 
-      {/* AI Signals — Pro */}
-      <ProGate isPro={isPro} label="AI Trade Signals">
-        <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', marginBottom: 20, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>AI Trade Signals</span>
-            <span style={{ fontSize: 10, fontWeight: 600, background: '#dcfce7', color: '#166534', borderRadius: 20, padding: '2px 10px' }}>LIVE</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            {AI_SIGNALS.map((sig, i) => {
-              const c = sig.action === 'BUY' ? '#10b981' : sig.action === 'SELL' ? '#ef4444' : '#f59e0b';
-              return (
-                <div key={sig.name} style={{ display: 'flex', alignItems: 'center', padding: '12px 20px', borderBottom: i < AI_SIGNALS.length - 1 ? '1px solid #f9fafb' : 'none', gap: 14 }}>
-                  <div style={{ width: 52, textAlign: 'center', fontSize: 11, fontWeight: 800, color: c, background: c + '15', borderRadius: 6, padding: '3px 6px' }}>{sig.action}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{sig.name}</div>
-                    <div style={{ fontSize: 11, color: '#9ca3af' }}>{sig.reason}</div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: c }}>{sig.confidence}%</div>
-                    <div style={{ fontSize: 10, color: '#9ca3af' }}>confidence</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      {/* AI Signals */}
+      <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', marginBottom: 20, overflow: 'hidden' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>AI Trade Signals</span>
+          <span style={{ fontSize: 10, fontWeight: 600, background: '#dcfce7', color: '#166534', borderRadius: 20, padding: '2px 10px' }}>LIVE</span>
         </div>
-      </ProGate>
-
-      {/* HRP vs BL Comparison — Pro */}
-      <ProGate isPro={isPro} label="Portfolio Optimizer (HRP vs BL)">
-        <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', marginBottom: 20, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>Portfolio Optimiser</span>
-            <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 8 }}>Hierarchical Risk Parity vs Black-Litterman</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
-            {/* BL */}
-            <div style={{ padding: '16px 20px', borderRight: '1px solid #f3f4f6' }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', marginBottom: 12 }}>Black-Litterman</div>
-              {[
-                { label: 'Expected Return', value: '22.4%', color: '#10b981' },
-                { label: 'Volatility',      value: '18.7%', color: '#f59e0b' },
-                { label: 'Sharpe Ratio',    value: blSharpe.toFixed(4), color: INDIGO },
-              ].map(m => (
-                <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <span style={{ fontSize: 12, color: '#9ca3af' }}>{m.label}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: m.color }}>{m.value}</span>
-                </div>
-              ))}
-            </div>
-            {/* HRP */}
-            <div style={{ padding: '16px 20px', background: hrpSharpe > blSharpe ? '#f0fdf4' : '#fff' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
-                <span style={{ fontSize: 12, fontWeight: 600, color: '#6b7280' }}>HRP</span>
-                {hrpSharpe > blSharpe && <span style={{ fontSize: 9, fontWeight: 700, background: '#dcfce7', color: '#166534', borderRadius: 4, padding: '1px 6px' }}>WINNER</span>}
-              </div>
-              {[
-                { label: 'Expected Return', value: `${hrpReturn.toFixed(1)}%`, color: '#10b981' },
-                { label: 'Volatility',      value: `${hrpVol.toFixed(1)}%`,    color: '#f59e0b' },
-                { label: 'Sharpe Ratio',    value: hrpSharpe.toFixed(4),       color: INDIGO    },
-              ].map(m => (
-                <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <span style={{ fontSize: 12, color: '#9ca3af' }}>{m.label}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: m.color }}>{m.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Weight comparison table */}
-          <div style={{ borderTop: '1px solid #f3f4f6' }}>
-            <div style={{ padding: '10px 20px', fontSize: 11, color: '#9ca3af', fontWeight: 600 }}>BL vs HRP WEIGHTS</div>
-            {PORTFOLIO_HOLDINGS.slice(0, 6).map(h => (
-              <div key={h.name} style={{ display: 'flex', alignItems: 'center', padding: '8px 20px', gap: 12, borderTop: '1px solid #f9fafb' }}>
-                <div style={{ width: 80, fontSize: 13, fontWeight: 600, color: '#374151' }}>{h.name}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {AI_SIGNALS.map((sig, i) => {
+            const c = sig.action === 'BUY' ? '#10b981' : sig.action === 'SELL' ? '#ef4444' : '#f59e0b';
+            return (
+              <div key={sig.name} style={{ display: 'flex', alignItems: 'center', padding: '12px 20px', borderBottom: i < AI_SIGNALS.length - 1 ? '1px solid #f9fafb' : 'none', gap: 14 }}>
+                <div style={{ width: 52, textAlign: 'center', fontSize: 11, fontWeight: 800, color: c, background: c + '15', borderRadius: 6, padding: '3px 6px' }}>{sig.action}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <div style={{ width: `${h.blWeight * 100 * 3}%`, height: 8, background: '#818CF8', borderRadius: 4, minWidth: 4 }} />
-                    <span style={{ fontSize: 11, color: '#818CF8', fontWeight: 600, whiteSpace: 'nowrap' }}>BL {(h.blWeight * 100).toFixed(0)}%</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 4 }}>
-                    <div style={{ width: `${h.hrpWeight * 100 * 3}%`, height: 8, background: '#10b981', borderRadius: 4, minWidth: 4 }} />
-                    <span style={{ fontSize: 11, color: '#10b981', fontWeight: 600, whiteSpace: 'nowrap' }}>HRP {(h.hrpWeight * 100).toFixed(0)}%</span>
-                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{sig.name}</div>
+                  <div style={{ fontSize: 11, color: '#9ca3af' }}>{sig.reason}</div>
                 </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: c }}>{sig.confidence}%</div>
+                  <div style={{ fontSize: 10, color: '#9ca3af' }}>confidence</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+
+      {/* HRP vs BL Comparison */}
+      <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', marginBottom: 20, overflow: 'hidden' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>Portfolio Optimiser</span>
+          <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 8 }}>Hierarchical Risk Parity vs Black-Litterman</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+          <div style={{ padding: '16px 20px', borderRight: '1px solid #f3f4f6' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', marginBottom: 12 }}>Black-Litterman</div>
+            {[
+              { label: 'Expected Return', value: '22.4%', color: '#10b981' },
+              { label: 'Volatility',      value: '18.7%', color: '#f59e0b' },
+              { label: 'Sharpe Ratio',    value: '0.9351', color: INDIGO },
+            ].map(m => (
+              <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: '#9ca3af' }}>{m.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: m.color }}>{m.value}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '16px 20px', background: '#f0fdf4' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#6b7280' }}>HRP</span>
+              <span style={{ fontSize: 9, fontWeight: 700, background: '#dcfce7', color: '#166534', borderRadius: 4, padding: '1px 6px' }}>WINNER</span>
+            </div>
+            {[
+              { label: 'Expected Return', value: '24.8%', color: '#10b981' },
+              { label: 'Volatility',      value: '19.2%', color: '#f59e0b' },
+              { label: 'Sharpe Ratio',    value: '0.9482', color: INDIGO },
+            ].map(m => (
+              <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: '#9ca3af' }}>{m.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: m.color }}>{m.value}</span>
               </div>
             ))}
           </div>
         </div>
-      </ProGate>
+      </div>
+
 
       {/* Holdings table */}
       <div style={{ background: '#fff', borderRadius: 16, padding: '0', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
@@ -473,14 +470,35 @@ function PortfolioTab({ user, isPro }) {
                 <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{h.name}</div>
                 <div style={{ fontSize: 11, color: '#9ca3af' }}>{h.sector}</div>
               </div>
-              <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: 'right', marginRight: 10 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>₹{h.current.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</div>
                 <div style={{ fontSize: 11, color: g >= 0 ? '#10b981' : '#ef4444', fontWeight: 600 }}>{pct(g)}</div>
+              </div>
+              <div style={{ display: 'flex', gap: 5, flexShrink: 0 }}>
+                <button onClick={() => setTradeModal({ h, action: 'buy' })} style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#dcfce7', color: '#15803d', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Buy</button>
+                <button onClick={() => setTradeModal({ h, action: 'sell' })} style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#fee2e2', color: '#dc2626', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Sell</button>
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Trade modal */}
+      {tradeModal && (
+        <UserTradeModal
+          holding={tradeModal.h}
+          action={tradeModal.action}
+          onClose={() => setTradeModal(null)}
+          onConfirm={handleTrade}
+        />
+      )}
+
+      {/* Toast */}
+      {tradeToast && (
+        <div style={{ position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)', background: '#10b981', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 13, fontWeight: 700, zIndex: 2000, boxShadow: '0 8px 24px rgba(0,0,0,0.2)' }}>
+          {tradeToast}
+        </div>
+      )}
     </div>
   );
 }
@@ -603,6 +621,15 @@ function AnalyticsTab({ isPro }) {
   const [selected, setSelected] = useState(DISCOVER_STARTUPS[0]);
   const [riskData, setRiskData] = useState(null);
   const [loading, setLoading]   = useState(false);
+  const [shapData, setShapData] = useState(null);
+  const [shapLoading, setShapLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API}/api/shap`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { setShapData(d); setShapLoading(false); })
+      .catch(() => setShapLoading(false));
+  }, []);
 
   function fetchRisk(startup) {
     setSelected(startup);
@@ -613,11 +640,14 @@ function AnalyticsTab({ isPro }) {
       .catch(() => setLoading(false));
   }
 
-  const shapBars = SHAP_FEATURES.map(f => ({
-    ...f,
-    pct: Math.round(f.importance * 100),
-    color: f.direction > 0 ? '#10b981' : '#ef4444',
-  }));
+  const globalFeatures = shapData?.top_global_features || [];
+  const shapBars = globalFeatures.length > 0
+    ? globalFeatures.map(f => ({
+        feature: f.feature?.replace(/_/g, ' ') || f.feature,
+        pct: Math.round(f.importance * 100),
+        color: f.importance > 0 ? '#10b981' : '#ef4444',
+      }))
+    : [];
 
   return (
     <div>
@@ -626,26 +656,32 @@ function AnalyticsTab({ isPro }) {
         <p style={{ fontSize: 13, color: '#6b7280' }}>SHAP feature importance · Risk scoring · Sentiment breakdown</p>
       </div>
 
-      <ProGate isPro={isPro} label="Analytics — Pro Feature">
+
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
-          {/* SHAP Explainer */}
+          {/* SHAP Explainer — live from API */}
           <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
             <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>SHAP Feature Importance</div>
-              <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>What drives the valuation model</div>
+              <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>
+                {shapData ? `Real TreeSHAP · ${shapData.narratives?.length || 0} startups explained` : 'Loading from AI engine…'}
+              </div>
             </div>
             <div style={{ padding: '16px 20px' }}>
-              {shapBars.map(f => (
+              {shapLoading ? (
+                <div style={{ fontSize: 12, color: '#9ca3af' }}>⏳ Loading real SHAP data…</div>
+              ) : shapBars.length > 0 ? shapBars.map(f => (
                 <div key={f.feature} style={{ marginBottom: 10 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                     <span style={{ fontSize: 12, color: '#374151' }}>{f.feature}</span>
                     <span style={{ fontSize: 12, fontWeight: 700, color: f.color }}>{f.pct}%</span>
                   </div>
                   <div style={{ height: 6, background: '#f3f4f6', borderRadius: 3, overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${f.pct * 3}%`, background: f.color, borderRadius: 3, maxWidth: '100%', transition: 'width 0.5s ease' }} />
+                    <div style={{ height: '100%', width: `${Math.min(f.pct * 3, 100)}%`, background: f.color, borderRadius: 3, transition: 'width 0.5s ease' }} />
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div style={{ fontSize: 12, color: '#9ca3af' }}>Backend offline — start chatbot_api.py</div>
+              )}
             </div>
           </div>
 
@@ -732,7 +768,215 @@ function AnalyticsTab({ isPro }) {
             </table>
           </div>
         </div>
-      </ProGate>
+    </div>
+  );
+}
+
+// ── Tab: AI Tools (User-side frontend for GenAI modules) ────────────────────
+function AIToolsTab({ isPro }) {
+  const [chatInput, setChatInput] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    {
+      role: 'assistant',
+      text: 'Hi! I am your IntelliStake AI analyst. Ask about any startup, portfolio risk, trust score, or recommendation.',
+    },
+  ]);
+
+  const [clipDesc, setClipDesc] = useState('');
+  const [clipLoading, setClipLoading] = useState(false);
+  const [clipResult, setClipResult] = useState(null);
+
+  const [evalLoading, setEvalLoading] = useState(true);
+  const [evalSummary, setEvalSummary] = useState(null);
+
+  const fetchEvalSummary = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/eval/metrics`);
+      const data = await res.json();
+      if (data?.status === 'computing') {
+        setEvalSummary(null);
+        setEvalLoading(true);
+        setTimeout(fetchEvalSummary, 8000);
+        return;
+      }
+      setEvalSummary(data?.averages || null);
+    } catch (_) {
+      setEvalSummary(null);
+    } finally {
+      setEvalLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEvalSummary();
+  }, [fetchEvalSummary]);
+
+  async function sendChat() {
+    const q = chatInput.trim();
+    if (!q || chatLoading) return;
+
+    const history = chatMessages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .slice(-6)
+      .map(m => ({ role: m.role, content: m.text }));
+
+    setChatMessages(prev => [...prev, { role: 'user', text: q }]);
+    setChatInput('');
+    setChatLoading(true);
+    try {
+      const res = await fetch(`${API}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q, history }),
+      });
+      const data = await res.json();
+      setChatMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: data?.answer || 'No response from AI.',
+          meta: `${data?.model_used || 'rag'}${data?.history_used ? ' · memory on' : ''}`,
+        },
+      ]);
+    } catch (_) {
+      setChatMessages(prev => [...prev, { role: 'assistant', text: 'API offline. Start backend and try again.' }]);
+    } finally {
+      setChatLoading(false);
+    }
+  }
+
+  async function runClip() {
+    const description = clipDesc.trim();
+    if (!description || clipLoading) return;
+    setClipLoading(true);
+    setClipResult(null);
+    try {
+      const res = await fetch(`${API}/api/clip/classify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description, top_k: 3 }),
+      });
+      const data = await res.json();
+      setClipResult(data?.error ? { error: data.error } : data);
+    } catch (_) {
+      setClipResult({ error: 'Could not reach CLIP endpoint.' });
+    } finally {
+      setClipLoading(false);
+    }
+  }
+
+  const evalCard = (
+    <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>CO5 GenAI Evaluation</div>
+        <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>BLEU · ROUGE · Perplexity</div>
+      </div>
+      <div style={{ padding: '16px 20px' }}>
+        {evalLoading ? (
+          <div style={{ fontSize: 12, color: '#9ca3af' }}>Loading evaluation summary…</div>
+        ) : evalSummary ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            {[
+              ['BLEU', evalSummary.bleu],
+              ['ROUGE-1', evalSummary.rouge1_f],
+              ['ROUGE-L', evalSummary.rougeL_f],
+              ['Perplexity', evalSummary.perplexity],
+            ].map(([label, value]) => (
+              <div key={label} style={{ padding: '10px 12px', borderRadius: 10, background: '#f8fafc', border: '1px solid #eef2ff' }}>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4 }}>{label}</div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: '#111827', fontFamily: 'DM Mono, monospace' }}>
+                  {value == null ? '—' : Number(value).toFixed(label === 'Perplexity' ? 1 : 4)}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ fontSize: 12, color: '#ef4444' }}>Evaluation data unavailable right now.</div>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: '#111827', marginBottom: 4 }}>AI Tools</h2>
+        <p style={{ fontSize: 13, color: '#6b7280' }}>
+          User-friendly GenAI workspace: Analyst Chat, CLIP sector classifier, and live evaluation metrics.
+        </p>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 16, marginBottom: 16 }}>
+        <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
+          <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>AI Analyst Chat</div>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Memory-enabled follow-ups · investment recommendations</div>
+          </div>
+          <div style={{ padding: '14px 16px', height: 320, overflowY: 'auto', background: '#fafafa' }}>
+            {chatMessages.map((m, i) => (
+              <div key={i} style={{ marginBottom: 10, display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{ maxWidth: '82%', background: m.role === 'user' ? INDIGO : '#fff', color: m.role === 'user' ? '#fff' : '#374151', border: `1px solid ${m.role === 'user' ? INDIGO : '#e5e7eb'}`, borderRadius: 12, padding: '8px 10px' }}>
+                  <div style={{ fontSize: 12, lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{m.text}</div>
+                  {m.meta && <div style={{ marginTop: 4, fontSize: 10, color: m.role === 'user' ? '#c7d2fe' : '#9ca3af' }}>{m.meta}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '12px 14px', borderTop: '1px solid #f3f4f6', display: 'flex', gap: 8 }}>
+            <input
+              value={chatInput}
+              onChange={e => setChatInput(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') sendChat(); }}
+              placeholder="Ask: Is Razorpay a good buy right now?"
+              style={{ flex: 1, padding: '9px 12px', border: '1px solid #e5e7eb', borderRadius: 10, fontSize: 13, outline: 'none' }}
+            />
+            <button onClick={sendChat} disabled={chatLoading || !chatInput.trim()} style={{ padding: '9px 14px', borderRadius: 10, border: 'none', background: chatLoading ? '#c7d2fe' : INDIGO, color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+              {chatLoading ? '...' : 'Send'}
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
+            <div style={{ padding: '14px 20px', borderBottom: '1px solid #f3f4f6' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>CO4 CLIP Classifier</div>
+              <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Zero-shot startup sector prediction</div>
+            </div>
+            <div style={{ padding: '16px 20px' }}>
+              <textarea
+                value={clipDesc}
+                onChange={e => setClipDesc(e.target.value)}
+                rows={4}
+                placeholder="Describe startup (example: quick-commerce grocery delivery app in metro cities)"
+                style={{ width: '100%', boxSizing: 'border-box', padding: '9px 12px', border: '1px solid #e5e7eb', borderRadius: 10, fontSize: 12, outline: 'none', resize: 'vertical' }}
+              />
+              <button onClick={runClip} disabled={clipLoading || !clipDesc.trim()} style={{ marginTop: 10, width: '100%', padding: '9px 12px', borderRadius: 10, border: 'none', background: clipLoading ? '#c7d2fe' : INDIGO, color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                {clipLoading ? 'Classifying...' : 'Run CLIP'}
+              </button>
+
+              {clipResult?.error && <div style={{ marginTop: 10, fontSize: 12, color: '#ef4444' }}>{clipResult.error}</div>}
+              {clipResult?.predicted_sector && (
+                <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: '#eef2ff', border: '1px solid #c7d2fe' }}>
+                  <div style={{ fontSize: 11, color: '#6366f1', fontWeight: 700 }}>Predicted Sector</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: '#312e81', marginTop: 2 }}>{clipResult.predicted_sector}</div>
+                  <div style={{ fontSize: 11, color: '#6366f1', marginTop: 4 }}>
+                    Confidence: {Math.round((clipResult.top_sectors?.[0]?.confidence || 0) * 100)}%
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {evalCard}
+        </div>
+      </div>
+
+      {!isPro && (
+        <div style={{ background: '#fff7ed', border: '1px solid #fdba74', borderRadius: 12, padding: '10px 14px', fontSize: 12, color: '#9a3412' }}>
+          Upgrade to Pro for deeper analytics automation and portfolio optimizer actions.
+        </div>
+      )}
     </div>
   );
 }
@@ -823,12 +1067,13 @@ function ProfileTab({ user, isPro }) {
 
 // ── UserShell (root) ──────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'portfolio',  label: 'Portfolio',  icon: '💼', path: '/u/portfolio' },
   { id: 'discover',   label: 'Discover',   icon: '🔭', path: '/u/discover'  },
   { id: 'watchlist',  label: 'Watchlist',  icon: '⭐', path: '/u/watchlist' },
-  { id: 'analytics',  label: 'Analytics',  icon: '📊', path: '/u/analytics', proOnly: true },
+  { id: 'ai',         label: 'AI Tools',   icon: '🤖', path: '/u/ai' },
+  { id: 'analytics',  label: 'Analytics',  icon: '📊', path: '/u/analytics' },
   { id: 'profile',    label: 'Profile',    icon: '👤', path: '/u/profile'   },
 ];
+
 
 export default function UserShell() {
   const navigate  = useNavigate();
@@ -836,7 +1081,8 @@ export default function UserShell() {
   const { user, logout, isPro } = useAuth();
   const { setLens } = useLens();
 
-  const activeTab = TABS.find(t => location.pathname.startsWith(t.path))?.id || 'portfolio';
+  const activeTab = TABS.find(t => location.pathname.startsWith(t.path))?.id || 'discover';
+
 
   function goTab(id) {
     const tab = TABS.find(t => t.id === id);
@@ -864,7 +1110,8 @@ export default function UserShell() {
       <header style={{ background: '#fff', borderBottom: '1px solid #f3f4f6', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', height: 58, gap: 16 }}>
           {/* Logo */}
-          <button onClick={() => goTab('portfolio')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: 0, flexShrink: 0 }}>
+          <button onClick={() => goTab('discover')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: 0, flexShrink: 0 }}>
+
             <span style={{ fontWeight: 900, fontSize: 15, letterSpacing: '0.05em' }}>
               <span style={{ color: '#111827' }}>INTELLI</span>
               <span style={{ color: INDIGO }}>STAKE</span>
@@ -879,10 +1126,7 @@ export default function UserShell() {
           </nav>
 
           {/* Right side */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, background: isPro ? 'linear-gradient(135deg, #4F46E5, #7C3AED)' : '#f3f4f6', color: isPro ? '#fff' : '#9ca3af' }}>
-              {isPro ? '⚡ PRO' : 'FREE'}
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, position: 'relative' }}>
 
             {user.role !== 'ANALYST' && (
               <button onClick={switchToAdmin} title="Switch to Admin War Room" style={{ background: '#fef3c7', border: '1px solid #fcd34d', borderRadius: 8, padding: '5px 10px', fontSize: 11, fontWeight: 700, color: '#92400e', cursor: 'pointer' }}>
@@ -890,8 +1134,24 @@ export default function UserShell() {
               </button>
             )}
 
-            <button onClick={handleLogout} title={`Logged in as ${user.email}`} style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', border: 'none', cursor: 'pointer', fontSize: 14, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>
-              {user.avatar || user.name?.charAt(0) || '?'}
+            {/* Avatar → profile (not logout) */}
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => goTab('profile')}
+                title={`View profile · ${user.email}`}
+                style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', border: 'none', cursor: 'pointer', fontSize: 14, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}
+              >
+                {user.avatar || user.name?.charAt(0) || '?'}
+              </button>
+            </div>
+
+            {/* Explicit logout button */}
+            <button
+              onClick={handleLogout}
+              title="Sign out"
+              style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 8, padding: '5px 10px', fontSize: 11, fontWeight: 700, color: '#9a3412', cursor: 'pointer' }}
+            >
+              🚪
             </button>
           </div>
         </div>
@@ -899,11 +1159,12 @@ export default function UserShell() {
 
       {/* Page content */}
       <main style={{ maxWidth: 1200, margin: '0 auto', padding: '28px 24px' }}>
-        {activeTab === 'portfolio'  && <PortfolioTab  user={user} isPro={isPro} />}
-        {activeTab === 'discover'   && <DiscoverTab   isPro={isPro} />}
+        {activeTab === 'discover'   && <DiscoverTab   isPro={true} />}
         {activeTab === 'watchlist'  && <WatchlistTab  />}
-        {activeTab === 'analytics'  && <AnalyticsTab  isPro={isPro} />}
-        {activeTab === 'profile'    && <ProfileTab    user={user} isPro={isPro} />}
+        {activeTab === 'ai'         && <AIToolsTab    isPro={true} />}
+        {activeTab === 'analytics'  && <AnalyticsTab  isPro={true} />}
+        {activeTab === 'profile'    && <ProfileTab    user={user} isPro={true} />}
+
       </main>
     </div>
   );

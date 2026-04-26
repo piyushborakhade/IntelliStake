@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-04-22T21:20:43.839977+00:00",
+  "events": [
+    {
+      "startup_name": "CRED",
+      "sector": "FinTech",
+      "event_type": "capital_activity",
+      "headline": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+      "source": "YourStory",
+      "published_at": "Wed, 22 Apr 2026 12:15:09 GMT",
+      "label": "positive",
+      "color": "green",
+      "plain_english": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+      "tx_hash": "0x06ef9508db7a9409926a96c45e338108"
+    },
+    {
+      "startup_name": "Zepto",
+      "sector": "eCommerce",
+      "event_type": "capital_activity",
+      "headline": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+      "source": "Google News",
+      "published_at": "Live",
+      "label": "positive",
+      "color": "green",
+      "plain_english": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+      "tx_hash": "0xd7c8cf94363e3027a7953d76dfc25ce9"
+    },
+    {
+      "startup_name": "Groww",
+      "sector": "FinTech",
+      "event_type": "funding_round",
+      "headline": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+      "source": "Inc42",
+      "published_at": "Wed, 22 Apr 2026 06:56:57 +0000",
+      "label": "neutral",
+      "color": "blue",
+      "plain_english": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+      "tx_hash": "0x25bd43907fc99122984cf1f0492b8ce9"
+    }
+  ],
+  "event_count": 3
+}

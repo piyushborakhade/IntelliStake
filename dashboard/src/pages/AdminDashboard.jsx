@@ -27,6 +27,15 @@ const ORACLE_FEED = [
   { company: 'Razorpay', action: 'ORACLE_PUSH',     score: 0.912, ts: '15:41' },
 ];
 
+const ORACLE_TRANSLATIONS = {
+  FREEZE_MILESTONE_FUNDING: 'Escrow frozen pending milestone verification',
+  FREEZE: 'Escrow frozen pending milestone verification',
+  CONDITIONAL_HOLD: 'Investment on hold, compliance check required',
+  RELEASE_TRANCHE: 'Tranche released to startup wallet',
+  APPROVE_TRANCHE: 'Tranche approved for release',
+  ORACLE_PUSH: 'Trust score updated by oracle',
+};
+
 export default function AdminDashboard({ onNav }) {
   const [overview, setOverview] = useState(null);
   const [models, setModels]     = useState(null);
@@ -203,6 +212,9 @@ export default function AdminDashboard({ onNav }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10 }}>
                   <span style={{ color: col, fontWeight: 700, ...mono }}>{f.action.replace(/_/g, ' ')}</span>
                   <span style={{ color: '#475569', ...mono }}>{f.score.toFixed(3)}</span>
+                </div>
+                <div style={{ marginTop: 4, fontSize: 10, color: '#94a3b8', lineHeight: 1.4 }}>
+                  {ORACLE_TRANSLATIONS[f.action] || f.action.replace(/_/g, ' ').toLowerCase()}
                 </div>
               </div>
             );

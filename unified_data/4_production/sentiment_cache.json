@@ -1,0 +1,18 @@
+{
+  "2778387c459cbb22a6b439b35712f3dc": {
+    "ts": 1777039885.156784,
+    "result": {
+      "cfs": 0.0,
+      "label": "neutral",
+      "confidence": 0.0,
+      "model_breakdown": {
+        "finbert": 0.0,
+        "finbert_tone": 0.0,
+        "twitter_roberta": 0.0,
+        "deberta_fin": 0.0,
+        "vader": 0.0
+      },
+      "cached": false
+    }
+  }
+}

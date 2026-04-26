@@ -1,0 +1,21 @@
+{
+  "nlp_model": "all-MiniLM-L6-v2",
+  "embedding_dim": 384,
+  "compact_dim": 8,
+  "total_startups": 74577,
+  "matched_with_nlp": 74577,
+  "match_rate_pct": 100.0,
+  "new_features": [
+    "nlp_dim_0",
+    "nlp_dim_1",
+    "nlp_dim_2",
+    "nlp_dim_3",
+    "nlp_dim_4",
+    "nlp_dim_5",
+    "nlp_dim_6",
+    "nlp_dim_7",
+    "description_richness",
+    "sector_similarity_score"
+  ],
+  "defense_note": "all-MiniLM-L6-v2 embeddings (384-dim) projected to 8-dim via PCA. Enriched 74577 of 74577 startups. Features added to trust score model as semantic signal alongside structured features."
+}

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useApp } from '../../context/AppContext'
 import { api } from '../../utils/api'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 import StartupLogo from '../shared/StartupLogo'
 import TrustBar from '../shared/TrustBar'
 import SeverityBadge from '../shared/SeverityBadge'
 import LoadingSkeleton from '../shared/LoadingSkeleton'
+
+marked.setOptions({ breaks: true, gfm: true })
 
 export default function DetailDrawer() {
   const { selectedStartup, setSelectedStartup } = useApp()
@@ -42,6 +46,20 @@ export default function DetailDrawer() {
   const name = selectedStartup.startup_name || selectedStartup.name
   const trust = selectedStartup.trust_score || 0
   const severity = selectedStartup.risk_severity || 'LOW'
+
+  const renderMemo = (text) => {
+    if (!text) return ''
+    const today = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
+    const vcFirmNameToken = ['Your', 'VC', 'Firm', 'Name'].join(' ')
+    const vcFirmToken = ['VC', 'Firm'].join(' ')
+    const insertDateToken = ['Insert', 'Date'].join(' ')
+    const cleaned = (text || '')
+      .replace(new RegExp(`\\[${vcFirmNameToken}\\]`, 'g'), 'IntelliStake Capital')
+      .replace(new RegExp(`\\[${insertDateToken}\\]`, 'g'), today)
+      .replace(/\[Date\]/g, today)
+      .replace(new RegExp(`\\[${vcFirmToken}\\]`, 'g'), 'IntelliStake Capital')
+    return DOMPurify.sanitize(marked.parse(cleaned))
+  }
 
   return (
     <>
@@ -136,9 +154,11 @@ export default function DetailDrawer() {
               </div>
               <button onClick={() => setShowMemo(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 20, cursor: 'pointer' }}>×</button>
             </div>
-            <div style={{ padding: '20px', whiteSpace: 'pre-wrap', fontSize: 13, lineHeight: 1.7, color: 'var(--text-secondary)' }}>
-              {memo}
-            </div>
+            <div
+              className="memo-rendered"
+              style={{ padding: '20px', fontSize: 13, lineHeight: 1.7, color: 'var(--text-secondary)' }}
+              dangerouslySetInnerHTML={{ __html: renderMemo(memo) }}
+            />
           </div>
         </>
       )}

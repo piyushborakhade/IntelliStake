@@ -1,7 +1,7 @@
 {
-  "total_deposited": 500000,
-  "total_invested": 195000.0,
-  "available": 305000.0,
+  "total_deposited": 1500000.0,
+  "total_invested": 10000.0,
+  "available": 990000.0,
   "currency": "INR",
   "investments": [
     {
@@ -25,6 +25,44 @@
       "status": "EXECUTED",
       "timestamp": "2026-03-02T10:37:16.515388+00:00",
       "tx_hash": "0x89770db66a46dd17520a6d6f751943bb7ed68c1a"
+    },
+    {
+      "id": "0x6d7d8b834deb24d346f51959779e25083b9ec1f0",
+      "company": "EMERGENCY_WITHDRAWAL",
+      "amount": 305000.0,
+      "type": "EMERGENCY",
+      "status": "WITHDRAWN",
+      "timestamp": "2026-04-21T04:59:11.982111+00:00",
+      "tx_hash": "0x6d7d8b834deb24d346f51959779e25083b9ec1f0"
+    },
+    {
+      "id": "0x58805a434ff017ae9c5a2e1e801ef0e0a8a59c21",
+      "company": "VAULT_DEPOSIT",
+      "amount": 500000.0,
+      "type": "DEPOSIT",
+      "status": "CONFIRMED",
+      "timestamp": "2026-04-21T04:59:18.720117+00:00",
+      "tx_hash": "0x58805a434ff017ae9c5a2e1e801ef0e0a8a59c21"
+    },
+    {
+      "id": "0xd6ac0dc727748f3494752a51895faecac058beca",
+      "company": "VAULT_DEPOSIT",
+      "amount": 500000.0,
+      "type": "DEPOSIT",
+      "status": "CONFIRMED",
+      "timestamp": "2026-04-21T05:00:00.635734+00:00",
+      "tx_hash": "0xd6ac0dc727748f3494752a51895faecac058beca"
+    },
+    {
+      "id": "0x309eff5fcc2bb26391f670b66d87b7e1cf80ba12",
+      "company": "Unknown",
+      "amount": 10000.0,
+      "type": "PERIODIC",
+      "cis": 0.0,
+      "reason": "",
+      "status": "EXECUTED",
+      "timestamp": "2026-04-24T14:02:44.443840+00:00",
+      "tx_hash": "0x309eff5fcc2bb26391f670b66d87b7e1cf80ba12"
     }
   ],
   "agent_mode": "BALANCED",

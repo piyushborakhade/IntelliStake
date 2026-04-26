@@ -57,9 +57,9 @@ export default function Login() {
     setLoading(true);
     try {
       const userData = await login(email, password);
-      // ANALYST → warm investor UI; admin/PM → War Room boot
+      // ANALYST → investor dashboard in AppShell; admin/PM → War Room boot
       if (userData?.role === 'ANALYST') {
-        navigate('/u/portfolio');
+        navigate('/dashboard');
       } else {
         navigate('/boot');
       }
@@ -90,8 +90,9 @@ export default function Login() {
     setError('');
     try {
       await register(regEmail, regPass, regName, 'ANALYST');
-      // New registrations are always ANALYST → investor UI
-      navigate('/u/portfolio');
+      // New registrations → onboarding wizard (15 questions build their investor DNA)
+      navigate('/onboarding');
+
     } catch (err) {
       setError(err.message);
       triggerShake();
@@ -272,13 +273,6 @@ export default function Login() {
                 {loading ? 'Signing in…' : 'Sign In →'}
               </button>
 
-              <div style={{ color: '#334155', fontSize: 12, textAlign: 'center', margin: '4px 0' }}>── or ──</div>
-
-              <div style={{ display: 'flex', gap: 10 }}>
-                <button type="button" style={{ flex: 1, padding: '10px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#94a3b8', fontSize: 13, cursor: 'pointer' }}>🦊 MetaMask</button>
-                <button type="button" style={{ flex: 1, padding: '10px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#94a3b8', fontSize: 13, cursor: 'pointer' }}>G Google</button>
-              </div>
-
               <div style={{ textAlign: 'center', fontSize: 12, color: '#334155', marginTop: 8 }}>
                 No account?{' '}
                 <button type="button" onClick={() => { setTab('register'); setStep(1); }} style={{ background: 'none', border: 'none', color: '#818cf8', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Create one →</button>
@@ -347,16 +341,7 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <div>
-                    <label style={{ fontSize: 12, color: '#475569', fontWeight: 600, display: 'block', marginBottom: 8 }}>
-                      Risk appetite: <span style={{ color: riskColor }}>{riskLabel}</span>
-                    </label>
-                    <input type="range" min="0" max="2" step="1" value={riskVal} onChange={e => setRiskVal(+e.target.value)}
-                      style={{ width: '100%', accentColor: riskColor, cursor: 'pointer' }} />
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#334155', marginTop: 4 }}>
-                      <span>Conservative</span><span>Balanced</span><span>Aggressive</span>
-                    </div>
-                  </div>
+
 
                   <div>
                     <label style={{ fontSize: 12, color: '#475569', fontWeight: 600, display: 'block', marginBottom: 10 }}>Sectors you're interested in</label>

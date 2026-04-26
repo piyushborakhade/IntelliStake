@@ -11,8 +11,9 @@ export default function CriticalAlert() {
     const timer = setTimeout(async () => {
       const escrow = await api.escrow()
       setEscrowData(escrow)
-      setVisible(true)
-      setCriticalAlert({ triggered: true })
+      // Disabled per user request to stop recurring popup
+      // setVisible(true)
+      // setCriticalAlert({ triggered: true })
     }, 60000)
     return () => clearTimeout(timer)
   }, [])

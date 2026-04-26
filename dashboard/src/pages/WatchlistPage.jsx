@@ -1,8 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { useWatchlist } from '../hooks/useWatchlist';
 import StartupCard from '../components/shared/StartupCard';
+import { useToast } from '../components/alerts/ToastSystem';
 
 export default function WatchlistPage({ onNav }) {
+  const navigate = useNavigate();
   const { watchlist, toggle } = useWatchlist();
+  const toast = useToast();
+
+  const handleToggle = (startup) => {
+    const exists = watchlist.some((item) => (item.startup_name || item.name) === (startup.startup_name || startup.name));
+    toggle(startup);
+    toast(exists ? 'Removed from watchlist' : 'Added to watchlist', exists ? 'info' : 'success');
+  };
 
   return (
     <div style={{ padding: '28px 32px', height: '100%', overflowY: 'auto' }}>
@@ -18,21 +28,18 @@ export default function WatchlistPage({ onNav }) {
       </div>
 
       {watchlist.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '80px 20px', color: '#334155' }}>
-          <div style={{ fontSize: 40, marginBottom: 16 }}>🔖</div>
-          <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 8 }}>Your watchlist is empty</div>
-          <div style={{ fontSize: 13, marginBottom: 24 }}>
-            Hit the bookmark icon on any startup in Discover to save it here.
-          </div>
+        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>⭐</div>
+          <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>Your watchlist is empty</h3>
+          <p style={{ marginBottom: '20px', fontSize: '14px', color: 'var(--text-muted)' }}>Star startups you want to track</p>
           <button
-            onClick={() => onNav?.('discover')}
+            onClick={() => navigate('/discover')}
             style={{
-              padding: '10px 22px', borderRadius: 10,
-              background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.35)',
-              color: '#818cf8', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+              background: 'var(--indigo)', color: 'white', border: 'none',
+              padding: '10px 24px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600'
             }}
           >
-            Go to Discover →
+            Explore →
           </button>
         </div>
       ) : (
@@ -43,12 +50,12 @@ export default function WatchlistPage({ onNav }) {
                 startup={s}
                 mode="user"
                 variant="compact"
-                onView={() => onNav?.('company')}
-                onInvest={() => onNav?.('escrow')}
+                onView={() => navigate(`/startup/${encodeURIComponent(s.startup_name || s.name || 'unknown')}`)}
+                onInvest={() => navigate('/holdings')}
                 matchScore={Math.max(0.4, s.trust_score || 0.7)}
               />
               <button
-                onClick={() => toggle(s)}
+                onClick={() => handleToggle(s)}
                 title="Remove from watchlist"
                 style={{
                   position: 'absolute', top: 14, right: 14,

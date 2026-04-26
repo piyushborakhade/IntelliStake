@@ -212,7 +212,7 @@ POST /api/sentiment/ensemble     — { texts } or { startup_name, headlines }
 **File:** `engine/valuation_stacked.py`
 - 4 base models: XGBoost + LightGBM + CatBoost + TabMLP
 - Meta-learner: BayesianRidge (upgraded from Ridge)
-- R² = 0.9738
+- R² = 0.4151
 - Output: `unified_data/outputs/pipeline_portfolio_weights.json`
 
 ### 2B — 5-Model Sentiment Ensemble

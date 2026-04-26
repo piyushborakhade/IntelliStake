@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-04-22T21:20:43.840207+00:00",
+  "records": [
+    {
+      "startup_name": "Swiggy",
+      "sector": "FoodTech",
+      "status": "HIGH_RISK",
+      "risk_severity": "MEDIUM",
+      "signal_count": 1,
+      "latest_signal": "Karnataka HC Extends Interim Protection For Swiggy Against CCI Probe",
+      "next_action": "Escalate to manual diligence",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Razorpay",
+      "sector": "FinTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Phone Pe",
+      "sector": "ConsumerTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Paytm",
+      "sector": "FinTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "CRED",
+      "sector": "FinTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Groww",
+      "sector": "FinTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Zepto",
+      "sector": "eCommerce",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Meesho",
+      "sector": "eCommerce",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "Nykaa",
+      "sector": "eCommerce",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    },
+    {
+      "startup_name": "BYJU\u2019S",
+      "sector": "EdTech",
+      "status": "CLEAR",
+      "risk_severity": "MEDIUM",
+      "signal_count": 0,
+      "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+      "next_action": "No action",
+      "source": "live_news_monitor"
+    }
+  ]
+}

@@ -106,3 +106,27 @@ engine/catboost_info/
 # ── Additional large data files ──────────────────────────────
 unified_data/4_production/stacked_valuation_summary.json
 unified_data/real/intellistake_unified.json
+unified_data/external_data/startups_enriched_high_impact.json
+
+# ── Literature PDFs (large research papers — use local only) ─
+docs/Literature/
+
+# ── Blockchain runtime outputs ───────────────────────────────
+blockchain/oracle_tx_log.json
+blockchain/demo_record.json
+
+# ── One-time fix / utility scripts ───────────────────────────
+fix_*.py
+
+# ── Backup files ─────────────────────────────────────────────
+*.bak.json
+*.bak
+
+# ── Cached API responses ──────────────────────────────────────
+unified_data/4_production/company_cache/
+
+# ── Internal planning / session docs ─────────────────────────
+REFACTORING_COMPLETE.md
+IMPLEMENTATION_PLAN.md
+PRODUCTION_IMPROVEMENTS.md
+data_lake_manifest.json

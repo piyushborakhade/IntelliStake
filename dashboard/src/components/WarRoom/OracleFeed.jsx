@@ -3,6 +3,14 @@ import { api } from '../../utils/api'
 import LoadingSkeleton from '../shared/LoadingSkeleton'
 
 const DOT_COLOR = { unlock: '#1DB972', freeze: '#E5484D', warning: '#F5A623', ping: '#2D7EF8' }
+const EVENT_TEXT = {
+  FREEZE_MILESTONE_FUNDING: 'Escrow frozen pending milestone verification',
+  FREEZE: 'Escrow frozen pending milestone verification',
+  CONDITIONAL_HOLD: 'Investment on hold, compliance check required',
+  RELEASE_TRANCHE: 'Tranche released to startup wallet',
+  APPROVE_TRANCHE: 'Tranche approved for release',
+  ORACLE_PUSH: 'Trust score updated by oracle',
+}
 
 const FALLBACK_TXS = [
   { name: 'Zepto', action: 'Trust 0.91 · Tranche 2 unlocked', type: 'unlock', time: '2 min ago', hash: '0xa74f0f821...' },
@@ -34,6 +42,11 @@ function getEventType(tx) {
   if (text.includes('unlock') || text.includes('release') || text.includes('tranche')) return 'unlock'
   if (text.includes('warn') || text.includes('medium') || text.includes('flag')) return 'warning'
   return 'ping'
+}
+
+function translateEvent(tx) {
+  const raw = tx.action || tx.event || tx.status || 'ORACLE_PUSH'
+  return EVENT_TEXT[raw] || String(raw).replace(/_/g, ' ').toLowerCase()
 }
 
 export default function OracleFeed() {
@@ -91,6 +104,7 @@ export default function OracleFeed() {
           const color = DOT_COLOR[type]
           const name = tx.startup_name || tx.name || tx.company || tx.startup_id || 'Unknown'
           const action = tx.action || tx.event || tx.status || 'Oracle ping'
+          const translated = translateEvent(tx)
           const time = tx.timestamp || tx.time || tx.created_at || ''
           const hash = tx.tx_hash || tx.transaction_hash || ''
           return (
@@ -103,8 +117,9 @@ export default function OracleFeed() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 12 }}>
                   <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{name}</span>
-                  <span style={{ color: 'var(--text-secondary)' }}> · {action}</span>
+                  <span style={{ color: 'var(--text-secondary)' }}> · {translated}</span>
                 </div>
+                <div style={{ fontSize: 9, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>{String(action).replace(/_/g, ' ')}</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                   {hash && <span style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{hash.slice(0, 10)}...</span>}
                   <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>{time}</span>

@@ -22,6 +22,29 @@ export default function AdminUsersPage() {
   const [filter, setFilter]   = useState('ALL');
   const [selected, setSelected] = useState(null);
 
+  useEffect(() => {
+    fetch('http://localhost:5500/api/admin/users', {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('is_session') || ''}` },
+    })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        const rows = d?.users || [];
+        if (rows.length) {
+          setUsers(rows.map((u, i) => ({
+            ...u,
+            name: u.name || u.email?.split('@')[0] || `User ${i + 1}`,
+            kyc: u.kyc || u.kyc_tier || 'RETAIL',
+            wallet: u.wallet || u.wallet_address || '0x0000…0000',
+            logins: u.logins || u.sessions || 0,
+            joined: (u.joined || u.created_at || '').slice(0, 10) || '2026-01-01',
+            active: u.active ?? u.status !== 'Suspended',
+            chain_blocks: u.chain_blocks || 0,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const filtered = users.filter(u => {
     const matchSearch = !search || u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase());
     const matchFilter = filter === 'ALL' || u.role === filter;
@@ -65,7 +88,7 @@ export default function AdminUsersPage() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead style={{ background: 'rgba(255,255,255,0.02)' }}>
             <tr>
-              {['User','Role','KYC Tier','Wallet','Logins','Joined','Status','Actions'].map(h => (
+              {['User','Role','KYC Tier','Wallet','Sessions','Chain Blocks','Joined','Status','Actions'].map(h => (
                 <th key={h} style={th(h)}>{h}</th>
               ))}
             </tr>
@@ -92,6 +115,7 @@ export default function AdminUsersPage() {
                   <span style={{ color: '#6366f1' }}>{u.wallet}</span>
                 </td>
                 <td style={{ ...td(), textAlign: 'right' }}>{u.logins}</td>
+                <td style={{ ...td(), textAlign: 'right' }}>{u.chain_blocks ?? 0}</td>
                 <td style={td()}>{u.joined}</td>
                 <td style={td()}>
                   <span style={{ color: u.active ? '#10b981' : '#475569', fontWeight: 700 }}>
@@ -100,7 +124,8 @@ export default function AdminUsersPage() {
                 </td>
                 <td style={td()}>
                   <div style={{ display: 'flex', gap: 6 }}>
-                    <button onClick={e => { e.stopPropagation(); alert(`Impersonate: ${u.email}`); }} style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.3)', background: 'rgba(99,102,241,0.06)', color: '#818cf8', fontSize: 10, cursor: 'pointer' }}>View</button>
+                    <button onClick={e => { e.stopPropagation(); setSelected(u); }} style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.3)', background: 'rgba(99,102,241,0.06)', color: '#818cf8', fontSize: 10, cursor: 'pointer' }}>View</button>
+                    <button onClick={e => { e.stopPropagation(); setUsers(p => p.map(x => x.email === u.email ? { ...x, role: x.role === 'ANALYST' ? 'PORTFOLIO_MANAGER' : 'ANALYST' } : x)); }} style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid rgba(245,158,11,0.3)', background: 'rgba(245,158,11,0.06)', color: '#f59e0b', fontSize: 10, cursor: 'pointer' }}>Change role</button>
                     {u.role !== 'ADMIN' && <button onClick={e => { e.stopPropagation(); setUsers(p => p.map(x => x.email === u.email ? { ...x, active: !x.active } : x)); }} style={{ padding: '3px 8px', borderRadius: 6, border: `1px solid ${u.active ? 'rgba(239,68,68,0.3)' : 'rgba(16,185,129,0.3)'}`, background: u.active ? 'rgba(239,68,68,0.06)' : 'rgba(16,185,129,0.06)', color: u.active ? '#ef4444' : '#10b981', fontSize: 10, cursor: 'pointer' }}>{u.active ? 'Suspend' : 'Restore'}</button>}
                   </div>
                 </td>
@@ -128,6 +153,23 @@ export default function AdminUsersPage() {
               <div key={s.k} style={{ padding: '10px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
                 <div style={{ fontSize: 9, color: '#334155', fontFamily: 'DM Mono, monospace', letterSpacing: '0.06em', marginBottom: 4 }}>{s.k.toUpperCase()}</div>
                 <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600, fontFamily: 'DM Mono, monospace' }}>{s.v}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 18, display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
+            {[
+              ['Portfolio holdings', selected.holdings || []],
+              ['Watchlist', selected.watchlist || []],
+              ['Browse history', selected.browse_history || []],
+              ['Session log', selected.session_log || [{ event: 'LOGIN' }, { event: 'VIEW_STARTUP' }]],
+            ].map(([title, rows]) => (
+              <div key={title} style={{ padding: 14, borderRadius: 10, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                <div style={{ fontSize: 9, color: '#f59e0b', fontFamily: 'DM Mono, monospace', fontWeight: 800, letterSpacing: '0.06em', marginBottom: 10 }}>{title.toUpperCase()}</div>
+                {(rows.length ? rows : [{ startup_name: 'No records' }]).slice(0, 4).map((r, i) => (
+                  <div key={i} style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontFamily: 'DM Mono, monospace' }}>
+                    {r.startup_name || r.event || r.name || JSON.stringify(r).slice(0, 28)}
+                  </div>
+                ))}
               </div>
             ))}
           </div>

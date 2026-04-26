@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth, ROLES } from '../context/AuthContext';
 import CommandPalette from './shared/CommandPalette';
 import LensToggle from './shared/LensToggle';
-import { useTheme, THEME_COLORS } from '../hooks/useTheme';
+import { useTheme } from '../hooks/useTheme';
 import { useWatchlist } from '../hooks/useWatchlist';
 
 const API = 'http://localhost:5500';
@@ -16,7 +15,7 @@ const JOURNEY_STEP = {
     intelligence: { step: 1, label: '🔍 Discover', color: '#a78bfa' },
     shap: { step: 2, label: '📊 Analyse', color: '#38bdf8' },
     risk: { step: 2, label: '📊 Analyse', color: '#38bdf8' },
-    hype: { step: 2, label: '📊 Analyse', color: '#38bdf8' },
+
     models: { step: 2, label: '📊 Analyse', color: '#38bdf8' },
     scenario: { step: 3, label: '🎲 Simulate', color: '#34d399' },
     montecarlo: { step: 3, label: '🎲 Simulate', color: '#34d399' },
@@ -36,7 +35,7 @@ const JOURNEY_STEP = {
 // ── Navigation Structure ──────────────────────────────────────────────────────
 const NAV = [
     {
-        id: 'home', label: 'Dashboard', icon: '⚡', path: '/home',
+        id: 'dashboard', label: 'Dashboard', icon: '⚡', path: '/dashboard',
         single: true,
     },
     {
@@ -44,10 +43,14 @@ const NAV = [
         items: [
             { id: 'valuation', label: 'Stacked Valuation', icon: '🧠', desc: 'XGB + LGB + CatBoost + MLP (R²=0.9738)', badge: 'R²0.97' },
             { id: 'shap', label: 'SHAP Explainer', icon: '📊', desc: 'Real TreeSHAP · 37,699 narratives', badge: 'XAI' },
-            { id: 'hype', label: 'Hype Detector', icon: '🚨', desc: 'IsolationForest · 50 anomalies flagged', badge: 'IF' },
+
             { id: 'models', label: 'Model Hub', icon: '🏆', desc: 'AutoGluon leaderboard · Survival · NLP', badge: 'NEW' },
+            { id: 'benchmarks', label: 'Benchmarks', icon: '📊', desc: 'IntelliStake vs baselines · AUC-ROC · Median APE', badge: 'V3' },
             { id: 'risk', label: 'Risk Auditor', icon: '🔍', desc: 'Multi-factor risk scoring & signals' },
             { id: 'sentiment', label: 'Sentiment OSINT', icon: '📡', desc: 'FinBERT NLP on 5K news headlines' },
+            { id: 'chatbot', label: 'AI Analyst Chatbot', icon: '🤖', desc: 'RAG · Mistral · 3.2M data points', badge: 'RAG' },
+            { id: 'clip', label: 'CLIP Sector Classifier', icon: '🎯', desc: 'Zero-shot LVM sector tagging · CO4', badge: 'LVM' },
+            { id: 'eval', label: 'GenAI Evaluator', icon: '📐', desc: 'BLEU · ROUGE · Perplexity · CO5', badge: 'CO5' },
         ],
     },
     {
@@ -64,13 +67,9 @@ const NAV = [
     {
         id: 'research', label: 'Research', icon: '🔬',
         items: [
-            { id: 'company', label: 'Company Profile', icon: '🏢', desc: 'Full deep-dive: Valuation · SHAP · Survival · Oracle · Scenario', badge: 'NEW' },
             { id: 'intelligence', label: 'Company Intelligence', icon: '🔬', desc: 'Deep-dive OSINT per startup' },
-            { id: 'network', label: 'Investor Network', icon: '🕸️', desc: 'Force-directed graph · 4,547 nodes · Drag & Zoom', badge: '3D' },
-            { id: 'heatmap', label: 'Galaxy Heatmap', icon: '🌌', desc: 'X=Funding · Y=Trust · Opacity=Survival · 74K pts', badge: 'Z-AXIS' },
-            { id: 'terminal', label: 'News Terminal', icon: '📰', desc: 'Live FinBERT headlines feed' },
-            { id: 'scenario', label: 'Digital Twin', icon: '🔬', desc: 'Scenario Analysis · What-if sliders · Trust + Survival', badge: 'NEW' },
-            { id: 'datalake', label: 'Data Lake', icon: '🗄️', desc: '74K startups · 37K real · 10 Kaggle sources', badge: '74K' },
+            { id: 'research',     label: 'Research Terminal',    icon: '📚', desc: 'Sector reports · SHAP insights · CSV export', badge: 'V3' },
+            { id: 'company',      label: 'Company Profile',      icon: '🏢', desc: 'Full deep-dive: Valuation · SHAP · Survival · Oracle · Scenario', badge: 'NEW' },
         ],
     },
     {
@@ -108,9 +107,13 @@ NAV.forEach(n => {
     (n.items || []).forEach(i => { ALL_PAGES[i.id] = { label: i.label, group: n.label }; });
 });
 // Also register new page IDs not in NAV
-['dashboard','discover','my-portfolio','watchlist','onboarding','admin-users','admin-monitor','admin-contracts'].forEach(id => {
-    const labels = { dashboard: 'Dashboard', discover: 'Discover', 'my-portfolio': 'My Portfolio', watchlist: 'Watchlist', onboarding: 'Onboarding', 'admin-users': 'User Management', 'admin-monitor': 'Model Monitor', 'admin-contracts': 'Contract Console' };
-    ALL_PAGES[id] = { label: labels[id] || id, group: id.startsWith('admin') ? 'Command' : 'User App' };
+const USER_APP_PAGES = new Set(['dashboard', 'discover', 'my-portfolio', 'watchlist', 'holdings', 'onboarding']);
+['dashboard','discover','my-portfolio','watchlist','holdings','onboarding','admin-users','admin-monitor','admin-contracts','chatbot','clip','eval'].forEach(id => {
+    const labels = { dashboard: 'Dashboard', discover: 'Discover', 'my-portfolio': 'My Portfolio', watchlist: 'Watchlist', holdings: 'Holdings', onboarding: 'Onboarding', 'admin-users': 'User Management', 'admin-monitor': 'Model Monitor', 'admin-contracts': 'Contract Console', chatbot: 'AI Analyst Chatbot', clip: 'CLIP Classifier', eval: 'GenAI Evaluator' };
+    ALL_PAGES[id] = {
+        label: labels[id] || id,
+        group: id.startsWith('admin') ? 'Command' : USER_APP_PAGES.has(id) ? 'User App' : 'AI Models',
+    };
 });
 
 // ── Mega-Menu Dropdown ────────────────────────────────────────────────────────
@@ -341,10 +344,9 @@ export function TopNav({ activePage, onNav }) {
     const [unread, setUnread] = useState(0);
     const [apiOnline, setApiOnline] = useState(false);
     const { user, logout } = useAuth();
-    const navigate = useNavigate();
     const navRef = useRef(null);
     const isAdmin = user?.role === 'ADMIN';
-    const { theme, setTheme } = useTheme();
+    useTheme(); // keep dark theme locked via AppShell useEffect
     const { count: watchCount } = useWatchlist();
 
     useEffect(() => {
@@ -378,13 +380,18 @@ export function TopNav({ activePage, onNav }) {
         return () => document.removeEventListener('mousedown', handler);
     }, []);
 
-    const handleNav = (id) => { onNav(id); navigate(`/${id}`); setMobileOpen(false); setOpenMenu(null); };
+    const handleNav = (id) => {
+        if (!id) return;
+        onNav(id);
+        setMobileOpen(false);
+        setOpenMenu(null);
+    };
     const toggleMenu = (id) => setOpenMenu(prev => prev === id ? null : id);
 
     return (
         <header className="top-nav" ref={navRef}>
             {/* Logo */}
-            <div className="top-nav-logo" onClick={() => handleNav('home')}>
+            <div className="top-nav-logo" onClick={() => handleNav('dashboard')}>
                 <img src="/logo.svg" alt="IntelliStake" className="nav-logo-img" />
                 <div className="nav-logo-text">
                     <span className="nav-logo-name">IntelliStake</span>
@@ -434,6 +441,32 @@ export function TopNav({ activePage, onNav }) {
                     <LensToggle />
                 )}
 
+                {/* User App quick-link — available to all roles */}
+                <button
+                    onClick={() => handleNav('dashboard')}
+                    title="Investor Dashboard"
+                    style={{
+                        padding: '5px 10px', borderRadius: 8, border: '1px solid rgba(99,102,241,0.25)',
+                        background: 'rgba(99,102,241,0.07)', color: '#818cf8',
+                        fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
+                    }}
+                >
+                    👤 Investor View
+                </button>
+
+                {/* Holdings quick-link */}
+                <button
+                    onClick={() => handleNav('holdings')}
+                    title="My Holdings"
+                    style={{
+                        padding: '5px 10px', borderRadius: 8, border: '1px solid rgba(16,185,129,0.25)',
+                        background: 'rgba(16,185,129,0.07)', color: '#10b981',
+                        fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
+                    }}
+                >
+                    💼 Holdings
+                </button>
+
                 {/* Watchlist */}
                 <button
                     onClick={() => handleNav('watchlist')}
@@ -455,20 +488,6 @@ export function TopNav({ activePage, onNav }) {
                         }}>{watchCount}</span>
                     )}
                 </button>
-
-                {/* Theme dots */}
-                <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
-                    {Object.entries(THEME_COLORS).map(([name, color]) => (
-                        <button key={name} onClick={() => setTheme(name)} title={name} style={{
-                            width: 14, height: 14, borderRadius: '50%', background: color,
-                            border: 'none', cursor: 'pointer',
-                            opacity: theme === name ? 1 : 0.35,
-                            outline: theme === name ? `2px solid ${color}` : 'none',
-                            outlineOffset: 2, transition: 'opacity 0.2s, outline 0.2s',
-                            flexShrink: 0,
-                        }} />
-                    ))}
-                </div>
 
                 {/* ⌘K search */}
                 <button
@@ -565,7 +584,7 @@ export function TopNav({ activePage, onNav }) {
             {/* Mobile menu */}
             {mobileOpen && (
                 <div className="mobile-nav">
-                    {NAV.map(group => (
+                    {NAV.filter(g => !g.adminOnly || isAdmin).map(group => (
                         <div key={group.id} className="mobile-nav-group">
                             <div className="mobile-nav-label">{group.icon} {group.label}</div>
                             {group.single
@@ -674,7 +693,7 @@ function FloatingChatbot({ onNav }) {
 
             {/* Chat panel */}
             {open && (
-                <div style={{
+                <div className="chatbot-overlay" style={{
                     position: 'fixed', bottom: 92, right: 24, zIndex: 9998,
                     width: 380, height: 520,
                     background: 'rgba(10,14,26,0.97)',
@@ -774,6 +793,12 @@ function FloatingChatbot({ onNav }) {
 // ── AppShell ──────────────────────────────────────────────────────────────────
 export default function AppShell({ page, onNav, children }) {
     const [cmdOpen, setCmdOpen] = useState(false);
+
+    // Force void (dark) theme permanently
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', 'void');
+        localStorage.setItem('intellistake-theme', 'void');
+    }, []);
 
     // Global Cmd+K / Ctrl+K handler
     useEffect(() => {

@@ -1,0 +1,20 @@
+{
+  "experiment": "real_data_retrain",
+  "generated_at": "2026-04-24T11:43:32.723003+00:00",
+  "training_rows": 37711,
+  "test_rows": 7542,
+  "features": [
+    "total_funding_usd",
+    "company_age_years",
+    "employees"
+  ],
+  "metrics": {
+    "xgb_r2_log": 0.95134,
+    "lgb_r2_log": 0.9668,
+    "ens_r2_log": 0.96386,
+    "ens_r2_usd": 0.20083,
+    "mae_usd": 119295887.41984,
+    "rmse_usd": 3393278802.89635
+  },
+  "comparison_note": "Old result was ~0.2 R\u00b2 on ~5k rows. This run uses ~37k real-labeled rows."
+}

@@ -1,11 +1,13 @@
 /**
  * OnboardingWizard.jsx — Full 15-question investor onboarding (6 sections)
  * Matches the IntelliStake Investor Questionnaire PDF exactly.
- * Saves complete investor DNA to intellistake_investor_profile in localStorage.
+ * Saves complete investor DNA to Supabase (investor_profiles) + sessionStorage.
  */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { saveInvestorDNA } from '../utils/supabase';
+
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -177,11 +179,26 @@ export default function OnboardingWizard() {
       autopilot: handsOnLevel === 'passive',
       createdAt: Date.now(),
     };
-    localStorage.setItem('intellistake_investor_profile', JSON.stringify(dna));
+
+    // 1. Persist to Supabase (keyed by email)
+    if (user?.email) saveInvestorDNA(user.email, dna);
+
+    // 2. Also POST to backend for any server-side use
+    fetch('http://localhost:5500/api/user/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('is_session') || ''}`,
+      },
+      body: JSON.stringify(dna),
+    }).catch(() => {});
+
+    // 3. Cache in sessionStorage for instant access
     sessionStorage.setItem('is_investor_dna', JSON.stringify(dna));
     sessionStorage.setItem('is_onboarded', '1');
     navigate('/dashboard');
   };
+
 
   const next = () => setStep(s => s + 1);
   const back = () => setStep(s => s - 1);

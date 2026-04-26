@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LensProvider } from './context/LensContext';
+import { AppProvider } from './context/AppContext';
+import { ToastProvider } from './components/alerts/ToastSystem'
 import './index.css';
 
 // Layout
@@ -29,7 +31,7 @@ import Architecture from './pages/Architecture';
 import Roadmap from './pages/Roadmap';
 import ShapExplainer from './pages/ShapExplainer';
 import Backtest from './pages/Backtest';
-import HypeDetector from './pages/HypeDetector';
+
 import RagChatbot from './pages/RagChatbot';
 import CompanyIntelligence from './pages/CompanyIntelligence';
 import ModelHub from './pages/ModelHub';
@@ -42,6 +44,8 @@ import CompanyProfile from './pages/CompanyProfile';
 import InvestmentCommittee from './pages/InvestmentCommittee';
 import ScenarioAnalysis from './pages/ScenarioAnalysis';
 import InvestmentAgent from './pages/InvestmentAgent';
+import ClipClassifier from './pages/ClipClassifier';
+import GenAIEval from './pages/GenAIEval';
 
 // Public pages
 import StartupRegisterPage from './pages/StartupRegisterPage';
@@ -55,13 +59,19 @@ import DiscoverPage from './pages/DiscoverPage';
 import OnboardingWizard from './pages/OnboardingWizard';
 import PortfolioUserView from './pages/PortfolioUserView';
 import WatchlistPage from './pages/WatchlistPage';
+import HoldingsPage from './pages/HoldingsPage';
+import StartupProfilePage from './pages/StartupProfilePage';
+import DataExplorerPage from './pages/DataExplorerPage';
+import ResearchPage from './pages/ResearchPage';
 
 // Phase 3 — Admin Console
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsersPage from './pages/AdminUsersPage';
 import ModelMonitorPage from './pages/ModelMonitorPage';
 import ContractConsolePage from './pages/ContractConsolePage';
-
+import BenchmarkPage from './pages/BenchmarkPage';
+import FounderVerifyPage from './pages/FounderVerifyPage';
+import RiskAssessmentPage from './pages/RiskAssessmentPage';
 
 // Route → Page component map (28 core pages)
 const PAGE_ROUTES = [
@@ -72,7 +82,7 @@ const PAGE_ROUTES = [
   { path: '/risk', Component: RiskAuditor },
   { path: '/sentiment', Component: Sentiment },
   { path: '/shap', Component: ShapExplainer },
-  { path: '/hype', Component: HypeDetector },
+
   { path: '/portfolio', Component: Portfolio },
   { path: '/montecarlo', Component: MonteCarlo },
   { path: '/backtest', Component: Backtest },
@@ -94,18 +104,28 @@ const PAGE_ROUTES = [
   { path: '/committee', Component: InvestmentCommittee },
   { path: '/scenario', Component: ScenarioAnalysis },
   { path: '/agent', Component: InvestmentAgent },
+  { path: '/clip', Component: ClipClassifier },
+  { path: '/eval', Component: GenAIEval },
 
   // Phase 2 — User App
   { path: '/dashboard',          Component: UserDashboard    },
   { path: '/discover',           Component: DiscoverPage     },
   { path: '/my-portfolio',       Component: PortfolioUserView },
   { path: '/watchlist',          Component: WatchlistPage    },
+  { path: '/holdings',           Component: HoldingsPage     },
+  { path: '/startup/:name',      Component: StartupProfilePage },
+  { path: '/explore',            Component: DataExplorerPage   },
+  { path: '/research',           Component: ResearchPage       },
 
   // Phase 3 — Admin Console  
   { path: '/admin',              Component: AdminDashboard    },
   { path: '/admin-users',        Component: AdminUsersPage    },
   { path: '/admin-monitor',      Component: ModelMonitorPage  },
   { path: '/admin-contracts',    Component: ContractConsolePage },
+  { path: '/warroom',            Component: WarRoom },
+  { path: '/benchmarks',        Component: BenchmarkPage     },
+  { path: '/founder-verify',    Component: FounderVerifyPage },
+  { path: '/risk-assessment',   Component: RiskAssessmentPage },
 ];
 
 // Standalone routes (outside AppShell — full screen)
@@ -138,7 +158,7 @@ function AppRoutes() {
         {STANDALONE_ROUTES.map(({ path, Component, exact }) => (
           <Route key={path} path={exact ? path : `${path}*`} element={<Component onNav={handleNav} />} />
         ))}
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     );
   }
@@ -149,9 +169,10 @@ function AppRoutes() {
         {PAGE_ROUTES.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component onNav={handleNav} />} />
         ))}
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/app" element={<Navigate to="/home" replace />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/home" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/app" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </AppShell>
   );
@@ -160,7 +181,6 @@ function AppRoutes() {
 // ── Public Routes ─────────────────────────────────────────────────────────────
 function PublicRoutes() {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   return (
     <Routes>
@@ -171,7 +191,7 @@ function PublicRoutes() {
       <Route path="/register/startup" element={<StartupRegisterPage />} />
       <Route path="/home" element={
         user
-          ? <Navigate to="/home" replace />
+          ? <Navigate to="/dashboard" replace />
           : <Navigate to="/" replace />
       } />
       <Route path="*" element={<AppRoutes />} />
@@ -216,15 +236,19 @@ class ErrorBoundary extends React.Component {
 // ── Root ──────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <LensProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <ErrorBoundary>
-            <AuthLoader />
-          </ErrorBoundary>
-        </BrowserRouter>
-      </AuthProvider>
-    </LensProvider>
+    <AppProvider>
+      <LensProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <BrowserRouter>
+              <ErrorBoundary>
+                <AuthLoader />
+              </ErrorBoundary>
+            </BrowserRouter>
+          </ToastProvider>
+        </AuthProvider>
+      </LensProvider>
+    </AppProvider>
   );
 }
 

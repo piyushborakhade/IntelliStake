@@ -1,0 +1,189 @@
+{
+  "generated_at": "2026-04-22T21:20:43.839819+00:00",
+  "sources": [
+    "Inc42",
+    "TechCrunch India",
+    "YourStory"
+  ],
+  "overall_score": 0.036,
+  "overall_label": "neutral",
+  "sector_scores": {
+    "FoodTech": {
+      "avg_score": -0.09,
+      "headline_count": 3,
+      "label": "bearish"
+    },
+    "FinTech": {
+      "avg_score": 0.045,
+      "headline_count": 6,
+      "label": "neutral"
+    },
+    "eCommerce": {
+      "avg_score": 0.18,
+      "headline_count": 3,
+      "label": "bullish"
+    },
+    "ConsumerTech": {
+      "avg_score": 0.0,
+      "headline_count": 2,
+      "label": "neutral"
+    },
+    "EdTech": {
+      "avg_score": 0.0,
+      "headline_count": 1,
+      "label": "neutral"
+    }
+  },
+  "items": [
+    {
+      "startup_name": "Swiggy",
+      "sector": "FoodTech",
+      "headline": "Eat App wants a bite of India&#8217;s restaurant reservation business with an acquisition and Swiggy partnership",
+      "source": "TechCrunch India",
+      "url": "https://techcrunch.com/2026/01/20/eat-app-wants-a-bite-of-indias-restaurant-reservation-business-with-an-acquisition-and-swiggy-partnership/",
+      "published_at": "Tue, 20 Jan 2026 16:00:00 +0000",
+      "label": "positive",
+      "sentiment_score": 0.27
+    },
+    {
+      "startup_name": "CRED",
+      "sector": "FinTech",
+      "headline": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+      "source": "YourStory",
+      "url": "https://yourstory.com/2026/04/kabeer-biswass-new-startup-raises-rs-108-cr-from-peakxv-blume",
+      "published_at": "Wed, 22 Apr 2026 12:15:09 GMT",
+      "label": "positive",
+      "sentiment_score": 0.27
+    },
+    {
+      "startup_name": "Swiggy",
+      "sector": "FoodTech",
+      "headline": "Karnataka HC Extends Interim Protection For Swiggy Against CCI Probe",
+      "source": "Inc42",
+      "url": "https://inc42.com/buzz/karnataka-hc-extends-interim-protection-for-swiggy-against-cci-probe/",
+      "published_at": "Wed, 22 Apr 2026 08:57:27 +0000",
+      "label": "negative",
+      "sentiment_score": -0.27
+    },
+    {
+      "startup_name": "Razorpay",
+      "headline": "Razorpay expands agentic payments pilots with NPCI partners",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "FinTech",
+      "url": "",
+      "label": "positive",
+      "sentiment_score": 0.27
+    },
+    {
+      "startup_name": "Paytm",
+      "headline": "Paytm focuses on compliance-first merchant products after regulatory reset",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "FinTech",
+      "url": "",
+      "label": "negative",
+      "sentiment_score": -0.27
+    },
+    {
+      "startup_name": "Zepto",
+      "headline": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "eCommerce",
+      "url": "",
+      "label": "positive",
+      "sentiment_score": 0.27
+    },
+    {
+      "startup_name": "Nykaa",
+      "headline": "Nykaa expands omnichannel beauty distribution with brand tie-ups",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "eCommerce",
+      "url": "",
+      "label": "positive",
+      "sentiment_score": 0.27
+    },
+    {
+      "startup_name": "Swiggy",
+      "headline": "Swiggy doubles down on Instamart footprint in tier-2 cities",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "FoodTech",
+      "url": "",
+      "label": "negative",
+      "sentiment_score": -0.27
+    },
+    {
+      "startup_name": "Phone Pe",
+      "sector": "ConsumerTech",
+      "headline": "Gramophone Cofounder Navneet Singh Batra Quits, Joins Superplum",
+      "source": "Inc42",
+      "url": "https://inc42.com/buzz/gramophone-cofounder-navneet-singh-batra-quits-joins-superplum/",
+      "published_at": "Wed, 22 Apr 2026 12:05:46 +0000",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "Groww",
+      "sector": "FinTech",
+      "headline": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+      "source": "Inc42",
+      "url": "https://inc42.com/features/growws-new-verticals-gain-ground-as-revenue-mix-shifts/",
+      "published_at": "Wed, 22 Apr 2026 06:56:57 +0000",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "PhonePe",
+      "headline": "PhonePe deepens merchant payments push as UPI volumes climb",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "ConsumerTech",
+      "url": "",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "CRED",
+      "headline": "CRED sharpens premium lending and rewards strategy with new product rollout",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "FinTech",
+      "url": "",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "Groww",
+      "headline": "Groww adds wealth tools as retail investing demand stays firm",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "FinTech",
+      "url": "",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "Meesho",
+      "headline": "Meesho scales logistics efficiency ahead of festive demand",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "eCommerce",
+      "url": "",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    },
+    {
+      "startup_name": "Byju's",
+      "headline": "Byju's faces ongoing restructuring pressure amid delayed resolution efforts",
+      "source": "Google News",
+      "published_at": "Live",
+      "sector": "EdTech",
+      "url": "",
+      "label": "neutral",
+      "sentiment_score": 0.0
+    }
+  ]
+}

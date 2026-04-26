@@ -1,77 +1,126 @@
 {
   "company": "Razorpay",
-  "data_source": "live_fetch",
+  "data_source": "data_lake",
   "profile": {
     "startup_name": "Razorpay",
-    "sector": "technology",
-    "stage": "growth",
-    "predicted_valuation_usd": 100000000,
-    "total_funding_usd": 20000000,
-    "trust_score": 0.58,
+    "sector": "FinTech",
+    "city": "Bangalore",
+    "country": "India",
+    "founded_year": 2014,
+    "company_age_years": 11,
+    "total_funding_usd": 1455539392.23,
+    "valuation_usd": 7500000000.0,
+    "revenue_usd": 353774162.07,
+    "employees": 479,
+    "trust_score": 0.673,
+    "sentiment_cfs": 0.1742,
     "github_velocity_score": 91,
-    "risk_severity": "MEDIUM",
-    "classification": "LEGITIMATE",
-    "github_stars": 2073,
+    "stage": "Series F",
+    "data_source": "verified_real",
+    "investors": "",
+    "is_real": true,
+    "nlp_dim_0": -0.01289,
+    "nlp_dim_1": -0.00859,
+    "nlp_dim_2": -0.10237,
+    "nlp_dim_3": -0.02805,
+    "nlp_dim_4": -0.0187,
+    "nlp_dim_5": -0.00391,
+    "nlp_dim_6": -0.11466,
+    "nlp_dim_7": -0.00815,
+    "description_richness": 1.0,
+    "sector_similarity_score": 0.4141,
+    "has_nlp_features": true,
+    "sector_ps_median": 8.2,
+    "sector_pe_median": 45.0,
+    "vc_deal_count_2024": 312,
+    "avg_round_size_usd": 18000000.0,
+    "gdp_growth_pct_2024": 6.495,
+    "gdp_growth_pct_2023": 9.191,
+    "gdp_growth_pct_2022": 7.609,
+    "gdp_growth_pct_2021": 9.69,
+    "gdp_growth_pct_2020": -5.778,
+    "gdp_growth_pct": 6.495,
+    "inflation_pct_2024": 4.953,
+    "inflation_pct_2023": 5.649,
+    "inflation_pct_2022": 6.699,
+    "inflation_pct_2021": 5.131,
+    "inflation_pct_2020": 6.623,
+    "inflation_pct": 4.953,
+    "lending_rate_pct_2022": 8.567,
+    "lending_rate_pct_2021": 8.698,
+    "lending_rate_pct_2020": 9.15,
+    "lending_rate_pct_2019": 9.466,
+    "lending_rate_pct_2018": 9.454,
+    "lending_rate_pct": 8.567,
+    "mkt_cap_pct_gdp_2024": 131.241,
+    "mkt_cap_pct_gdp_2023": 119.284,
+    "mkt_cap_pct_gdp_2022": 101.233,
+    "mkt_cap_pct_gdp_2021": 112.021,
+    "mkt_cap_pct_gdp_2020": 95.425,
+    "mkt_cap_pct_gdp": 131.241,
+    "github_stars": 2084,
     "github_repos": 5,
     "top_repo": "razorpay/blade",
     "finbert_label": "NEUTRAL",
-    "finbert_compound": 0.0059,
+    "finbert_compound": 0.0375,
     "headlines_found": 5,
     "sample_headlines": [
       "\"Razorpay startup india\" - Google News",
-      "Razorpay partners with vibe coding startup Replit to localise payments for Indian developers - The Economic Times",
-      "From Zepto to Razorpay and more: Do Indian startups have what it takes to become global tech giants? - Forbes India"
+      "Razorpay plans confidential IPO filing, may raise up to $700 million: Report - Indian Startup News",
+      "DPIIT signs MoU with a leading Fintech Platform Razorpay, to strengthen India\u2019s Startup Ecosystem - India Shipping News"
     ],
+    "classification": "LEGITIMATE",
+    "risk_severity": "LOW",
     "top_shap_feature": "github_velocity_score",
-    "cis": 0.767,
+    "cis": 0.7064,
     "cis_details": {
-      "cis": 0.767,
-      "ci_low": 0.687,
-      "ci_high": 0.847,
-      "signal": "STRONG BUY",
-      "percentile": 80,
+      "cis": 0.7064,
+      "ci_low": 0.6264,
+      "ci_high": 0.7864,
+      "signal": "BUY",
+      "percentile": 74,
       "components": {
-        "valuation_score": 0.825,
-        "sentiment_score": 0.503,
+        "valuation_score": 0.4,
+        "sentiment_score": 0.519,
         "hype_score": 1.0,
-        "risk_score": 0.7,
+        "risk_score": 1.0,
         "velocity_score": 0.91,
-        "funding_score": 0.73
+        "funding_score": 0.916
       }
     },
-    "investment_thesis": "**Razorpay** \u2014 technology \u00b7 growth Stage | CIS: 0.77 | Signal: **STRONG BUY**\n\nIntelliStake's Composite Intelligence Score places Razorpay at the **80th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$100.0M** against total funding of **$20.0M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Razorpay startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **91/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend an immediate position with confidence. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
+    "investment_thesis": "**Razorpay** \u2014 FinTech \u00b7 Series F Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Razorpay at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$1455.5M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Razorpay startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **91/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds."
   },
   "cis": {
-    "cis": 0.767,
-    "ci_low": 0.687,
-    "ci_high": 0.847,
-    "signal": "STRONG BUY",
-    "percentile": 80,
+    "cis": 0.7064,
+    "ci_low": 0.6264,
+    "ci_high": 0.7864,
+    "signal": "BUY",
+    "percentile": 74,
     "components": {
-      "valuation_score": 0.825,
-      "sentiment_score": 0.503,
+      "valuation_score": 0.4,
+      "sentiment_score": 0.519,
       "hype_score": 1.0,
-      "risk_score": 0.7,
+      "risk_score": 1.0,
       "velocity_score": 0.91,
-      "funding_score": 0.73
+      "funding_score": 0.916
     }
   },
-  "thesis": "**Razorpay** \u2014 technology \u00b7 growth Stage | CIS: 0.77 | Signal: **STRONG BUY**\n\nIntelliStake's Composite Intelligence Score places Razorpay at the **80th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$100.0M** against total funding of **$20.0M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Razorpay startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **91/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **MEDIUM risk** \u2014 it carries moderate risk, appropriate for qualified investors.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend an immediate position with confidence. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
+  "thesis": "**Razorpay** \u2014 FinTech \u00b7 Series F Stage | CIS: 0.71 | Signal: **BUY**\n\nIntelliStake's Composite Intelligence Score places Razorpay at the **74th percentile** within its sector. Our stacked ensemble (XGBoost + LightGBM + TabMLP) estimates a predicted valuation of **$0** against total funding of **$1455.5M**. Isolation Forest analysis confirms valuation is supported by real fundamentals.\n\nMedia sentiment is neutral (recent: \"\"Razorpay startup india\" - Google News\u2026\"). GitHub engineering velocity is rated **91/100**, indicating strong technical execution. R.A.I.S.E. Risk Auditor classifies this company as **LOW risk** \u2014 it presents a favourable risk profile with controlled downside.\n\nThe primary valuation driver identified by SHAP TreeExplainer is **github_velocity_score**. We recommend initiating a position over the next 30 days. If investing, consider milestone-gated tranches via IntelliStake's AgentVault smart contract, releasing funds as the company hits performance thresholds.",
   "steps": [
     {
       "step": "Data Lake Lookup",
       "status": "running",
-      "result": "Not in data lake \u2014 initiating live research"
+      "result": "Found in data lake \u2014 56 fields"
     },
     {
       "step": "GitHub API",
       "status": "running",
-      "result": "5 repos \u00b7 2,073 stars \u00b7 velocity 91"
+      "result": "5 repos \u00b7 2,084 stars \u00b7 velocity 91"
     },
     {
       "step": "FinBERT Sentiment",
       "status": "running",
-      "result": "NEUTRAL \u00b7 compound 0.0059 \u00b7 5 headlines"
+      "result": "NEUTRAL \u00b7 compound 0.0375 \u00b7 5 headlines"
     },
     {
       "step": "Isolation Forest",
@@ -81,7 +130,7 @@
     {
       "step": "R.A.I.S.E. Risk Audit",
       "status": "running",
-      "result": "MEDIUM"
+      "result": "LOW"
     },
     {
       "step": "SHAP Explainer",
@@ -91,7 +140,7 @@
     {
       "step": "CIS Engine",
       "status": "running",
-      "result": "CIS: 0.767 \u2192 STRONG BUY"
+      "result": "CIS: 0.706 \u2192 BUY"
     },
     {
       "step": "Thesis Generator",
@@ -99,6 +148,6 @@
       "result": "Thesis generated"
     }
   ],
-  "timestamp": "2026-03-02T17:28:07.821162+00:00",
+  "timestamp": "2026-04-24T18:42:49.180837+00:00",
   "cached": false
 }

@@ -1,464 +1,607 @@
 # IntelliStake - Progress Report
-**AI-Driven Decentralized Venture Capital Platform**
+**AI-Governed Crowd-Venture Investment Platform**
+
+**NMIMS MCA Capstone 2025-26**
+**Last Updated:** 2026-04-23
+**Current Status:** Core platform implemented, refactored, and demo-ready
 
 ---
 
-## Project Overview
+## 1. Project Summary
 
-IntelliStake is a comprehensive three-domain platform that leverages **Artificial Intelligence**, **Quantitative Finance**, and **Blockchain Technology** to democratize startup investing with institutional-grade tools.
+IntelliStake is a full-stack venture investment platform for Indian startups. It combines artificial intelligence, quantitative finance, blockchain compliance, and a dual-lens web experience into a single capstone-grade system.
 
-**Institution**: NMIMS University  
-**Course**: MBA (Tech) Capstone  
-**Completion Date**: February 2026  
-**Status**: Phase 1 & Phase 2 Complete ✅
+The platform is built around the R.A.I.S.E. framework:
+- Risk
+- AI
+- Investment
+- Security
+- Escrow
 
----
-
-## Phase 1: AI Valuation Engine
-
-### Objective
-Build machine learning models to predict startup valuations with institutional-grade accuracy.
-
-### Implementation
-
-**Technology Stack**:
-- Python 3.x
-- XGBoost (Gradient Boosting)
-- LightGBM (Light Gradient Boosting Machine)
-- Scikit-learn, Pandas, NumPy
-
-**Model Architecture**:
-- **Dataset**: 50,000 startup records
-- **Features**: 6 predictive variables
-  - Employee count (71.3% importance)
-  - Funding amount (16.0%)
-  - Revenue (4.8%)
-  - Industry sector (3.2%)
-  - Funding round (2.9%)
-  - Founded year (1.8%)
-- **Target**: Estimated valuation (USD)
-- **Train/Test Split**: 80/20 (random_state=42)
-- **Encoding**: LabelEncoder for categorical variables
-
-### Performance Metrics
-
-| Model | R² Score | MAE | RMSE |
-|-------|----------|-----|------|
-| **XGBoost** | 0.874 | $932M | $3.1B |
-| **LightGBM** | 0.887 | $878M | $2.8B |
-
-**Key Insight**: Employee count dominates feature importance at 71.3%, validating VC industry wisdom: "Invest in teams, not just ideas."
-
-### Deliverables
-- ✅ `valuation_engine.py` (339 lines)
-- ✅ Trained models with 87-89% prediction accuracy
-- ✅ Feature importance analysis
-- ✅ Comprehensive documentation
+The project now includes:
+- A large startup data lake with 74,577 records and 64 features per startup
+- Production ML models for valuation, trust scoring, anomaly detection, sentiment, and portfolio construction
+- A modular Flask backend with more than 33 REST endpoints
+- Solidity smart contracts for KYC, compliance, escrow, and oracle integration
+- A React + Vite dashboard with admin and investor experiences
+- Demo flows for wallet, alerts, notifications, and transaction history
 
 ---
 
-## Phase 2: Finance Domain - Portfolio Optimization
+## 2. What Was Added Recently
 
-### Objective
-Implement Black-Litterman portfolio optimization to convert AI predictions into optimal asset allocations.
+The latest work focused on turning the earlier prototype into a more complete product surface.
 
-### Methodology
+### Frontend and UX
+- Added a warm retail investor shell at `/u/*` with Portfolio, Discover, Watchlist, Analytics, and Profile tabs.
+- Added `ProGate` for premium feature gating with localStorage-based demo override.
+- Added `LensToggle` routing between investor and admin experiences.
+- Added `TradingAlerts` for AI signal feed with Buy/Sell/Hold recommendations.
+- Added `NotificationPanel` behind the top-bar bell icon.
+- Added `WalletConnect` for MetaMask / Sepolia demo transactions.
+- Expanded `BottomNav` with Simulate, Blockchain, Txns, Wallet, and Alerts actions.
+- Added a dark-to-light multi-theme system with persisted user preference.
 
-**Black-Litterman Model**:
-- Combines market equilibrium returns (CAPM prior) with AI predictions (investor views)
-- Uses Bayesian statistics to produce robust posterior expected returns
-- Formula: `E[R] = [(τΣ)⁻¹ + P'Ω⁻¹P]⁻¹ × [(τΣ)⁻¹Π + P'Ω⁻¹Q]`
+### Backend and Intelligence Layer
+- Added ML-based trust scoring in `engine/trust_score_ml.py`.
+- Added anomaly ensemble detection in `engine/anomaly_ensemble.py`.
+- Added Hierarchical Risk Parity support in `engine/portfolio_hrp.py`.
+- Added a modular ML training pipeline in `engine/ml/model_trainer.py`.
+- Added backend auth and encryption utilities in `engine/security/auth.py`.
+- Added Redis caching support in `engine/cache/redis_cache.py`.
+- Added route-level user endpoints in `engine/routes/user_routes.py`.
 
-**Components**:
-1. **Prior (Π)**: Market equilibrium returns via CAPM
-2. **Views (Q)**: AI-predicted growth rates converted to investor views
-3. **Uncertainty (Ω)**: View confidence matrix based on AI confidence scores
-4. **Optimization**: Mean-variance optimization with risk aversion δ=2.5
+### Blockchain and Oracle Flow
+- Added `TrustOracle.sol` for signed trust-score push operations.
+- Added `MilestoneEscrow.sol` for tranche-based escrow release.
+- Added `ComplianceRules.sol` for KYC and compliance enforcement.
+- Added `AgentVault.sol` for AI-assisted vault and investment routing.
+- Added full transaction demo coverage in `blockchain/scripts/demo_all_transactions.js`.
 
-### Implementation
-
-**Technology Stack**:
-- Python 3.x
-- NumPy, SciPy (matrix operations)
-- Pandas (data manipulation)
-- Optimization: SLSQP method with long-only constraints
-
-**Process**:
-1. Load AI valuation predictions
-2. Calculate market equilibrium (CAPM)
-3. Construct investor views from AI predictions
-4. Compute posterior returns (Black-Litterman)
-5. Optimize portfolio weights (mean-variance)
-6. Generate investment recommendations
-
-### Performance Metrics
-
-| Metric | Value |
-|--------|-------|
-| **Expected Annual Return** | 9.99% |
-| **Portfolio Volatility** | 18.02% |
-| **Sharpe Ratio** | 0.388 |
-| **Number of Holdings** | 20 startups |
-| **Optimization Time** | ~1 second |
-
-### Deliverables
-- ✅ `portfolio_optimizer.py` (600+ lines)
-- ✅ `investment_recommendations.csv` (20 optimal allocations)
-- ✅ Risk-adjusted portfolio with positive Sharpe ratio
-- ✅ Comprehensive mathematical documentation
+### Reporting and Documentation
+- Updated the project knowledge base.
+- Added refactoring and production-improvement summaries.
+- Expanded the README and roadmap to match the current system state.
 
 ---
 
-## Phase 2: Blockchain Domain - Compliant Tokenization
+## 3. Current Architecture
 
-### Objective
-Draft ERC-3643 (T-REX) compliant smart contract for security token issuance with KYC verification and milestone-based escrow.
+### Repository Layout
 
-### Smart Contract Architecture
-
-**Standard**: ERC-3643 (T-REX Protocol for tokenized securities)  
-**Language**: Solidity 0.8.20  
-**Framework**: OpenZeppelin (Ownable, ReentrancyGuard, Pausable)
-
-**Key Features**:
-1. **Identity Verification**
-   - Integration with IdentityRegistry interface
-   - KYC verification for sender and recipient
-   - Accredited investor validation
-
-2. **Transfer Compliance**
-   - All transfers must pass 6 compliance checks:
-     - ✅ KYC verified (sender)
-     - ✅ KYC verified (recipient)
-     - ✅ Accredited investor status
-     - ✅ Within max holding limit
-     - ✅ Above minimum investment
-     - ✅ External compliance module approval
-
-3. **Milestone-Based Escrow**
-   - `lockTranche()`: Owner locks tokens for startup with milestone hash
-   - Tokens held in escrow until milestone completion
-   - `releaseTranche()`: Owner releases funds after oracle verification
-   - Cryptographic proof required for milestone validation
-
-4. **Administrative Controls**
-   - Owner can mint tokens for compliant investors
-   - Pause/unpause functionality for emergencies
-   - Identity registry and compliance module updates
-   - Accredited investor whitelist management
-
-### Technical Specifications
-
-| Feature | Details |
-|---------|---------|
-| **Token Standard** | ERC-3643 (T-REX) |
-| **Compliance** | KYC, accredited investors, holding limits |
-| **Escrow System** | Milestone-based with oracle verification |
-| **Security** | Custom errors, reentrancy guards, pause mechanism |
-| **Gas Optimization** | Custom errors instead of revert strings |
-| **Events** | 7 compliance & escrow events for transparency |
-| **Functions** | 15 external, 2 internal |
-
-### Deliverables
-- ✅ `IntelliStakeToken.sol` (500+ lines)
-- ✅ ERC-3643 compliant implementation
-- ✅ Milestone escrow system
-- ✅ Comprehensive inline documentation
-
----
-
-## Phase 2: Integration Layer - Oracle Network
-
-### Objective
-Provide Chainlink Functions script to bridge off-chain AI/Finance computations to on-chain smart contract execution.
-
-### Oracle Architecture
-
-**Platform**: Chainlink Functions (Decentralized Oracle Network)  
-**Language**: JavaScript (DON execution environment)  
-**Purpose**: Fetch AI valuation data and encode for EVM consumption
-
-**Data Flow**:
-1. **Python ML Service** → Flask API serving predictions
-2. **HTTP Request** → Chainlink Functions fetches data
-3. **Validation** → Response schema verification
-4. **EVM Encoding** → Convert float to uint256 (scaled by 10^18)
-5. **On-chain TX** → Submit to smart contract
-
-### Reliability Features
-
-1. **Retry Logic**
-   - 3 attempts with exponential backoff (1s, 2s, 4s delays)
-   - Prevents temporary network failures
-
-2. **Timeout Protection**
-   - 5-second API timeout
-   - Prevents hanging requests
-
-3. **Circuit Breaker**
-   - Stops requests after 5 consecutive failures
-   - Protects against cascading failures
-
-4. **Data Validation**
-   - Schema verification before encoding
-   - Type checking (valuation, confidence, timestamp)
-
-5. **Error Handling**
-   - Comprehensive try-catch blocks
-   - Detailed error messages for debugging
-
-### EVM Encoding
-
-Ethereum doesn't support floating-point numbers. We scale by 10^18 for precision:
-
-| Data Type | Before | After |
-|-----------|--------|-------|
-| Valuation | $15,000,000.00 | 15000000 × 10^18 |
-| Confidence | 0.88 | 880000000000000000 |
-| Timestamp | Feb 10, 2026 | 1707619200 (Unix) |
-
-### Performance Metrics
-
-| Metric | Value |
-|--------|-------|
-| **Request Latency** | ~15 seconds |
-| **Retry Attempts** | 3x (exponential backoff) |
-| **Success Rate** | >99% |
-| **Oracle Cost** | ~0.5 LINK per request (~$7.50 USD) |
-
-### Deliverables
-- ✅ `IntelliStakeOracle.js` (350+ lines)
-- ✅ Retry logic with exponential backoff
-- ✅ Circuit breaker mechanism
-- ✅ EVM encoding utilities
-- ✅ Comprehensive error handling
-
----
-
-## Phase 3: Interactive Web Dashboard
-
-### Objective
-Create professional web interface to demonstrate all IntelliStake work to professor in interactive, step-by-step format.
-
-### Technology Stack
-
-- **Framework**: Vite + React 18
-- **Styling**: Vanilla CSS with custom design system
-- **Charts**: Chart.js + react-chartjs-2
-- **Data Loading**: PapaParse (CSV parsing)
-- **Routing**: React Router DOM
-- **Icons**: Lucide React
-
-### Design System
-
-**Theme**: Dark fintech aesthetic with glassmorphism
-
-**Colors**:
-- Base: Deep navy (#0a0e27)
-- Accents: Purple-blue gradient (#6366f1 → #8b5cf6)
-- Text: White with varying opacity
-
-**Effects**:
-- Glassmorphism (frosted glass cards)
-- Animated gradient orbs
-- Smooth transitions and hover effects
-- Professional typography (Inter font)
-
-### Pages Built
-
-1. **Landing Page (Hero)**
-   - Animated gradient background
-   - Project overview with key metrics
-   - Three-domain cards (AI, Finance, Blockchain)
-
-2. **Phase 1: AI Valuation**
-   - Performance metrics display
-   - Model architecture grid
-   - Interactive Chart.js feature importance bar chart
-   - Python code samples
-
-3. **Phase 2: Finance Domain**
-   - Black-Litterman formula display
-   - Portfolio allocation pie chart
-   - Investment recommendations table (CSV data)
-   - Optimization code excerpts
-
-4. **Phase 2: Blockchain Domain**
-   - Compliance rules checklist
-   - 5-step milestone escrow flow diagram
-   - Smart contract code samples
-   - Architecture specifications
-
-5. **Phase 2: Oracle Integration**
-   - 5-stage data flow visualization
-   - Reliability features grid
-   - EVM encoding examples
-   - JavaScript code samples
-
-6. **Complete Architecture**
-   - End-to-end flow diagram (4 stages)
-   - Technical specifications table
-   - Performance metrics summary
-   - Future roadmap
-
-7. **Navigation & Footer**
-   - Sticky navbar with active link highlighting
-   - Mobile-responsive hamburger menu
-   - Project information footer
-   - Quick links to all pages
-
-### Features
-
-- ✅ **Interactive Charts**: Chart.js visualizations with hover tooltips
-- ✅ **Live Data**: CSV loading with PapaParse
-- ✅ **Responsive Design**: Mobile-first with breakpoints
-- ✅ **Smooth Animations**: Fade-ins, gradient orbs, transitions
-- ✅ **Code Highlighting**: Syntax-highlighted Python & Solidity
-- ✅ **Professional UI**: Glassmorphism, gradients, modern typography
-
-### Access
-
-**URL**: `http://localhost:5173`  
-**Command**: `npm run dev` (in `intellistake-dashboard/`)  
-**Status**: ✅ Running and verified
-
-### Deliverables
-- ✅ 18 React component files (2000+ lines)
-- ✅ 6 interactive pages with visualizations
-- ✅ Custom design system (600+ lines CSS)
-- ✅ Demonstration guide for professor
-- ✅ Production-ready dashboard
-
----
-
-## Complete System Architecture
-
-### End-to-End Data Flow
-
-```
-┌──────────────┐      ┌───────────────┐      ┌──────────────┐      ┌────────────┐
-│   AI Domain  │      │    Finance    │      │   Chainlink  │      │ Blockchain │
-│  (Phase 1)   │ ───▶ │    Domain     │ ───▶ │    Oracle    │ ───▶ │   Domain   │
-│              │      │   (Phase 2)   │      │   Network    │      │ (Phase 2)  │
-└──────────────┘      └───────────────┘      └──────────────┘      └────────────┘
- Valuations           Allocations           EVM Encoding          Token Minting
- (R² 0.88)           (Black-Litterman)      (uint256)            (ERC-3643)
+```text
+IntelliStake_Final/
+├── dashboard/              React 18 + Vite frontend
+├── engine/                 Python backend, ML, security, and API routes
+├── blockchain/             Hardhat + Solidity contracts and demo scripts
+├── data_scaling_engine/    Data ingestion and graph generation utilities
+├── unified_data/           Cleaned data lake, knowledge graph, outputs
+├── models/                 Persisted model artifacts
+├── docs/                   Project documentation and reports
+└── tests/                  API smoke and endpoint tests
 ```
 
-### Integration Points
-
-1. **AI → Finance**: Predictions feed into Black-Litterman views (Q matrix)
-2. **Finance → Oracle**: Portfolio allocations fetched via HTTP API
-3. **Oracle → Blockchain**: EVM-encoded data submitted to smart contract
-4. **Blockchain → Escrow**: Tokens locked pending milestone verification
+### Main Runtime Surfaces
+- Frontend port: 5173
+- Backend port: 5500
+- Blockchain demo: Hardhat / Sepolia flow
 
 ---
 
-## Technical Achievements
+## 4. Data and Knowledge Graph
 
-### Code Metrics
+The data layer is one of the main strengths of the project.
 
-| Component | Language | Lines of Code | Status |
-|-----------|----------|---------------|--------|
-| AI Valuation Engine | Python | 339 | ✅ Complete |
-| Portfolio Optimizer | Python | 600+ | ✅ Complete |
-| Smart Contract | Solidity | 500+ | ✅ Complete |
-| Oracle Bridge | JavaScript | 350+ | ✅ Complete |
-| Web Dashboard | React/CSS | 2000+ | ✅ Complete |
-| **Total** | **Mixed** | **3800+** | **✅ Complete** |
+### Data Coverage
+- 74,577 total startup records
+- 64 engineered features per startup in the master graph
+- 3.2M+ data points in the knowledge graph
+- Multiple source streams merged into one pipeline
 
-### Performance Summary
+### Data Sources
+- MCA government filings
+- GitHub velocity and repository signals
+- Web traffic and growth signals
+- News and RSS sentiment feeds
+- Founder and investor profile signals
+- Blockchain wallet and compliance identity data
 
-| Metric | Value | Domain |
-|--------|-------|--------|
-| AI Prediction Accuracy (R²) | 0.87-0.89 | AI |
-| Portfolio Expected Return | 9.99% annual | Finance |
-| Portfolio Sharpe Ratio | 0.388 | Finance |
-| Portfolio Volatility | 18.02% | Finance |
-| Oracle Request Latency | ~15 seconds | Integration |
-| Oracle Success Rate | >99% | Integration |
-| Smart Contract Gas Cost | ~3.5M gas | Blockchain |
-| Dashboard Load Time | <500ms | Web |
+### Data Outputs
+- Cleaned startup datasets
+- Sentiment datasets
+- GitHub velocity outputs
+- MCA audit results
+- Final portfolio and model output files
 
----
-
-## Deliverables Summary
-
-### Phase 1 Deliverables
-- ✅ `valuation_engine.py` - ML models with 87-89% accuracy
-- ✅ Feature importance analysis
-- ✅ Model performance evaluation
-
-### Phase 2 Deliverables
-- ✅ `portfolio_optimizer.py` - Black-Litterman implementation
-- ✅ `investment_recommendations.csv` - 20 optimal allocations
-- ✅ `IntelliStakeToken.sol` - ERC-3643 compliant smart contract
-- ✅ `IntelliStakeOracle.js` - Chainlink Functions bridge
-
-### Phase 3 Deliverables
-- ✅ Interactive web dashboard (6 pages)
-- ✅ Chart.js visualizations
-- ✅ CSV data integration
-- ✅ Demonstration guide
-
-### Documentation
-- ✅ Progress Summary
-- ✅ Technical Roadmap
-- ✅ Walkthrough Documentation
-- ✅ Dashboard Demonstration Guide
+### Data Flow
+1. Raw ingestion
+2. Cleaning and deduplication
+3. Signal enrichment
+4. Knowledge graph synthesis
+5. Portfolio and risk outputs
 
 ---
 
-## Key Innovations
+## 5. AI and ML Layer
 
-1. **Multi-Domain Integration**: Seamlessly connects AI, Finance, and Blockchain
-2. **Institutional-Grade Tools**: Black-Litterman, ERC-3643, Chainlink oracles
-3. **Risk Mitigation**: Milestone-based escrow with cryptographic verification
-4. **Regulatory Compliance**: KYC verification, accredited investor checks
-5. **Decentralized Architecture**: Oracle network for trustless data bridging
-6. **Interactive Demonstration**: Professional web dashboard for stakeholder review
+### Valuation Engine
+The valuation stack predicts startup valuations using ensemble ML methods.
+
+Current direction:
+- XGBoost and LightGBM remain core models
+- Stacked ensemble now includes CatBoost and additional learner support in the newer architecture docs
+- Production outputs are persisted for reuse and demo stability
+
+### Trust Scoring
+The trust system has moved from a simple hand-tuned formula toward a learned scoring approach.
+
+Current components:
+- `engine/trust_score_ml.py`
+- Calibrated probability-style trust outputs
+- Feature-driven interpretation using R.A.I.S.E. inputs
+- API exposure for trust score requests
+
+### Sentiment Analysis
+Sentiment now exists as a stronger ensemble surface rather than a single-model demo.
+
+Included signals:
+- FinBERT
+- FinBERT-tone
+- Twitter-RoBERTa sentiment
+- DeBERTa-based text scoring
+- VADER fallback / baseline scoring
+
+### Anomaly Detection
+Hype and risk anomaly detection is implemented as a multi-detector ensemble.
+
+Included detectors:
+- Isolation Forest
+- Local Outlier Factor
+- DBSCAN
+- Autoencoder-based anomaly detection
+
+### Portfolio Construction
+The finance layer now supports both classical and alternative portfolio approaches.
+
+Implemented methods:
+- Black-Litterman portfolio optimization
+- Hierarchical Risk Parity (`/api/portfolio/hrp`)
+- Monte Carlo simulation for scenario analysis
+- Risk-adjusted output metrics such as Sharpe, Sortino, volatility, and drawdown
+
+### Live Audit Agent
+The live audit agent combines signals from multiple sources and pushes trust status into the blockchain flow.
+
+Current behavior includes:
+- Real-time audit orchestration
+- Trust score computation
+- Oracle push preparation
+- Integration with blockchain freeze logic
 
 ---
 
-## Next Steps (Future Roadmap)
+## 6. Backend and API Surface
 
-### Short Term (1-3 months)
-- Deploy smart contracts to testnet (Sepolia/Goerli)
-- Implement comprehensive unit tests
-- Set up CI/CD pipeline (GitHub Actions)
-- Integrate with KYC provider API
+The backend is still centered on `engine/chatbot_api.py`, but the project now includes modular route and service layers.
 
-### Medium Term (3-6 months)
-- Professional security audit (Trail of Bits / Quantstamp)
-- Production API deployment (AWS / GCP)
-- Beta user testing program
-- Secondary market for liquidity
+### Backend Improvements
+- Flask app with many JSON endpoints
+- Rate limiting and request metrics
+- Structured API response behavior
+- Auth helpers for protected routes
+- Redis-backed cache support where available
+- Blueprint-style route expansion for user-facing features
 
-### Long Term (6-12 months)
-- Mainnet deployment on Ethereum
-- Institutional partnership onboarding
-- DAO governance implementation
-- Multi-chain support (Polygon, Arbitrum)
+### Notable Endpoints
+- `/api/status`
+- `/api/metrics`
+- `/api/slo`
+- `/api/portfolio`
+- `/api/portfolio/hrp`
+- `/api/trust-score`
+- `/api/sentiment/ensemble`
+- `/api/montecarlo`
+- `/api/escrow`
+- `/api/oracle`
+- `/api/blockchain/transactions`
+- `/api/supabase/transactions`
+- `/api/shap`
+- `/api/health`
+
+### User Routes
+`engine/routes/user_routes.py` provides user-facing endpoints for:
+- Profile
+- Personalized feed
+- Portfolio view
+- Watchlist management
+- HRP portfolio output
 
 ---
 
-## Conclusion
+## 7. Blockchain and Oracle Layer
 
-IntelliStake represents a comprehensive, production-ready platform that successfully integrates three complex technical domains:
+The blockchain layer handles compliant tokenization, escrow, and oracle flows.
 
-1. **Artificial Intelligence**: 87-89% accurate valuation predictions
-2. **Quantitative Finance**: Risk-adjusted portfolio optimization (9.99% return, 0.388 Sharpe)
-3. **Blockchain Technology**: Compliant security tokens with milestone escrow
+### Smart Contracts
+- `IdentityRegistry.sol` for KYC registry behavior
+- `IntelliStakeToken.sol` for ERC-3643 token behavior
+- `MilestoneEscrow.sol` for tranche-based fund release
+- `TrustOracle.sol` for signed trust-score pushes
+- `ComplianceRules.sol` for compliance validation
+- `AgentVault.sol` for demo investment routing
 
-The platform demonstrates **institutional-grade technical rigor** across AI model development, mathematical finance, smart contract security, oracle integration, and professional web development.
+### Oracle Flow
+1. Off-chain audit produces trust score
+2. Oracle signs payload
+3. Payload is pushed on-chain
+4. Escrow uses the trust signal for freeze or release logic
+5. Compliance rules enforce permitted transfer behavior
 
-**Total Effort**: 3800+ lines of production code across 5 programming languages (Python, Solidity, JavaScript, HTML/CSS, React JSX)
-
-**Status**: ✅ Ready for NMIMS Final Capstone Review
+### Demo Coverage
+- Sepolia-oriented wallet flow
+- Ethers.js contract interaction path
+- Contract transaction demo script
+- Oracle event logging and freeze scenarios
 
 ---
 
-**Built by**: IntelliStake Development Team  
-**For**: NMIMS University MBA (Tech) Capstone  
-**Date**: February 2026  
-**Version**: 2.0 (Phase 1 & 2 Complete)
+## 8. Dashboard and UI
+
+The dashboard now supports two distinct user experiences.
+
+### Admin War Room
+Designed for the institutional / analyst view.
+
+Core components:
+- `TopBar`
+- `CommandCenter`
+- `TrustRadar`
+- `OracleFeed`
+- `BottomNav`
+- `NotificationPanel`
+- `TradingAlerts`
+- `WalletConnect`
+
+### Investor User Shell
+Designed for the retail investor experience.
+
+Core components:
+- `UserShell.jsx`
+- `ProGate.jsx`
+- `LensToggle.jsx`
+- Portfolio tab
+- Discover tab
+- Watchlist tab
+- Analytics tab
+- Profile tab
+
+### UX Features
+- Warm white and indigo retail visual language
+- Dark institutional analytics mode
+- Theme switching with persistence
+- Metric cards and startup cards
+- SHAP and trust explanations
+- AI signal cards and simulated approvals
+
+---
+
+## 9. Testing and Verification
+
+Testing is now present, but the suite is still smaller than the final target.
+
+### Existing Tests
+- `tests/test_api_smoke.py`
+- `tests/test_ai_endpoints.py`
+
+### What These Cover
+- Health and status endpoints
+- Request validation behavior
+- Rate limit behavior
+- Metrics and SLO surface checks
+- Endpoint smoke coverage for AI and platform routes
+
+### Current Gap
+- Coverage is still below the long-term 80% target
+- More unit and integration tests are needed for the newer ML, UI, and blockchain surfaces
+
+---
+
+## 10. Key Metrics Snapshot
+
+| Area | Value |
+|---|---|
+| Startup records | 74,577 |
+| Features per startup | 64 |
+| Knowledge graph size | 3.2M+ data points |
+| Frontend pages | 31 |
+| API endpoints | 33+ |
+| ML model families | 5+ active model surfaces |
+| Blockchain contracts | 5+ core contracts |
+| Dashboard ports | 5173 frontend, 5500 backend |
+| Demo wallets | Admin, PM, Analyst roles |
+
+### Representative Model Metrics
+- Valuation model performance remains in the high-accuracy range described in the model docs
+- Portfolio optimization includes both BL and HRP outputs
+- Risk outputs include trust score, anomaly flags, and sentiment overlays
+
+### Representative Business Metrics
+- Demo portfolio support for multiple startup holdings
+- Escrow release tied to oracle and milestone logic
+- Wallet demo flow for Sepolia-based transactions
+
+---
+
+## 11. Current Delivery Status
+
+### Completed
+- Data ingestion and knowledge graph pipeline
+- Valuation, sentiment, trust, anomaly, and portfolio layers
+- Modular backend and route expansion
+- Smart contract and oracle architecture
+- Admin dashboard and investor shell
+- Demo transaction and wallet surfaces
+- Documentation refresh and refactor summaries
+
+### In Progress or Still to Expand
+- Broader test coverage
+- More complete frontend end-to-end automation
+- Additional production hardening for deployment
+- Further cleanup of duplicated legacy surfaces
+- Public-facing deployment packaging
+
+---
+
+## 12. How to Run the Project
+
+### Backend
+```bash
+cd IntelliStake_Final
+python3 engine/chatbot_api.py
+```
+
+### Frontend
+```bash
+cd IntelliStake_Final/dashboard
+npm run dev
+```
+
+### Blockchain Demo
+```bash
+cd IntelliStake_Final/blockchain
+npx hardhat run scripts/demo_all_transactions.js --network sepolia
+```
+
+### End-to-End Demo
+- Start backend
+- Start frontend
+- Open the dashboard
+- Use the War Room for analyst flows
+- Use `/u/*` for investor flows
+- Use the wallet and alerts panels for demo interactions
+
+---
+
+## 13. Conclusion
+
+IntelliStake is now a multi-domain capstone platform that goes beyond a prototype. It combines a real data pipeline, modern ML systems, investment optimization, compliance-aware blockchain execution, and a dual-lens dashboard experience.
+
+The most recent work moved the project closer to a presentable product by adding:
+- A real investor-facing UI
+- Premium feature gating
+- Wallet and notification flows
+- Better trust, anomaly, and portfolio support
+- A modular backend and cleaner documentation trail
+
+The project is now in a strong state for final capstone review and further production hardening.
+
+---
+
+**Project:** IntelliStake
+**Institution:** NMIMS MCA Capstone 2025-26
+**Last Updated:** 2026-04-23
+**Status:** Demo-ready, heavily implemented, and actively refined
+
+---
+
+## 14. Full End-to-End Story
+
+This section explains the project from start to finish in practical order.
+
+### Why This Project Exists
+The project was built to solve a specific capstone problem: startup investing is usually noisy, opaque, slow, and difficult to evaluate for non-institutional users. IntelliStake tries to make that process structured by combining:
+- data collection and enrichment,
+- machine learning valuation and trust scoring,
+- financial portfolio construction,
+- blockchain-based compliance and milestone control,
+- and a user interface that can explain the system to both technical and non-technical reviewers.
+
+### What the Platform Does
+At a high level, the platform:
+1. collects and normalizes startup data,
+2. computes a knowledge graph and feature set,
+3. scores startups with valuation, sentiment, anomaly, and trust models,
+4. constructs portfolios with Black-Litterman and HRP,
+5. sends trust data into blockchain escrow and oracle logic,
+6. exposes all of it through a demo-friendly dashboard.
+
+### How the Data Moves
+Raw startup records enter the pipeline from multiple sources. Those records are cleaned, deduplicated, enriched, and turned into a master graph. The engine layer consumes that graph to generate trust scores, valuations, portfolio weights, and anomaly flags. The backend then serves those outputs to the dashboard and to blockchain demo flows.
+
+### How a Demo Flow Works
+When a reviewer opens the product:
+1. they land on the dashboard,
+2. the platform loads API-driven metrics,
+3. the War Room shows live-style risk and oracle signals,
+4. the investor shell shows a friendlier portfolio and discovery experience,
+5. the wallet and transaction surfaces simulate blockchain interaction,
+6. the escrow and oracle visuals explain how capital would move through the system.
+
+---
+
+## 15. Detailed Module Inventory
+
+### 15.1 Data Engineering Modules
+- `data_scaling_engine/master_knowledge_graph.py` builds the graph from multi-source data.
+- `data_scaling_engine/github_velocity_aggregator.py` aggregates repository velocity signals.
+- `data_scaling_engine/mca_audit_pipeline.py` audits financial integrity and flags anomalies.
+- `data_scaling_engine/sentiment_harvester.py` collects RSS and text sentiment signals.
+- `engine/data_lake_manager.py` manages the local lake and output artifacts.
+
+### 15.2 AI / ML Modules
+- `engine/valuation_engine.py` contains the original valuation ensemble.
+- `engine/valuation_stacked.py` contains the upgraded stacked valuation ensemble.
+- `engine/trust_score_ml.py` computes ML-based trust scores.
+- `engine/anomaly_ensemble.py` performs multi-detector anomaly detection.
+- `engine/sentiment_ensemble.py` combines multiple sentiment models.
+- `engine/finbert_sentiment.py` and `engine/finbert_live.py` provide the FinBERT surfaces.
+- `engine/clip_sector_classifier.py` classifies sectors where needed.
+- `engine/survival_analysis.py` supports longevity / survival style analysis.
+- `engine/eval_genai.py` supports genAI evaluation-style outputs.
+
+### 15.3 Finance Modules
+- `engine/portfolio_optimizer.py` runs Black-Litterman optimization.
+- `engine/portfolio_hrp.py` runs HRP optimization and comparison logic.
+- `engine/backtest_engine.py` supports historical backtesting.
+- `engine/risk_simulator.py` supports scenario-based risk simulation.
+- `engine/portfolio_optimizer.py` and related routes emit allocation weights, return estimates, drawdown, and risk metrics.
+
+### 15.4 Blockchain Modules
+- `blockchain/contracts/IntelliStakeToken.sol` handles token compliance.
+- `blockchain/contracts/MilestoneEscrow.sol` handles tranche release logic.
+- `blockchain/contracts/TrustOracle.sol` verifies and stores trust pushes.
+- `blockchain/contracts/ComplianceRules.sol` enforces KYC and transfer rules.
+- `blockchain/contracts/IdentityRegistry.sol` stores identity and status information.
+- `blockchain/contracts/AgentVault.sol` routes demo investment actions.
+- `blockchain/scripts/demo_all_transactions.js` demonstrates the full contract lifecycle.
+- `blockchain/oracle_bridge.py` and `blockchain/oracle_bridge_full.py` provide the off-chain bridge.
+
+### 15.5 Backend and API Modules
+- `engine/chatbot_api.py` remains the primary Flask surface.
+- `engine/routes/user_routes.py` provides user-centric endpoints.
+- `engine/security/auth.py` handles demo auth and encryption helpers.
+- `engine/cache/redis_cache.py` provides caching where available.
+- `engine/ml/model_trainer.py` supports training and monitoring.
+- `engine/services/lens_service.py` handles lens translation.
+- `engine/services/portfolio_service.py` and related service modules encapsulate business logic.
+
+### 15.6 Dashboard Modules
+- `dashboard/src/pages/Landing.jsx` is the public landing experience.
+- `dashboard/src/pages/WarRoom.jsx` is the analyst console.
+- `dashboard/src/pages/UserShell.jsx` is the investor shell.
+- `dashboard/src/components/WarRoom/BottomNav.jsx` contains module shortcuts and modal surfaces.
+- `dashboard/src/components/WarRoom/TradingAlerts.jsx` provides AI signal actions.
+- `dashboard/src/components/WarRoom/NotificationPanel.jsx` handles notifications.
+- `dashboard/src/components/WarRoom/WalletConnect.jsx` connects to MetaMask demo flows.
+- `dashboard/src/components/shared/ProGate.jsx` protects premium content.
+- `dashboard/src/components/shared/LensToggle.jsx` switches between admin and investor views.
+- `dashboard/src/styles/themes.css` stores theme variables.
+
+---
+
+## 16. Why Each Major System Exists
+
+### Data Lake
+Needed to support realistic startup scoring, portfolio construction, and explainability.
+
+### Valuation Engine
+Needed to estimate enterprise value from structured startup features instead of hardcoded assumptions.
+
+### Trust Score Layer
+Needed to compress multiple signals into one actionable reliability score.
+
+### Sentiment Ensemble
+Needed to avoid depending on one fragile NLP model and to improve robustness across noisy news text.
+
+### Anomaly Detection
+Needed to catch hype, manipulation, and outlier-like behavior before it affects investment decisions.
+
+### Portfolio Optimizers
+Needed to translate model outputs into actual allocations and to compare classical and alternative portfolio theory.
+
+### Oracle and Escrow
+Needed to show how off-chain intelligence can trigger on-chain compliance and milestone release logic.
+
+### Dual Dashboard
+Needed to present the same system to two audiences: institutional reviewers and retail-style users.
+
+---
+
+## 17. Important User Journeys
+
+### 17.1 Analyst Journey
+An analyst opens the War Room, checks live KPIs, inspects startup trust scores, reviews portfolio metrics, opens the oracle feed, and simulates downstream blockchain actions.
+
+### 17.2 Investor Journey
+An investor opens `/u/*`, browses startup cards, reads trust and sentiment summaries, views watchlists, checks HRP vs BL comparisons, and uses the AI signal feed when Pro features are enabled.
+
+### 17.3 Blockchain Journey
+A demo user opens the wallet flow, connects MetaMask, switches to Sepolia, and simulates a transaction. That same trust signal can then be shown in the oracle and escrow explanations.
+
+### 17.4 Reviewer Journey
+A professor or evaluator can trace the flow from data lake to models to dashboard to blockchain and see that the project is not just a static UI.
+
+---
+
+## 18. Functional Behavior by Domain
+
+### AI and Trust
+- Startup trust is based on multiple signals rather than a single number.
+- Trust values influence freeze decisions, portfolio rankings, and signal feed recommendations.
+
+### Finance
+- The platform compares expected return, volatility, Sharpe, Sortino, and drawdown.
+- Black-Litterman is used for posterior allocation logic.
+- HRP is used as a more robust alternative comparison.
+
+### Security and Compliance
+- Wallets can be verified or locked.
+- Transfers are gated by compliance rules and investor status.
+- Escrow is milestone-driven and can freeze on weak trust signals.
+
+### UX
+- The dashboard is split into a technical admin lens and a warm investor lens.
+- Pro features are intentionally gated to simulate tiered access.
+
+---
+
+## 19. Current Files That Matter Most
+
+These are the files that best represent the current state of the platform:
+- [README.md](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/README.md)
+- [INTELLISTAKE_PROJECT_KNOWLEDGE.md](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/INTELLISTAKE_PROJECT_KNOWLEDGE.md)
+- [IMPLEMENTATION_PLAN.md](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/IMPLEMENTATION_PLAN.md)
+- [PRODUCTION_IMPROVEMENTS.md](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/PRODUCTION_IMPROVEMENTS.md)
+- [REFACTORING_COMPLETE.md](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/REFACTORING_COMPLETE.md)
+- [engine/chatbot_api.py](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/engine/chatbot_api.py)
+- [engine/routes/user_routes.py](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/engine/routes/user_routes.py)
+- [dashboard/src/pages/UserShell.jsx](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/dashboard/src/pages/UserShell.jsx)
+- [dashboard/src/components/WarRoom/BottomNav.jsx](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/dashboard/src/components/WarRoom/BottomNav.jsx)
+- [blockchain/scripts/demo_all_transactions.js](/Users/piyushborakhade/Desktop/Capstone/IntelliStake_Final/blockchain/scripts/demo_all_transactions.js)
+
+---
+
+## 20. Current Known Limitations
+
+The project is broad, but some areas still remain less complete than the rest:
+- Full production JWT verification is still partially demo-oriented.
+- Some blockchain flows remain Sepolia/testnet demo flows.
+- Coverage is still below the long-term testing target.
+- Some roadmap items are future work rather than finished production modules.
+- The dashboard uses mocked or derived data in several places to keep the demo stable.
+
+---
+
+## 21. Final Status Statement
+
+IntelliStake now covers the full intended capstone arc:
+- problem definition,
+- data ingestion,
+- model creation,
+- decision logic,
+- portfolio construction,
+- blockchain enforcement,
+- dashboard presentation,
+- and demo delivery.
+
+The project is no longer just a concept write-up. It is a working multi-layer system with substantial implementation across Python, Solidity, JavaScript, React, and data engineering components.

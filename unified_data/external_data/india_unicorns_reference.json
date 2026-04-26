@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Flipkart",
+    "sector": "E-commerce",
+    "funding": 10000000000,
+    "valuation": 35000000000
+  },
+  {
+    "name": "Paytm",
+    "sector": "FinTech",
+    "funding": 2200000000,
+    "valuation": 19000000000
+  },
+  {
+    "name": "BYJU'S",
+    "sector": "EdTech",
+    "funding": 1500000000,
+    "valuation": 22000000000
+  },
+  {
+    "name": "Razorpay",
+    "sector": "FinTech",
+    "funding": 1000000000,
+    "valuation": 7500000000
+  },
+  {
+    "name": "Cred",
+    "sector": "FinTech",
+    "funding": 900000000,
+    "valuation": 6400000000
+  },
+  {
+    "name": "Rappi",
+    "sector": "E-commerce",
+    "funding": 2700000000,
+    "valuation": 5250000000
+  },
+  {
+    "name": "Dunzo",
+    "sector": "E-commerce",
+    "funding": 400000000,
+    "valuation": 1200000000
+  },
+  {
+    "name": "CRED",
+    "sector": "FinTech",
+    "funding": 900000000,
+    "valuation": 6400000000
+  },
+  {
+    "name": "Razorpay",
+    "sector": "FinTech",
+    "funding": 1000000000,
+    "valuation": 7500000000
+  },
+  {
+    "name": "Groww",
+    "sector": "FinTech",
+    "funding": 600000000,
+    "valuation": 3000000000
+  },
+  {
+    "name": "CoinDCX",
+    "sector": "FinTech",
+    "funding": 200000000,
+    "valuation": 1200000000
+  },
+  {
+    "name": "Coinstats",
+    "sector": "FinTech",
+    "funding": 100000000,
+    "valuation": 500000000
+  },
+  {
+    "name": "Meesho",
+    "sector": "E-commerce",
+    "funding": 700000000,
+    "valuation": 5000000000
+  },
+  {
+    "name": "Shadowfax",
+    "sector": "Logistics",
+    "funding": 300000000,
+    "valuation": 1000000000
+  },
+  {
+    "name": "Dailyhunt",
+    "sector": "AI/ML",
+    "funding": 300000000,
+    "valuation": 1000000000
+  },
+  {
+    "name": "Unacademy",
+    "sector": "EdTech",
+    "funding": 800000000,
+    "valuation": 6000000000
+  },
+  {
+    "name": "Upstox",
+    "sector": "FinTech",
+    "funding": 150000000,
+    "valuation": 500000000
+  },
+  {
+    "name": "Pine Labs",
+    "sector": "FinTech",
+    "funding": 600000000,
+    "valuation": 2000000000
+  },
+  {
+    "name": "Nium",
+    "sector": "FinTech",
+    "funding": 200000000,
+    "valuation": 1000000000
+  },
+  {
+    "name": "Chargebee",
+    "sector": "SaaS",
+    "funding": 250000000,
+    "valuation": 1500000000
+  }
+]

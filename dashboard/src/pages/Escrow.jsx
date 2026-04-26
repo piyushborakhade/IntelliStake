@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSepoliaData } from '../hooks/useSepoliaData';
+import { ethers } from 'ethers';
 
 const API = 'http://localhost:5500';
 
@@ -60,6 +61,22 @@ export default function Escrow() {
             .catch(() => setLoading(false));
     }, []);
 
+    const connectWallet = async () => {
+        if (!window.ethereum) {
+            alert('MetaMask is required to interact with escrow contracts. Please install it.');
+            return;
+        }
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            console.log("MetaMask connected!", provider);
+            alert("Wallet Connected Successfully");
+        } catch (error) {
+            console.error("Wallet connection failed:", error);
+            alert("Wallet connection failed.");
+        }
+    };
+
     const { data: sepoliaData, loading: sepoliaLoading } = useSepoliaData();
     const contracts = data?.escrow_contracts || [];
     const summary = data?.summary || {};
@@ -68,7 +85,7 @@ export default function Escrow() {
     return (
         <div>
             {/* Header */}
-            <div className="page-header">
+            <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem' }}>
                         <span className="badge badge-purple">MilestoneEscrow.sol</span>
@@ -78,6 +95,16 @@ export default function Escrow() {
                     <div className="page-title">🔐 Milestone Escrow</div>
                     <div className="page-sub">Smart contract escrow — funds released in 4 tranches based on oracle-verified AI milestones</div>
                 </div>
+                <button 
+                  onClick={connectWallet}
+                  style={{
+                    background: '#f59e0b', color: '#000', padding: '0.5rem 1rem', 
+                    borderRadius: '8px', border: 'none', fontWeight: 'bold', cursor: 'pointer',
+                    fontSize: '0.85rem'
+                  }}
+                >
+                  🦊 Connect MetaMask
+                </button>
             </div>
 
             {/* Sepolia live status strip */}

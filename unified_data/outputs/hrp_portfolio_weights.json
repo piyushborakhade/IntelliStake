@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "generated_at": "2026-04-22T19:05:17.756341+00:00",
+    "n_assets": 15,
+    "n_weeks_sim": 52,
+    "risk_free": 0.065
+  },
+  "hrp": {
+    "weights": {
+      "Foster, West and Bryant": 0.066667,
+      "Miller, Garcia and Jones": 0.066667,
+      "Payne Ltd": 0.066667,
+      "Patton Inc": 0.066667,
+      "Harris, Mcclain and Tucker": 0.066667,
+      "Rivera, Johnson and Hatfield": 0.066667,
+      "Smith-Scott": 0.066667,
+      "Ward-Martinez": 0.066667,
+      "Flores-King": 0.066667,
+      "Rush Inc": 0.066667,
+      "Pierce, Fox and Clayton": 0.066667,
+      "Meza-Haynes": 0.066667,
+      "Cox, Bailey and Patterson": 0.066667,
+      "Riley-Price": 0.066667,
+      "Long, Gomez and Rodriguez": 0.066667
+    },
+    "expected_return": 36.68,
+    "volatility": 4.88,
+    "sharpe_ratio": 6.178,
+    "method": "Equal-weight (PyPortfolioOpt not installed)",
+    "n_assets": 15
+  },
+  "comparison": {
+    "hrp": {
+      "expected_return": 36.68,
+      "volatility": 4.88,
+      "sharpe_ratio": 6.178
+    },
+    "black_litterman": {
+      "expected_return": 22.4,
+      "volatility": 18.7,
+      "sharpe_ratio": 0.9351,
+      "method": "Black-Litterman"
+    },
+    "winner": "HRP"
+  },
+  "garch_weekly_vol_pct": {
+    "Foster, West and Bryant": 2.583,
+    "Miller, Garcia and Jones": 2.62,
+    "Payne Ltd": 2.893,
+    "Patton Inc": 2.653,
+    "Harris, Mcclain and Tucker": 2.764
+  },
+  "holdings": [
+    {
+      "startup_name": "Foster, West and Bryant",
+      "weight": 0.066667,
+      "trust_score": 0.748,
+      "sector": "E-commerce"
+    },
+    {
+      "startup_name": "Miller, Garcia and Jones",
+      "weight": 0.066667,
+      "trust_score": 0.7363,
+      "sector": "Logistics"
+    },
+    {
+      "startup_name": "Payne Ltd",
+      "weight": 0.066667,
+      "trust_score": 0.7179,
+      "sector": "Healthcare"
+    },
+    {
+      "startup_name": "Patton Inc",
+      "weight": 0.066667,
+      "trust_score": 0.7166,
+      "sector": "E-commerce"
+    },
+    {
+      "startup_name": "Harris, Mcclain and Tucker",
+      "weight": 0.066667,
+      "trust_score": 0.7145,
+      "sector": "Blockchain"
+    },
+    {
+      "startup_name": "Rivera, Johnson and Hatfield",
+      "weight": 0.066667,
+      "trust_score": 0.7126,
+      "sector": "Logistics"
+    },
+    {
+      "startup_name": "Smith-Scott",
+      "weight": 0.066667,
+      "trust_score": 0.7122,
+      "sector": "Blockchain"
+    },
+    {
+      "startup_name": "Ward-Martinez",
+      "weight": 0.066667,
+      "trust_score": 0.7122,
+      "sector": "Blockchain"
+    },
+    {
+      "startup_name": "Flores-King",
+      "weight": 0.066667,
+      "trust_score": 0.7113,
+      "sector": "SaaS"
+    },
+    {
+      "startup_name": "Rush Inc",
+      "weight": 0.066667,
+      "trust_score": 0.7039,
+      "sector": "AI/ML"
+    },
+    {
+      "startup_name": "Pierce, Fox and Clayton",
+      "weight": 0.066667,
+      "trust_score": 0.6979,
+      "sector": "Healthcare"
+    },
+    {
+      "startup_name": "Meza-Haynes",
+      "weight": 0.066667,
+      "trust_score": 0.6936,
+      "sector": "E-commerce"
+    },
+    {
+      "startup_name": "Cox, Bailey and Patterson",
+      "weight": 0.066667,
+      "trust_score": 0.6862,
+      "sector": "Fintech"
+    },
+    {
+      "startup_name": "Riley-Price",
+      "weight": 0.066667,
+      "trust_score": 0.6849,
+      "sector": "Blockchain"
+    },
+    {
+      "startup_name": "Long, Gomez and Rodriguez",
+      "weight": 0.066667,
+      "trust_score": 0.6799,
+      "sector": "SaaS"
+    }
+  ]
+}

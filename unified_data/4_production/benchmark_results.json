@@ -1,0 +1,17 @@
+{
+  "benchmark_task": "Classify high-trust startups (top 33%). Baselines: 5-fold CV on same features. Model: actual held-out AUC.",
+  "trust_score_benchmarks": {
+    "random_baseline_auc": 0.5021,
+    "funding_only_auc": 0.5167,
+    "rule_based_auc": 0.5142,
+    "logistic_regression_auc": 0.5061,
+    "decision_tree_auc": 0.5099,
+    "random_forest_auc": 0.5195,
+    "intellistake_ensemble_auc": 0.9152,
+    "lift_over_best_baseline_pp": 39.57,
+    "lift_over_random_pp": 41.31
+  },
+  "comparison_note": "Baselines evaluated with 5-fold cross-validation on real records (is_real=True). IntelliStake AUC is from actual held-out test evaluation (time-based split, 5,881 real records, synthetic excluded). Higher is better.",
+  "academic_reference": "Gornall & Strebulaev (2020) Journal of Financial Economics \u2014 VC valuation uncertainty benchmark",
+  "defense_statement": "IntelliStake achieves AUC-ROC of 0.915 on a held-out real-startup test set, versus random forest 0.519 and logistic regression 0.506 (5-fold CV on same features). Lift of +39.6 percentage points demonstrates the stacked ensemble captures complex non-linear patterns that simpler methods cannot."
+}

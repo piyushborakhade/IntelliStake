@@ -1,44 +1,53 @@
-import { useEffect } from 'react'
-import { useApp } from '../../context/AppContext'
-import StartupLogo from '../shared/StartupLogo'
+import { useState, useCallback, createContext, useContext } from 'react'
 
-const DEMO_TOASTS = [
-  { startup: 'Zepto', message: 'Trust score confirmed · 0.91 · Tranche eligible', type: 'success', delay: 45000 },
-  { startup: 'Meesho', message: 'GitHub velocity dropped 12% · Watch flag raised', type: 'warning', delay: 75000 },
-  { startup: 'Byju\'s', message: 'Trust score 0.28 · Escrow frozen', type: 'danger', delay: 110000 },
-  { startup: 'Razorpay', message: 'Oracle ping confirmed · All signals nominal', type: 'success', delay: 150000 },
-]
+const ToastCtx = createContext(() => {})
 
-const TYPE_COLOR = { success: '#1DB972', warning: '#F5A623', danger: '#E5484D', info: '#2D7EF8' }
+export const useToast = () => useContext(ToastCtx)
 
-export default function ToastSystem() {
-  const { toasts, addToast, removeToast } = useApp()
+export function ToastProvider({ children }) {
+  const [toasts, setToasts] = useState([])
 
-  useEffect(() => {
-    const timers = DEMO_TOASTS.map(t =>
-      setTimeout(() => addToast({ startup: t.startup, message: t.message, type: t.type }), t.delay)
-    )
-    return () => timers.forEach(clearTimeout)
+  const toast = useCallback((message, type = 'info') => {
+    const id = Date.now() + Math.random()
+    setToasts((prev) => [...prev, { id, message, type }])
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((item) => item.id !== id))
+    }, 4000)
   }, [])
 
+  const colors = {
+    success: '#10b981',
+    error: '#ef4444',
+    info: '#3b82f6',
+    warning: '#f59e0b',
+  }
+
   return (
-    <div style={{ position: 'fixed', top: 60, right: 16, zIndex: 500, display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 320 }}>
-      {toasts.map(toast => (
-        <div key={toast.id} style={{
-          background: 'var(--bg-elevated)', border: `1px solid ${TYPE_COLOR[toast.type]}40`,
-          borderLeft: `3px solid ${TYPE_COLOR[toast.type]}`,
-          borderRadius: 8, padding: '10px 12px', display: 'flex', gap: 10, alignItems: 'flex-start',
-          animation: 'toastIn 0.3s cubic-bezier(0.4,0,0.2,1)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
-        }}>
-          <StartupLogo name={toast.startup || '?'} size={28} />
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text-primary)', marginBottom: 2 }}>{toast.startup}</div>
-            <div style={{ fontSize: 11, color: 'var(--text-secondary)', lineHeight: 1.4 }}>{toast.message}</div>
+    <ToastCtx.Provider value={toast}>
+      {children}
+      <div style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 9999, display: 'flex', flexDirection: 'column', gap: '8px', pointerEvents: 'none' }}>
+        {toasts.map((toastItem) => (
+          <div
+            key={toastItem.id}
+            style={{
+              background: colors[toastItem.type] || colors.info,
+              color: 'white',
+              padding: '12px 20px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+              maxWidth: '380px',
+              fontSize: '13px',
+              fontWeight: '500',
+              animation: 'slideIn 0.25s ease',
+              pointerEvents: 'all',
+            }}
+          >
+            {toastItem.message}
           </div>
-          <button onClick={() => removeToast(toast.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1, flexShrink: 0 }}>×</button>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </ToastCtx.Provider>
   )
 }
+
+export default ToastProvider

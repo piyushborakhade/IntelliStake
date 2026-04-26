@@ -46,13 +46,108 @@ function useCountUp(target, ms = 1600) {
 
 const SECTOR_COLORS = { FinTech: '#6366f1', 'E-commerce': '#06b6d4', D2C: '#10b981', Mobility: '#f97316' };
 
+// ── Buy/Sell Modal ────────────────────────────────────────────────────────────
+function TradeModal({ holding, action, onClose, onConfirm }) {
+  const [amount, setAmount] = useState(action === 'sell' ? holding.current_inr : 10000);
+  const projected = action === 'buy'
+    ? amount * (1 + holding.trust_score * 0.28)
+    : null;
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 20, padding: 32, width: 420, maxWidth: '90vw', boxShadow: '0 24px 60px rgba(0,0,0,0.5)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <div>
+            <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em' }}>
+              {action === 'buy' ? '📈 Buy More' : '📉 Sell Position'}
+            </div>
+            <div style={{ fontSize: 13, color: '#475569', marginTop: 2 }}>
+              {holding.startup_name} · Trust {(holding.trust_score * 100).toFixed(0)}%
+            </div>
+          </div>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#475569', fontSize: 20, cursor: 'pointer' }}>×</button>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+            {action === 'buy' ? 'Investment Amount (₹)' : 'Sell Amount (₹)'}
+          </label>
+          <input
+            type="number"
+            value={amount}
+            onChange={e => setAmount(Math.max(1000, Number(e.target.value)))}
+            style={{ width: '100%', padding: '12px 14px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 16, fontWeight: 700, background: 'var(--bg-card)', color: 'var(--text-primary)', outline: 'none', boxSizing: 'border-box' }}
+          />
+          <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+            {[10000, 25000, 50000, 100000].map(v => (
+              <button key={v} onClick={() => setAmount(v)} style={{ flex: 1, padding: '5px', fontSize: 11, fontWeight: 600, borderRadius: 7, border: '1px solid var(--border)', background: amount === v ? 'rgba(99,102,241,0.12)' : 'transparent', color: amount === v ? '#818cf8' : '#475569', cursor: 'pointer' }}>
+                ₹{v >= 1e5 ? `${v / 1e5}L` : `${v / 1000}K`}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {action === 'buy' && projected && (
+          <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)', marginBottom: 20 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+              <span style={{ fontSize: 12, color: '#475569' }}>AI Projected Value (1 yr)</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#818cf8' }}>₹{projected.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 12, color: '#475569' }}>Expected Gain</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>+₹{(projected - amount).toLocaleString('en-IN', { maximumFractionDigits: 0 })} ({((projected / amount - 1) * 100).toFixed(1)}%)</span>
+            </div>
+          </div>
+        )}
+
+        {action === 'sell' && (
+          <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', marginBottom: 20, fontSize: 13, color: '#94a3b8' }}>
+            Current position: ₹{holding.current_inr.toLocaleString('en-IN')} · You will receive ₹{Math.min(amount, holding.current_inr).toLocaleString('en-IN')}
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button onClick={onClose} style={{ flex: 1, padding: '12px', borderRadius: 10, border: '1px solid var(--border)', background: 'transparent', color: '#475569', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+          <button onClick={() => onConfirm(holding, action, amount)} style={{ flex: 2, padding: '12px', borderRadius: 10, border: 'none', background: action === 'buy' ? 'linear-gradient(135deg,#6366f1,#818cf8)' : '#ef4444', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            {action === 'buy' ? `Buy ₹${amount.toLocaleString('en-IN')}` : `Sell ₹${Math.min(amount, holding.current_inr).toLocaleString('en-IN')}` }
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PortfolioUserView() {
   const navigate = useNavigate();
   const [tab, setTab] = useState('overview'); // overview | holdings | escrow
   const [mode] = useState('user');
+  const [tradeModal, setTradeModal] = useState(null); // { holding, action }
+  const [holdings, setHoldings] = useState(HOLDINGS);
+  const [toast, setToast] = useState(null);
 
-  const totalInvested = HOLDINGS.reduce((s, h) => s + h.invested_inr, 0);
-  const totalCurrent  = HOLDINGS.reduce((s, h) => s + h.current_inr, 0);
+  const showToast = (msg, color = '#10b981') => {
+    setToast({ msg, color });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleConfirmTrade = (holding, action, amount) => {
+    setHoldings(prev => prev.map(h => {
+      if (h.startup_name !== holding.startup_name) return h;
+      if (action === 'buy') {
+        const extra = amount * (1 + holding.trust_score * 0.28);
+        return { ...h, invested_inr: h.invested_inr + amount, current_inr: h.current_inr + extra };
+      } else {
+        const sell = Math.min(amount, h.current_inr);
+        const ratio = sell / h.current_inr;
+        return { ...h, invested_inr: h.invested_inr * (1 - ratio), current_inr: h.current_inr - sell };
+      }
+    }));
+    setTradeModal(null);
+    showToast(action === 'buy' ? `✅ Bought ₹${amount.toLocaleString('en-IN')} of ${holding.startup_name}` : `✅ Sold position in ${holding.startup_name}`);
+  };
+
+  const totalInvested = holdings.reduce((s, h) => s + h.invested_inr, 0);
+  const totalCurrent  = holdings.reduce((s, h) => s + h.current_inr, 0);
   const gain          = totalCurrent - totalInvested;
   const gainPct       = ((gain / totalInvested) * 100).toFixed(1);
 
@@ -60,7 +155,7 @@ export default function PortfolioUserView() {
   const animGain  = useCountUp(gain);
 
   const sectorMap = {};
-  HOLDINGS.forEach(h => { sectorMap[h.sector] = (sectorMap[h.sector] || 0) + h.weight; });
+  holdings.forEach(h => { sectorMap[h.sector] = (sectorMap[h.sector] || 0) + h.weight; });
 
   const tabBtn = (id, label) => (
     <button onClick={() => setTab(id)} style={{
@@ -157,7 +252,7 @@ export default function PortfolioUserView() {
       {/* HOLDINGS TAB */}
       {tab === 'holdings' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {HOLDINGS.map(h => {
+          {holdings.map(h => {
             const data = translateStartup(h, mode);
             const pnl  = h.current_inr - h.invested_inr;
             const pct  = ((pnl / h.invested_inr) * 100).toFixed(1);
@@ -173,11 +268,19 @@ export default function PortfolioUserView() {
                   </div>
                   <div style={{ fontSize: 12, color: '#475569' }}>{mode === 'user' ? data.stage_display : h.funding_stage} · {(h.weight * 100).toFixed(0)}% of portfolio</div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
+                <div style={{ textAlign: 'right', marginRight: 12 }}>
                   <div style={{ fontSize: 16, fontWeight: 800, color: '#f0f4ff', marginBottom: 2 }}>₹{(h.current_inr / 1000).toFixed(1)}K</div>
                   <div style={{ fontSize: 12, color: pnl >= 0 ? '#10b981' : '#ef4444', fontFamily: 'DM Mono, monospace', fontWeight: 700 }}>
                     {pnl >= 0 ? '+' : ''}₹{(Math.abs(pnl) / 1000).toFixed(1)}K ({pct}%)
                   </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <button onClick={() => setTradeModal({ holding: h, action: 'buy' })} style={{ padding: '6px 14px', borderRadius: 8, border: 'none', background: 'rgba(16,185,129,0.12)', color: '#10b981', fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                    + Buy
+                  </button>
+                  <button onClick={() => setTradeModal({ holding: h, action: 'sell' })} style={{ padding: '6px 14px', borderRadius: 8, border: 'none', background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                    − Sell
+                  </button>
                 </div>
               </div>
             );
@@ -199,6 +302,23 @@ export default function PortfolioUserView() {
           <button onClick={() => navigate('/escrow')} style={{ marginTop: 16, width: '100%', padding: '12px', borderRadius: 12, border: '1px solid rgba(99,102,241,0.2)', background: 'rgba(99,102,241,0.06)', color: '#818cf8', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>
             Open Full Escrow Dashboard →
           </button>
+        </div>
+      )}
+
+      {/* Trade Modal */}
+      {tradeModal && (
+        <TradeModal
+          holding={tradeModal.holding}
+          action={tradeModal.action}
+          onClose={() => setTradeModal(null)}
+          onConfirm={handleConfirmTrade}
+        />
+      )}
+
+      {/* Toast */}
+      {toast && (
+        <div style={{ position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)', background: toast.color, color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 13, fontWeight: 700, zIndex: 2000, boxShadow: '0 8px 24px rgba(0,0,0,0.3)', animation: 'fadeInUp 0.3s ease' }}>
+          {toast.msg}
         </div>
       )}
     </div>

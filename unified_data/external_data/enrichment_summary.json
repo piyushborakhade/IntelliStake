@@ -1,0 +1,62 @@
+{
+  "collected_at": "2026-04-24T11:49:29.724225+00:00",
+  "total_startups": 74577,
+  "new_features_created": [
+    "trust_score",
+    "github_velocity_score",
+    "sector_similarity_score",
+    "has_nlp_features",
+    "valuation_tier",
+    "has_revenue",
+    "revenue_tier",
+    "funding_to_revenue_ratio",
+    "estimated_burn_monthly",
+    "estimated_runway_months",
+    "funding_tier",
+    "investor_quality",
+    "has_github_presence",
+    "team_size_tier",
+    "traction_score",
+    "team_size_category",
+    "sector_multiple",
+    "funding_climate",
+    "market_size"
+  ],
+  "feature_groups": {
+    "revenue_financials": [
+      "valuation_tier",
+      "has_revenue",
+      "revenue_tier",
+      "funding_to_revenue_ratio",
+      "estimated_burn_monthly",
+      "estimated_runway_months",
+      "funding_tier",
+      "team_size_tier"
+    ],
+    "funding_context": [
+      "funding_to_revenue_ratio",
+      "funding_tier",
+      "funding_climate"
+    ],
+    "traction": [
+      "github_velocity_score",
+      "has_github_presence",
+      "traction_score"
+    ],
+    "team": [
+      "team_size_tier",
+      "team_size_category"
+    ],
+    "market": [
+      "sector_similarity_score",
+      "sector_multiple",
+      "funding_climate",
+      "market_size"
+    ]
+  },
+  "data_quality": {
+    "startups_with_revenue": 36443,
+    "startups_with_web_traffic": 0,
+    "startups_with_github": 0
+  }
+}

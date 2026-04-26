@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-04-22T21:20:44.211652+00:00",
+  "repositories": [
+    {
+      "startup_name": "Swiggy",
+      "repo": "swiggy/skynet",
+      "stars": 91,
+      "open_issues": 18,
+      "language": "Go",
+      "last_commit_date": "",
+      "days_since_commit": 9,
+      "velocity_status": "ACTIVE",
+      "activity_score": 0.82,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "Zepto",
+      "repo": "zeptonow/zepto-webview",
+      "stars": 12,
+      "open_issues": 6,
+      "language": "TypeScript",
+      "last_commit_date": "",
+      "days_since_commit": 13,
+      "velocity_status": "ACTIVE",
+      "activity_score": 0.82,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "Nykaa",
+      "repo": "nyuad-astrolab/nyx",
+      "stars": 145,
+      "open_issues": 12,
+      "language": "Python",
+      "last_commit_date": "",
+      "days_since_commit": 16,
+      "velocity_status": "WATCH",
+      "activity_score": 0.64,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "Meesho",
+      "repo": "meesho-supply/kanvas",
+      "stars": 79,
+      "open_issues": 15,
+      "language": "TypeScript",
+      "last_commit_date": "",
+      "days_since_commit": 21,
+      "velocity_status": "WATCH",
+      "activity_score": 0.64,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "Groww",
+      "repo": "groww/groww-android",
+      "stars": 40,
+      "open_issues": 8,
+      "language": "Kotlin",
+      "last_commit_date": "",
+      "days_since_commit": 27,
+      "velocity_status": "WATCH",
+      "activity_score": 0.64,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "CRED",
+      "repo": "credativ/terraform-aws-gitlab-runner",
+      "stars": 563,
+      "open_issues": 47,
+      "language": "HCL",
+      "last_commit_date": "",
+      "days_since_commit": 31,
+      "velocity_status": "WATCH",
+      "activity_score": 0.64,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "Razorpay",
+      "repo": "razorpay/razorpay-php",
+      "stars": 200,
+      "open_issues": 63,
+      "language": "PHP",
+      "last_commit_date": "2025-09-23",
+      "days_since_commit": 149,
+      "velocity_status": "STALE",
+      "activity_score": 0.32,
+      "source": "live_audit_log"
+    },
+    {
+      "startup_name": "Paytm",
+      "repo": "paytm/paytm-pg-node-sdk",
+      "stars": 4,
+      "open_issues": 12,
+      "language": "TypeScript",
+      "last_commit_date": "2025-01-13",
+      "days_since_commit": 464,
+      "velocity_status": "STALE",
+      "activity_score": 0.32,
+      "source": "github_api"
+    },
+    {
+      "startup_name": "Phone Pe",
+      "repo": "PhonePe/phonepe-pg-sdk-nodejs",
+      "stars": 0,
+      "open_issues": 0,
+      "language": "",
+      "last_commit_date": "",
+      "days_since_commit": null,
+      "velocity_status": "WATCH",
+      "activity_score": 0.45,
+      "source": "fallback"
+    },
+    {
+      "startup_name": "BYJU\u2019S",
+      "repo": "byjus-public/byjus-js-sdk",
+      "stars": 0,
+      "open_issues": 0,
+      "language": "",
+      "last_commit_date": "",
+      "days_since_commit": null,
+      "velocity_status": "WATCH",
+      "activity_score": 0.45,
+      "source": "fallback"
+    }
+  ]
+}

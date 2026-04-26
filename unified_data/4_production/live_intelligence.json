@@ -1,0 +1,883 @@
+{
+  "generated_at": "2026-04-22T21:20:44.212411+00:00",
+  "watchlist": [
+    {
+      "startup_name": "Razorpay",
+      "sector": "FinTech",
+      "city": "Bangalore",
+      "country": "India",
+      "trust_score": 0.673,
+      "risk_severity": "MEDIUM",
+      "github_repo": "razorpay/razorpay-php"
+    },
+    {
+      "startup_name": "Phone Pe",
+      "sector": "ConsumerTech",
+      "city": "Bengaluru",
+      "country": "India",
+      "trust_score": 0.638,
+      "risk_severity": "MEDIUM",
+      "github_repo": "PhonePe/phonepe-pg-sdk-nodejs"
+    },
+    {
+      "startup_name": "Paytm",
+      "sector": "FinTech",
+      "city": "Noida",
+      "country": "India",
+      "trust_score": 0.765,
+      "risk_severity": "MEDIUM",
+      "github_repo": "paytm/paytm-pg-node-sdk"
+    },
+    {
+      "startup_name": "CRED",
+      "sector": "FinTech",
+      "city": "Bangalore",
+      "country": "India",
+      "trust_score": 0.582,
+      "risk_severity": "MEDIUM",
+      "github_repo": "credativ/terraform-aws-gitlab-runner"
+    },
+    {
+      "startup_name": "Groww",
+      "sector": "FinTech",
+      "city": "Bangalore",
+      "country": "India",
+      "trust_score": 0.823,
+      "risk_severity": "MEDIUM",
+      "github_repo": "groww/groww-android"
+    },
+    {
+      "startup_name": "Zepto",
+      "sector": "eCommerce",
+      "city": "Mumbai",
+      "country": "India",
+      "trust_score": 0.505,
+      "risk_severity": "MEDIUM",
+      "github_repo": "zeptonow/zepto-webview"
+    },
+    {
+      "startup_name": "Meesho",
+      "sector": "eCommerce",
+      "city": "Bangalore",
+      "country": "India",
+      "trust_score": 0.684,
+      "risk_severity": "MEDIUM",
+      "github_repo": "meesho-supply/kanvas"
+    },
+    {
+      "startup_name": "Nykaa",
+      "sector": "eCommerce",
+      "city": "Mumbai",
+      "country": "India",
+      "trust_score": 0.874,
+      "risk_severity": "MEDIUM",
+      "github_repo": "nyuad-astrolab/nyx"
+    },
+    {
+      "startup_name": "Swiggy",
+      "sector": "FoodTech",
+      "city": "Bangalore",
+      "country": "India",
+      "trust_score": 0.815,
+      "risk_severity": "MEDIUM",
+      "github_repo": "swiggy/skynet"
+    },
+    {
+      "startup_name": "BYJU\u2019S",
+      "sector": "EdTech",
+      "city": "Bengaluru",
+      "country": "India",
+      "trust_score": 0.611,
+      "risk_severity": "MEDIUM",
+      "github_repo": "byjus-public/byjus-js-sdk"
+    }
+  ],
+  "news": {
+    "generated_at": "2026-04-22T21:20:43.839819+00:00",
+    "sources": [
+      "Inc42",
+      "TechCrunch India",
+      "YourStory"
+    ],
+    "overall_score": 0.036,
+    "overall_label": "neutral",
+    "sector_scores": {
+      "FoodTech": {
+        "avg_score": -0.09,
+        "headline_count": 3,
+        "label": "bearish"
+      },
+      "FinTech": {
+        "avg_score": 0.045,
+        "headline_count": 6,
+        "label": "neutral"
+      },
+      "eCommerce": {
+        "avg_score": 0.18,
+        "headline_count": 3,
+        "label": "bullish"
+      },
+      "ConsumerTech": {
+        "avg_score": 0.0,
+        "headline_count": 2,
+        "label": "neutral"
+      },
+      "EdTech": {
+        "avg_score": 0.0,
+        "headline_count": 1,
+        "label": "neutral"
+      }
+    },
+    "items": [
+      {
+        "startup_name": "Swiggy",
+        "sector": "FoodTech",
+        "headline": "Eat App wants a bite of India&#8217;s restaurant reservation business with an acquisition and Swiggy partnership",
+        "source": "TechCrunch India",
+        "url": "https://techcrunch.com/2026/01/20/eat-app-wants-a-bite-of-indias-restaurant-reservation-business-with-an-acquisition-and-swiggy-partnership/",
+        "published_at": "Tue, 20 Jan 2026 16:00:00 +0000",
+        "label": "positive",
+        "sentiment_score": 0.27
+      },
+      {
+        "startup_name": "CRED",
+        "sector": "FinTech",
+        "headline": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+        "source": "YourStory",
+        "url": "https://yourstory.com/2026/04/kabeer-biswass-new-startup-raises-rs-108-cr-from-peakxv-blume",
+        "published_at": "Wed, 22 Apr 2026 12:15:09 GMT",
+        "label": "positive",
+        "sentiment_score": 0.27
+      },
+      {
+        "startup_name": "Swiggy",
+        "sector": "FoodTech",
+        "headline": "Karnataka HC Extends Interim Protection For Swiggy Against CCI Probe",
+        "source": "Inc42",
+        "url": "https://inc42.com/buzz/karnataka-hc-extends-interim-protection-for-swiggy-against-cci-probe/",
+        "published_at": "Wed, 22 Apr 2026 08:57:27 +0000",
+        "label": "negative",
+        "sentiment_score": -0.27
+      },
+      {
+        "startup_name": "Razorpay",
+        "headline": "Razorpay expands agentic payments pilots with NPCI partners",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "FinTech",
+        "url": "",
+        "label": "positive",
+        "sentiment_score": 0.27
+      },
+      {
+        "startup_name": "Paytm",
+        "headline": "Paytm focuses on compliance-first merchant products after regulatory reset",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "FinTech",
+        "url": "",
+        "label": "negative",
+        "sentiment_score": -0.27
+      },
+      {
+        "startup_name": "Zepto",
+        "headline": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "eCommerce",
+        "url": "",
+        "label": "positive",
+        "sentiment_score": 0.27
+      },
+      {
+        "startup_name": "Nykaa",
+        "headline": "Nykaa expands omnichannel beauty distribution with brand tie-ups",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "eCommerce",
+        "url": "",
+        "label": "positive",
+        "sentiment_score": 0.27
+      },
+      {
+        "startup_name": "Swiggy",
+        "headline": "Swiggy doubles down on Instamart footprint in tier-2 cities",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "FoodTech",
+        "url": "",
+        "label": "negative",
+        "sentiment_score": -0.27
+      },
+      {
+        "startup_name": "Phone Pe",
+        "sector": "ConsumerTech",
+        "headline": "Gramophone Cofounder Navneet Singh Batra Quits, Joins Superplum",
+        "source": "Inc42",
+        "url": "https://inc42.com/buzz/gramophone-cofounder-navneet-singh-batra-quits-joins-superplum/",
+        "published_at": "Wed, 22 Apr 2026 12:05:46 +0000",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "Groww",
+        "sector": "FinTech",
+        "headline": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+        "source": "Inc42",
+        "url": "https://inc42.com/features/growws-new-verticals-gain-ground-as-revenue-mix-shifts/",
+        "published_at": "Wed, 22 Apr 2026 06:56:57 +0000",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "PhonePe",
+        "headline": "PhonePe deepens merchant payments push as UPI volumes climb",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "ConsumerTech",
+        "url": "",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "CRED",
+        "headline": "CRED sharpens premium lending and rewards strategy with new product rollout",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "FinTech",
+        "url": "",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "Groww",
+        "headline": "Groww adds wealth tools as retail investing demand stays firm",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "FinTech",
+        "url": "",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "Meesho",
+        "headline": "Meesho scales logistics efficiency ahead of festive demand",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "eCommerce",
+        "url": "",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      },
+      {
+        "startup_name": "Byju's",
+        "headline": "Byju's faces ongoing restructuring pressure amid delayed resolution efforts",
+        "source": "Google News",
+        "published_at": "Live",
+        "sector": "EdTech",
+        "url": "",
+        "label": "neutral",
+        "sentiment_score": 0.0
+      }
+    ]
+  },
+  "funding": {
+    "generated_at": "2026-04-22T21:20:43.839977+00:00",
+    "events": [
+      {
+        "startup_name": "CRED",
+        "sector": "FinTech",
+        "event_type": "capital_activity",
+        "headline": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+        "source": "YourStory",
+        "published_at": "Wed, 22 Apr 2026 12:15:09 GMT",
+        "label": "positive",
+        "color": "green",
+        "plain_english": "Kabeer Biswas's new startup raises Rs 102 Cr from PeakXV, Blume, and CRED",
+        "tx_hash": "0x06ef9508db7a9409926a96c45e338108"
+      },
+      {
+        "startup_name": "Zepto",
+        "sector": "eCommerce",
+        "event_type": "capital_activity",
+        "headline": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+        "source": "Google News",
+        "published_at": "Live",
+        "label": "positive",
+        "color": "green",
+        "plain_english": "Zepto explores fresh funding conversations as quick commerce competition heats up",
+        "tx_hash": "0xd7c8cf94363e3027a7953d76dfc25ce9"
+      },
+      {
+        "startup_name": "Groww",
+        "sector": "FinTech",
+        "event_type": "funding_round",
+        "headline": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+        "source": "Inc42",
+        "published_at": "Wed, 22 Apr 2026 06:56:57 +0000",
+        "label": "neutral",
+        "color": "blue",
+        "plain_english": "Groww\u2019s New Verticals Gain Ground As Revenue Mix Shifts",
+        "tx_hash": "0x25bd43907fc99122984cf1f0492b8ce9"
+      }
+    ],
+    "event_count": 3
+  },
+  "compliance": {
+    "generated_at": "2026-04-22T21:20:43.840207+00:00",
+    "records": [
+      {
+        "startup_name": "Swiggy",
+        "sector": "FoodTech",
+        "status": "HIGH_RISK",
+        "risk_severity": "MEDIUM",
+        "signal_count": 1,
+        "latest_signal": "Karnataka HC Extends Interim Protection For Swiggy Against CCI Probe",
+        "next_action": "Escalate to manual diligence",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Razorpay",
+        "sector": "FinTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Phone Pe",
+        "sector": "ConsumerTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Paytm",
+        "sector": "FinTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "CRED",
+        "sector": "FinTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Groww",
+        "sector": "FinTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Zepto",
+        "sector": "eCommerce",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Meesho",
+        "sector": "eCommerce",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "Nykaa",
+        "sector": "eCommerce",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      },
+      {
+        "startup_name": "BYJU\u2019S",
+        "sector": "EdTech",
+        "status": "CLEAR",
+        "risk_severity": "MEDIUM",
+        "signal_count": 0,
+        "latest_signal": "No adverse live compliance mentions detected across tracked feeds.",
+        "next_action": "No action",
+        "source": "live_news_monitor"
+      }
+    ]
+  },
+  "github": {
+    "generated_at": "2026-04-22T21:20:44.211652+00:00",
+    "repositories": [
+      {
+        "startup_name": "Swiggy",
+        "repo": "swiggy/skynet",
+        "stars": 91,
+        "open_issues": 18,
+        "language": "Go",
+        "last_commit_date": "",
+        "days_since_commit": 9,
+        "velocity_status": "ACTIVE",
+        "activity_score": 0.82,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "Zepto",
+        "repo": "zeptonow/zepto-webview",
+        "stars": 12,
+        "open_issues": 6,
+        "language": "TypeScript",
+        "last_commit_date": "",
+        "days_since_commit": 13,
+        "velocity_status": "ACTIVE",
+        "activity_score": 0.82,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "Nykaa",
+        "repo": "nyuad-astrolab/nyx",
+        "stars": 145,
+        "open_issues": 12,
+        "language": "Python",
+        "last_commit_date": "",
+        "days_since_commit": 16,
+        "velocity_status": "WATCH",
+        "activity_score": 0.64,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "Meesho",
+        "repo": "meesho-supply/kanvas",
+        "stars": 79,
+        "open_issues": 15,
+        "language": "TypeScript",
+        "last_commit_date": "",
+        "days_since_commit": 21,
+        "velocity_status": "WATCH",
+        "activity_score": 0.64,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "Groww",
+        "repo": "groww/groww-android",
+        "stars": 40,
+        "open_issues": 8,
+        "language": "Kotlin",
+        "last_commit_date": "",
+        "days_since_commit": 27,
+        "velocity_status": "WATCH",
+        "activity_score": 0.64,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "CRED",
+        "repo": "credativ/terraform-aws-gitlab-runner",
+        "stars": 563,
+        "open_issues": 47,
+        "language": "HCL",
+        "last_commit_date": "",
+        "days_since_commit": 31,
+        "velocity_status": "WATCH",
+        "activity_score": 0.64,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "Razorpay",
+        "repo": "razorpay/razorpay-php",
+        "stars": 200,
+        "open_issues": 63,
+        "language": "PHP",
+        "last_commit_date": "2025-09-23",
+        "days_since_commit": 149,
+        "velocity_status": "STALE",
+        "activity_score": 0.32,
+        "source": "live_audit_log"
+      },
+      {
+        "startup_name": "Paytm",
+        "repo": "paytm/paytm-pg-node-sdk",
+        "stars": 4,
+        "open_issues": 12,
+        "language": "TypeScript",
+        "last_commit_date": "2025-01-13",
+        "days_since_commit": 464,
+        "velocity_status": "STALE",
+        "activity_score": 0.32,
+        "source": "github_api"
+      },
+      {
+        "startup_name": "Phone Pe",
+        "repo": "PhonePe/phonepe-pg-sdk-nodejs",
+        "stars": 0,
+        "open_issues": 0,
+        "language": "",
+        "last_commit_date": "",
+        "days_since_commit": null,
+        "velocity_status": "WATCH",
+        "activity_score": 0.45,
+        "source": "fallback"
+      },
+      {
+        "startup_name": "BYJU\u2019S",
+        "repo": "byjus-public/byjus-js-sdk",
+        "stars": 0,
+        "open_issues": 0,
+        "language": "",
+        "last_commit_date": "",
+        "days_since_commit": null,
+        "velocity_status": "WATCH",
+        "activity_score": 0.45,
+        "source": "fallback"
+      }
+    ]
+  },
+  "alerts": {
+    "generated_at": "2026-04-22T21:20:44.212389+00:00",
+    "summary": {
+      "danger_count": 1,
+      "warning_count": 0,
+      "ok_count": 9,
+      "tracked_startups": 10
+    },
+    "alerts": [
+      {
+        "startup_name": "Swiggy",
+        "sector": "FoodTech",
+        "baseline_trust_score": 0.815,
+        "updated_trust_score": 0.615,
+        "trust_delta": -0.2,
+        "alert_level": "DANGER",
+        "oracle_action": "FREEZE_MILESTONE_FUNDING",
+        "color": "red",
+        "summary": "2 negative live headline(s); 1 positive live headline(s); Compliance tracker flagged high-risk signal; GitHub activity healthy",
+        "notes": [
+          "2 negative live headline(s)",
+          "1 positive live headline(s)",
+          "Compliance tracker flagged high-risk signal",
+          "GitHub activity healthy"
+        ],
+        "compliance_status": "HIGH_RISK",
+        "github_status": "ACTIVE",
+        "negative_news_count": 2
+      },
+      {
+        "startup_name": "Razorpay",
+        "sector": "FinTech",
+        "baseline_trust_score": 0.673,
+        "updated_trust_score": 0.613,
+        "trust_delta": -0.06,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "1 positive live headline(s); GitHub activity stale",
+        "notes": [
+          "1 positive live headline(s)",
+          "GitHub activity stale"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "STALE",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Phone Pe",
+        "sector": "ConsumerTech",
+        "baseline_trust_score": 0.638,
+        "updated_trust_score": 0.638,
+        "trust_delta": 0.0,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "No live degradation detected",
+        "notes": [],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Paytm",
+        "sector": "FinTech",
+        "baseline_trust_score": 0.765,
+        "updated_trust_score": 0.645,
+        "trust_delta": -0.12,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "1 negative live headline(s); GitHub activity stale",
+        "notes": [
+          "1 negative live headline(s)",
+          "GitHub activity stale"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "STALE",
+        "negative_news_count": 1
+      },
+      {
+        "startup_name": "CRED",
+        "sector": "FinTech",
+        "baseline_trust_score": 0.582,
+        "updated_trust_score": 0.632,
+        "trust_delta": 0.05,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "1 positive live headline(s); Fresh capital-market activity detected",
+        "notes": [
+          "1 positive live headline(s)",
+          "Fresh capital-market activity detected"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Groww",
+        "sector": "FinTech",
+        "baseline_trust_score": 0.823,
+        "updated_trust_score": 0.853,
+        "trust_delta": 0.03,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "Fresh capital-market activity detected",
+        "notes": [
+          "Fresh capital-market activity detected"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Zepto",
+        "sector": "eCommerce",
+        "baseline_trust_score": 0.505,
+        "updated_trust_score": 0.595,
+        "trust_delta": 0.09,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "1 positive live headline(s); Fresh capital-market activity detected; GitHub activity healthy",
+        "notes": [
+          "1 positive live headline(s)",
+          "Fresh capital-market activity detected",
+          "GitHub activity healthy"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "ACTIVE",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Meesho",
+        "sector": "eCommerce",
+        "baseline_trust_score": 0.684,
+        "updated_trust_score": 0.684,
+        "trust_delta": 0.0,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "No live degradation detected",
+        "notes": [],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "Nykaa",
+        "sector": "eCommerce",
+        "baseline_trust_score": 0.874,
+        "updated_trust_score": 0.894,
+        "trust_delta": 0.02,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "1 positive live headline(s)",
+        "notes": [
+          "1 positive live headline(s)"
+        ],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      },
+      {
+        "startup_name": "BYJU\u2019S",
+        "sector": "EdTech",
+        "baseline_trust_score": 0.611,
+        "updated_trust_score": 0.611,
+        "trust_delta": 0.0,
+        "alert_level": "OK",
+        "oracle_action": "APPROVE_TRANCHE",
+        "color": "green",
+        "summary": "No live degradation detected",
+        "notes": [],
+        "compliance_status": "CLEAR",
+        "github_status": "WATCH",
+        "negative_news_count": 0
+      }
+    ],
+    "trust_updates": [
+      {
+        "startup_name": "Razorpay",
+        "previous_trust_score": 0.673,
+        "updated_trust_score": 0.613,
+        "delta": -0.06
+      },
+      {
+        "startup_name": "Phone Pe",
+        "previous_trust_score": 0.638,
+        "updated_trust_score": 0.638,
+        "delta": 0.0
+      },
+      {
+        "startup_name": "Paytm",
+        "previous_trust_score": 0.765,
+        "updated_trust_score": 0.645,
+        "delta": -0.12
+      },
+      {
+        "startup_name": "CRED",
+        "previous_trust_score": 0.582,
+        "updated_trust_score": 0.632,
+        "delta": 0.05
+      },
+      {
+        "startup_name": "Groww",
+        "previous_trust_score": 0.823,
+        "updated_trust_score": 0.853,
+        "delta": 0.03
+      },
+      {
+        "startup_name": "Zepto",
+        "previous_trust_score": 0.505,
+        "updated_trust_score": 0.595,
+        "delta": 0.09
+      },
+      {
+        "startup_name": "Meesho",
+        "previous_trust_score": 0.684,
+        "updated_trust_score": 0.684,
+        "delta": 0.0
+      },
+      {
+        "startup_name": "Nykaa",
+        "previous_trust_score": 0.874,
+        "updated_trust_score": 0.894,
+        "delta": 0.02
+      },
+      {
+        "startup_name": "Swiggy",
+        "previous_trust_score": 0.815,
+        "updated_trust_score": 0.615,
+        "delta": -0.2
+      },
+      {
+        "startup_name": "BYJU\u2019S",
+        "previous_trust_score": 0.611,
+        "updated_trust_score": 0.611,
+        "delta": 0.0
+      }
+    ],
+    "oracle_recommendations": [
+      {
+        "startup_name": "Razorpay",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.613,
+        "reason": "1 positive live headline(s); GitHub activity stale",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Razorpay; live signals remain supportive."
+      },
+      {
+        "startup_name": "Phone Pe",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.638,
+        "reason": "No live degradation detected",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Phone Pe; live signals remain supportive."
+      },
+      {
+        "startup_name": "Paytm",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.645,
+        "reason": "1 negative live headline(s); GitHub activity stale",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Paytm; live signals remain supportive."
+      },
+      {
+        "startup_name": "CRED",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.632,
+        "reason": "1 positive live headline(s); Fresh capital-market activity detected",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for CRED; live signals remain supportive."
+      },
+      {
+        "startup_name": "Groww",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.853,
+        "reason": "Fresh capital-market activity detected",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Groww; live signals remain supportive."
+      },
+      {
+        "startup_name": "Zepto",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.595,
+        "reason": "1 positive live headline(s); Fresh capital-market activity detected; GitHub activity healthy",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Zepto; live signals remain supportive."
+      },
+      {
+        "startup_name": "Meesho",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.684,
+        "reason": "No live degradation detected",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Meesho; live signals remain supportive."
+      },
+      {
+        "startup_name": "Nykaa",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.894,
+        "reason": "1 positive live headline(s)",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for Nykaa; live signals remain supportive."
+      },
+      {
+        "startup_name": "Swiggy",
+        "action": "FREEZE_MILESTONE_FUNDING",
+        "trust_score": 0.615,
+        "reason": "2 negative live headline(s); 1 positive live headline(s); Compliance tracker flagged high-risk signal; GitHub activity healthy",
+        "color": "red",
+        "plain_english": "AI recommends freezing funding for Swiggy until new diligence clears."
+      },
+      {
+        "startup_name": "BYJU\u2019S",
+        "action": "APPROVE_TRANCHE",
+        "trust_score": 0.611,
+        "reason": "No live degradation detected",
+        "color": "green",
+        "plain_english": "AI recommends releasing the next tranche for BYJU\u2019S; live signals remain supportive."
+      }
+    ]
+  }
+}

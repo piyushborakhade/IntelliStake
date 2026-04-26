@@ -10,7 +10,7 @@ const SEV = {
     OK: { color: '#22c55e', bg: 'rgba(34,197,94,0.06)', border: 'rgba(34,197,94,0.15)', icon: '🟢', label: 'OK' },
 };
 
-const COUNT_OPTIONS = [10, 20, 30, 50, 75, 100];
+
 
 function HealthBar({ score }) {
     const color = score >= 75 ? '#22c55e' : score >= 50 ? '#f59e0b' : '#ef4444';
@@ -24,22 +24,58 @@ function HealthBar({ score }) {
     );
 }
 
+function SentimentCorrelationChart({ health }) {
+    const rows = Array.from({ length: 30 }, (_, i) => {
+        const portfolio = Math.max(35, Math.min(96, (health || 72) - 5 + Math.sin(i / 4) * 7 + i * 0.16));
+        const sentiment = Math.max(-0.35, Math.min(0.55, 0.08 + Math.sin((i + 2) / 5) * 0.18 + (portfolio - 70) / 180));
+        return { portfolio, sentiment };
+    });
+    const w = 640, h = 150;
+    const line = (key, min, max) => rows.map((r, i) => {
+        const x = (i / (rows.length - 1)) * w;
+        const y = h - ((r[key] - min) / (max - min)) * h;
+        return `${x},${y}`;
+    }).join(' ');
+    return (
+        <div className="panel" style={{ marginBottom: '1.25rem', padding: '0.9rem 1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+                <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>Sentiment vs Portfolio Health (30d)</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Simulated 30-day trend</span>
+            </div>
+            <svg viewBox={`0 0 ${w} ${h}`} style={{ width: '100%', height: 160, display: 'block' }}>
+                <polyline points={line('portfolio', 0, 100)} fill="none" stroke="#22c55e" strokeWidth="3" />
+                <polyline points={line('sentiment', -0.5, 0.6)} fill="none" stroke="#38bdf8" strokeWidth="3" strokeDasharray="5 5" />
+            </svg>
+            <div style={{ display: 'flex', gap: 16, fontSize: 11, color: 'var(--text-muted)' }}>
+                <span><span style={{ color: '#22c55e' }}>●</span> Portfolio health, left axis 0-100</span>
+                <span><span style={{ color: '#38bdf8' }}>●</span> Avg FinBERT compound, right axis</span>
+            </div>
+        </div>
+    );
+}
+
 export default function PortfolioMonitor() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [lastPoll, setLastPoll] = useState(null);
     const [filter, setFilter] = useState('ALL');
     const [countdown, setCountdown] = useState(30);
-    const [count, setCount] = useState(20);   // rows to monitor
     const timerRef = useRef(null);
     const countRef = useRef(null);
 
-    const poll = (n) => {
-        const c = n || count;
+    // Read ONLY the user's own simulated holdings
+    const simHoldings = JSON.parse(localStorage.getItem('is_sim_holdings') || '[]');
+    const holdingNames = simHoldings.map(h => h.name || h.startup_name).filter(Boolean);
+
+    const poll = () => {
+        if (holdingNames.length === 0) {
+            setLoading(false);
+            return;
+        }
         setLoading(true);
-        // First hit /api/portfolio?count=N to build real allocations, then /api/portfolio/monitor
-        fetch(`${API}/api/portfolio?count=${c}`)
-            .then(() => fetch(`${API}/api/portfolio/monitor?count=${c}`))
+        // Hit monitor endpoint — pass user's specific holding names as comma-separated list
+        const namesParam = encodeURIComponent(holdingNames.join(','));
+        fetch(`${API}/api/portfolio/monitor?names=${namesParam}`)
             .then(r => r.json())
             .then(d => {
                 setData(d);
@@ -48,8 +84,8 @@ export default function PortfolioMonitor() {
                 setCountdown(30);
             })
             .catch(() => {
-                // Fallback: try monitor directly
-                fetch(`${API}/api/portfolio/monitor`)
+                // Fallback: try without filter
+                fetch(`${API}/api/portfolio/monitor?count=${Math.max(holdingNames.length, 5)}`)
                     .then(r => r.json())
                     .then(d => { setData(d); setLoading(false); setLastPoll(new Date()); })
                     .catch(() => setLoading(false));
@@ -57,25 +93,45 @@ export default function PortfolioMonitor() {
     };
 
     useEffect(() => {
-        poll(count);
-        timerRef.current = setInterval(() => poll(count), POLL_INTERVAL);
+        poll();
+        timerRef.current = setInterval(poll, POLL_INTERVAL);
         countRef.current = setInterval(() => setCountdown(c => Math.max(0, c - 1)), 1000);
         return () => { clearInterval(timerRef.current); clearInterval(countRef.current); };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleCountChange = (n) => {
-        setCount(n);
-        clearInterval(timerRef.current);
-        poll(n);
-        timerRef.current = setInterval(() => poll(n), POLL_INTERVAL);
-        setCountdown(30);
-    };
-
     const alerts = (data?.alerts || []).filter(a => filter === 'ALL' || a.severity === filter);
     const health = data?.overall_health || 0;
     const healthColor = health >= 75 ? '#22c55e' : health >= 50 ? '#f59e0b' : '#ef4444';
     const total = data?.total_monitored || 0;
+
+    // No holdings — show empty state
+    if (!loading && holdingNames.length === 0) {
+        return (
+            <div>
+                <div className="page-header">
+                    <div>
+                        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+                            <span className="badge badge-blue">Live Monitor</span>
+                            <span className="badge badge-green">Polls every 30s</span>
+                        </div>
+                        <div className="page-title">📡 Portfolio Health Monitor</div>
+                        <div className="page-sub">Real-time alerts based on your actual holdings.</div>
+                    </div>
+                </div>
+                <div style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
+                    <div style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>No holdings to monitor</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
+                        Simulate investments in the Discover tab to track them here.
+                    </div>
+                    <a href="/u/discover" style={{ display: 'inline-block', padding: '10px 24px', borderRadius: 10, background: 'var(--grad-primary)', color: '#fff', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none' }}>
+                        Go to Discover →
+                    </a>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -95,29 +151,23 @@ export default function PortfolioMonitor() {
                 <div style={{ textAlign: 'right', fontSize: 12, color: '#64748b' }}>
                     <div style={{ color: '#22c55e', fontWeight: 600, marginBottom: 4 }}>⚡ Live — refreshing in {countdown}s</div>
                     {lastPoll && <div>Last poll: {lastPoll.toLocaleTimeString()}</div>}
-                    <button onClick={() => poll(count)} style={{ marginTop: 6, padding: '4px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#94a3b8', cursor: 'pointer', fontSize: 11 }}>
+                    <button onClick={() => poll()} style={{ marginTop: 6, padding: '4px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: '#94a3b8', cursor: 'pointer', fontSize: 11 }}>
                         🔄 Refresh now
                     </button>
+
                 </div>
             </div>
 
-            {/* Rows-per-view control */}
+            {/* Monitoring info */}
             <div style={{ marginBottom: '1.25rem', padding: '0.8rem 1.1rem', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>📊 Monitor size:</span>
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>📊 Monitoring your holdings:</span>
                 <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    {COUNT_OPTIONS.map(n => (
-                        <button key={n} onClick={() => handleCountChange(n)}
-                            style={{
-                                padding: '0.25rem 0.7rem', borderRadius: 7, border: `1px solid ${count === n ? 'var(--blue)' : 'var(--border)'}`,
-                                background: count === n ? 'rgba(59,130,246,0.15)' : 'rgba(255,255,255,0.03)',
-                                color: count === n ? '#93c5fd' : 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer',
-                            }}>
-                            Top {n}
-                        </button>
+                    {holdingNames.map(n => (
+                        <span key={n} style={{ padding: '0.2rem 0.6rem', borderRadius: 6, background: 'rgba(59,130,246,0.12)', color: '#93c5fd', fontSize: '0.75rem', fontWeight: 600 }}>{n}</span>
                     ))}
                 </div>
-                {loading && <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>⏳ Loading {count} companies…</span>}
-                {!loading && <span style={{ fontSize: '0.72rem', color: 'var(--green)' }}>✓ Monitoring {total} real startups</span>}
+                {loading && <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>⏳ Loading health data…</span>}
+                {!loading && <span style={{ fontSize: '0.72rem', color: 'var(--green)' }}>✓ {total} companies monitored</span>}
             </div>
 
             {/* KPI row */}
@@ -153,6 +203,8 @@ export default function PortfolioMonitor() {
                     Trust score (60%) · Hype check (20%) · Risk audit (20%) · News sentiment penalty
                 </div>
             </div>
+
+            <SentimentCorrelationChart health={health} />
 
             {/* Filter tabs */}
             <div style={{ display: 'flex', gap: 8, marginBottom: '1rem', flexWrap: 'wrap' }}>
