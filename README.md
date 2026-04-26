@@ -1,26 +1,27 @@
-# IntelliStake — AI-Governed Crowd-Venture Investment Platform
+# IntelliStake
 
-> **NMIMS MCA Capstone 2025–26 · Final Submission**
+**AI-Governed Crowd-Venture Investment Platform for Indian Startups**
+
+> NMIMS MCA Capstone 2025–26 · Final Submission
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://python.org)
 [![React + Vite](https://img.shields.io/badge/frontend-React%20%2B%20Vite-61dafb.svg)](https://vitejs.dev)
 [![Solidity 0.8.x](https://img.shields.io/badge/solidity-0.8.x-363636.svg)](https://soliditylang.org)
-[![ERC-3643](https://img.shields.io/badge/token-ERC--3643-orange.svg)](https://eips.ethereum.org/EIPS/eip-3643)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
-## What is IntelliStake?
+## Overview
 
-**IntelliStake** is a permissioned, AI-governed, decentralised investment platform for crowd-funded investing in Indian tech startups. It unifies four engineering disciplines under the **R.A.I.S.E. framework** (Risk · AI · Investment · Security · Escrow):
+IntelliStake is a full-stack investment platform that combines AI/ML valuation, portfolio optimisation, on-chain compliance, and a real-time investor dashboard. It is built around the **R.A.I.S.E. framework** (Risk · AI · Investment · Security · Escrow) and targets the Indian startup ecosystem.
 
-| Domain | Module | Technology |
-|---|---|---|
-| AI / ML | Startup Valuation Engine | XGBoost + LightGBM + CatBoost Ensemble |
-| Finance | Portfolio Optimizer | Black-Litterman + HRP |
-| Cybersecurity / Risk | R.A.I.S.E. Risk Auditor | VADER OSINT + GitHub Velocity + CoxPH Survival |
-| Blockchain | ERC-3643 Token + Oracle Bridge | Solidity 0.8.x + Chainlink-style Oracle |
-| Frontend | Investor Dashboard | React 18 + Vite + TailwindCSS |
+The platform handles the full investment lifecycle:
+
+1. **Data ingestion** — 50,000+ startup records from MCA filings, GitHub, SimilarWeb, news feeds, LinkedIn, and blockchain registries
+2. **AI due diligence** — stacked ensemble valuation + SHAP explainability + survival analysis
+3. **Portfolio construction** — Black-Litterman + Hierarchical Risk Parity allocation
+4. **On-chain execution** — ERC-3643 permissioned token, KYC registry, milestone escrow, oracle bridge
+5. **Live monitoring** — real-time anomaly detection, NLP sentiment, compliance tracker, war-room alerts
 
 ---
 
@@ -28,94 +29,144 @@
 
 ```
 IntelliStake_Final/
-├── engine/                     # Core AI/ML/Risk Python modules
-│   ├── server.py               # FastAPI application entry point
-│   ├── api/                    # REST route handlers
-│   ├── services/               # Business logic layer
-│   ├── ml/                     # Valuation models + stacking
-│   ├── routes/                 # Feature-specific API routes
-│   └── security/               # Auth + compliance checks
-├── dashboard/                  # React frontend
-│   ├── src/
-│   │   ├── pages/              # Full-page views (20+ pages)
-│   │   ├── components/         # Reusable UI components
-│   │   ├── hooks/              # Custom React hooks
-│   │   └── utils/              # Supabase client + helpers
-│   └── public/                 # Static assets
+│
+├── engine/                     # Python backend (FastAPI + all AI modules)
+│   ├── server.py               # FastAPI app — start here
+│   ├── routes/                 # Admin, user, public REST routes
+│   ├── services/               # Business logic (lens, simulation)
+│   ├── api/                    # Internal API wrappers
+│   ├── ml/                     # Model trainer utilities
+│   ├── security/               # JWT auth + compliance checks
+│   ├── valuation_engine.py     # XGB + LGB + CatBoost base models
+│   ├── valuation_stacked.py    # AutoGluon meta-stacker
+│   ├── trust_score_ml.py       # R.A.I.S.E. composite trust score
+│   ├── risk_auditor.py         # Full risk audit pipeline
+│   ├── survival_analysis.py    # CoxPH runway estimation
+│   ├── portfolio_optimizer.py  # Black-Litterman allocation
+│   ├── portfolio_hrp.py        # Hierarchical Risk Parity
+│   ├── chatbot_api.py          # RAG chatbot (GPT-4 + vector store)
+│   ├── finbert_sentiment.py    # FinBERT news sentiment
+│   ├── hype_detector.py        # IsolationForest anomaly detection
+│   ├── investor_network.py     # Graph-based co-investor analysis
+│   ├── memo_generator.py       # AI investment memo generation
+│   └── ...                     # 20+ additional AI modules
+│
+├── dashboard/                  # React 18 + Vite frontend
+│   └── src/
+│       ├── pages/              # 40+ page components
+│       ├── components/         # Reusable UI (AppShell, WarRoom, etc.)
+│       ├── hooks/              # useApi, useTheme, useWatchlist, etc.
+│       ├── context/            # Auth, App, Lens contexts
+│       ├── utils/              # Supabase client, contract helpers
+│       └── styles/             # CSS tokens, themes, animations
+│
 ├── blockchain/                 # Solidity smart contracts + oracle
-│   ├── contracts/              # 6 smart contracts
-│   ├── scripts/                # Deploy + seed + demo scripts
+│   ├── contracts/
+│   │   ├── IntelliStakeToken.sol       # ERC-3643 security token
+│   │   ├── IntelliStakeInvestment.sol  # Investment intake + issuance
+│   │   ├── MilestoneEscrow.sol         # Milestone-gated fund release
+│   │   ├── IdentityRegistry.sol        # KYC/AML whitelist
+│   │   ├── ComplianceRules.sol         # Transfer restrictions
+│   │   └── TrustOracle.sol             # On-chain AI trust score feed
+│   ├── scripts/
+│   │   ├── deploy.js           # Deploy all contracts
+│   │   ├── seed_deals.js       # Seed demo investment deals
+│   │   └── demo_all_transactions.js
+│   ├── oracle_bridge.py        # Push AI scores → TrustOracle.sol
 │   └── hardhat.config.js
-├── models/                     # Trained ML model artifacts
-├── unified_data/               # Processed data pipeline outputs
-│   ├── cleaned/                # Clean startup datasets
-│   ├── 4_production/           # Live AI scores + model outputs
-│   ├── outputs/                # Portfolio weights + recommendations
-│   └── external_data/          # Enriched third-party data
+│
 ├── data_scaling_engine/        # 4-module data ingestion pipeline
-├── scripts/                    # Utility + enrichment scripts
-├── supabase/                   # Database schema (PostgreSQL)
-├── tests/                      # Pytest test suite
-├── docs/                       # Technical documentation
-├── .github/workflows/          # GitHub Actions CI
+│   ├── mca_audit_pipeline.py          # MCA government filing scraper
+│   ├── github_velocity_aggregator.py  # GitHub commit velocity signals
+│   ├── sentiment_harvester.py         # News + social OSINT harvester
+│   └── master_knowledge_graph.py      # 3.2M-point knowledge graph builder
+│
+├── models/                     # Trained ML model artifacts
+│   ├── xgb_valuation.pkl
+│   ├── lgb_valuation.pkl
+│   ├── catboost_valuation.cbm
+│   ├── meta_stacker_v5.pkl
+│   ├── mlp_stacker.pkl
+│   ├── isolation_forest_hype.pkl
+│   ├── features_v5.pkl
+│   └── autogluon/              # AutoGluon predictor artifacts
+│
+├── unified_data/               # Processed pipeline data
+│   ├── raw/                    # Raw scraped data (large files gitignored)
+│   ├── cleaned/                # Cleaned startup datasets
+│   ├── enriched/               # Parquet enrichment outputs
+│   ├── 4_production/           # Live AI scores, model outputs, signals
+│   ├── external_data/          # India unicorns, enrichment summaries
+│   ├── identities/             # Mock investor identities
+│   ├── knowledge_graph/        # Master graph (CSV + Parquet)
+│   ├── outputs/                # Final portfolio weights + recommendations
+│   └── real/                   # Real Indian startup data
+│
+├── scripts/                    # Utility and enrichment scripts
+│   ├── enrich_*.py             # Data enrichment pipeline scripts
+│   ├── import_datapool_to_supabase.py
+│   ├── benchmark_comparison.py
+│   ├── bootstrap_auc_ci.py
+│   └── wire_nlp_to_trust.py
+│
+├── supabase/
+│   ├── schema.sql              # Full PostgreSQL schema
+│   └── README.md               # Supabase setup guide
+│
+├── tests/
+│   ├── test_api_smoke.py       # API endpoint smoke tests
+│   └── test_ai_endpoints.py    # AI model endpoint tests
+│
+├── docs/                       # Project documentation
+│   ├── IntelliStake.pptx                    # Presentation deck
+│   ├── IntelliStake_IEEE_Report.docx        # IEEE-format paper
+│   ├── IntelliStake_Project_Documentation.docx
+│   ├── IntelliStake_Walkthrough_Documentation.docx
+│   ├── Integrated_Data_Schema.md
+│   ├── Technical_Roadmap.md
+│   ├── PROGRESS_REPORT.md
+│   └── feature_importance.png
+│
+├── start_intellistake.py       # Main launcher (backend + checks)
+├── run_full_pipeline.py        # Run complete data + AI pipeline
+├── run_pipeline.py             # Run individual pipeline phase
 ├── requirements.txt
-├── docker-compose.yml
+├── .env.example                # Environment variable template
 ├── Dockerfile
-└── .env.example
+├── docker-compose.yml
+└── DEMO_SCRIPT.md              # Step-by-step demo walkthrough
 ```
 
 ---
 
-## Architecture Overview
+## AI / ML Models
 
-```
-Data Sources → Data Scaling Engine → Knowledge Graph (3.2M points)
-                                              ↓
-                          AI Valuation Engine (XGB + LGB + CatBoost + AutoGluon)
-                                              ↓
-              ┌───────────────────────────────────────────────────┐
-              │              FastAPI Backend (engine/)             │
-              │  Risk Auditor · Portfolio Optimizer · RAG Chatbot  │
-              │  SHAP Explainer · FinBERT NLP · Survival Analysis  │
-              └──────────────────────┬────────────────────────────┘
-                                     │
-              ┌──────────────────────▼────────────────────────────┐
-              │              React Dashboard                        │
-              │  Discover · Profile · Invest · Holdings · WarRoom  │
-              └──────────────────────┬────────────────────────────┘
-                                     │
-              ┌──────────────────────▼────────────────────────────┐
-              │         Blockchain Layer (Hardhat + Ethers.js)     │
-              │  IntelliStakeToken (ERC-3643) · MilestoneEscrow    │
-              │  IdentityRegistry · ComplianceRules · TrustOracle  │
-              └───────────────────────────────────────────────────┘
-```
+### Valuation Ensemble
 
----
-
-## AI/ML Models
-
-### Valuation Stack (Stacked Ensemble)
-| Model | Role | Features |
+| Model | Type | Purpose |
 |---|---|---|
-| XGBoost | Base learner — gradient-boosted trees | 64 startup features |
-| LightGBM | Base learner — fast histogram GBDT | 64 startup features |
-| CatBoost | Base learner — categorical-aware GBDT | 64 startup features |
-| AutoGluon | Meta-learner orchestrator | Stacks XGB + LGB + CB |
-| MLP Stacker | Final blender | Out-of-fold predictions |
+| XGBoost | Gradient-boosted trees | Base valuation learner |
+| LightGBM | Histogram GBDT | Base valuation learner |
+| CatBoost | Categorical-aware GBDT | Base valuation learner |
+| AutoGluon | Meta-learner | Stacks base models |
+| MLP Stacker | Neural blender | Final ensemble output |
+
+All models are trained on 64 startup features including: revenue, founder pedigree, GitHub velocity, sentiment score, sector growth, MCA compliance, and 58 others.
 
 ### Risk & Signal Models
+
 | Model | Purpose |
 |---|---|
-| **IsolationForest** | Hype anomaly detection (valuation vs traction mismatch) |
-| **CoxPH Survival** | Time-to-failure / runway estimation |
-| **FinBERT NLP** | News + social sentiment scoring |
-| **CLIP (ViT-B/32)** | Zero-shot sector classification from logos/descriptions |
-| **VADER** | Real-time OSINT sentiment on startup mentions |
-| **Black-Litterman** | Portfolio weight optimisation (VC views overlay) |
-| **Hierarchical Risk Parity (HRP)** | Diversification-aware allocation |
+| IsolationForest | Hype anomaly detection |
+| CoxPH Survival | Runway / time-to-failure estimation |
+| FinBERT | News and social sentiment scoring |
+| VADER | Real-time OSINT sentiment |
+| CLIP (ViT-B/32) | Zero-shot sector classification |
+| Black-Litterman | VC-views portfolio optimisation |
+| HRP | Hierarchical Risk Parity allocation |
 
-### Key Metrics (Honest Eval on Held-Out Set)
+### Evaluation (Honest Held-Out Metrics)
+
 | Metric | Value |
 |---|---|
 | Valuation MAE | ~$2.4M |
@@ -123,54 +174,60 @@ Data Sources → Data Scaling Engine → Knowledge Graph (3.2M points)
 | AUC (risk classification) | 0.87 |
 | Trust Score Precision | 0.83 |
 
-> MAPE (not MAPE) is used because valuations span several orders of magnitude; MAPE is scale-invariant and directly interpretable as percentage error.
+> **Why MAPE?** Startup valuations span several orders of magnitude ($500K to $50B+). MAPE is scale-invariant, so 14.2% means the same thing whether the startup is valued at $1M or $1B. MAPE (not MAE alone) is the primary headline metric for this reason.
 
 ---
 
 ## Blockchain Contracts
 
-| Contract | Purpose |
+| Contract | Function |
 |---|---|
 | `IntelliStakeToken.sol` | ERC-3643 permissioned security token |
-| `IntelliStakeInvestment.sol` | Investment intake + token issuance |
-| `MilestoneEscrow.sol` | Milestone-gated fund releases |
-| `IdentityRegistry.sol` | KYC/AML identity whitelisting |
+| `IntelliStakeInvestment.sol` | Investment intake and token issuance |
+| `MilestoneEscrow.sol` | Milestone-gated fund release |
+| `IdentityRegistry.sol` | KYC/AML identity whitelist |
 | `ComplianceRules.sol` | Transfer restriction enforcement |
-| `TrustOracle.sol` | On-chain trust score feed from AI engine |
+| `TrustOracle.sol` | On-chain trust score feed |
 
-The **Oracle Bridge** (`blockchain/oracle_bridge.py`) pushes AI-computed trust scores to `TrustOracle.sol` after each pipeline run, closing the loop between off-chain AI and on-chain enforcement.
+The **Oracle Bridge** (`blockchain/oracle_bridge.py`) reads the AI trust scores after each pipeline run and pushes them to `TrustOracle.sol` on-chain, closing the loop between the AI engine and the smart contracts.
+
+Deployment addresses are stored in `blockchain/deployment.json`.
 
 ---
 
 ## Dashboard Pages
 
-| Page | Role |
+| Page | What it does |
 |---|---|
-| Discover | Browse + filter 50,000 startup cards |
-| Startup Profile | Full AI scorecard, SHAP explanations, survival curve |
-| Risk Assessment | R.A.I.S.E. audit report per startup |
-| Invest / InvestModal | One-click blockchain investment flow |
+| Login / Onboarding | Auth + KYC onboarding wizard |
+| Discover | Browse and filter 50,000 startup cards |
+| Startup Profile | Full AI scorecard, survival curve, team |
+| Risk Assessment | R.A.I.S.E. audit report with breakdown |
+| Invest | One-click blockchain investment modal |
 | Holdings | Portfolio tracker with live P&L |
-| Portfolio Monitor | Black-Litterman weights + HRP visualisation |
-| War Room | Live oracle feed + anomaly alerts |
-| Benchmark | Model accuracy comparison dashboard |
-| RAG Chatbot | AI Q&A over startup knowledge base |
-| Data Explorer | Raw data table + filter |
+| Portfolio Monitor | Black-Litterman weights + HRP chart |
+| War Room | Live oracle feed, anomaly alerts |
+| Benchmark | Model accuracy comparison |
+| RAG Chatbot | AI Q&A over the startup knowledge base |
+| Data Explorer | Raw data table with filters |
 | Model Hub | Switch active valuation model |
 | SHAP Explainer | Interactive feature importance |
+| Hype Detector | Anomaly flag dashboard |
+| Sentiment Terminal | Live NLP sentiment feed |
+| Backtest | Historical performance simulation |
 | Admin | User management + compliance flags |
 
 ---
 
 ## Quick Start
 
-### Prerequisites
+### Requirements
 - Python 3.11+
 - Node.js 18+
-- Supabase account (or local Docker)
-- `.env` file from `.env.example`
+- Supabase project (or local Docker)
 
-### 1. Clone & install Python dependencies
+### 1. Clone and set up Python
+
 ```bash
 git clone https://github.com/piyushborakhade/IntelliStake.git
 cd IntelliStake
@@ -179,105 +236,90 @@ pip install -r requirements.txt
 ```
 
 ### 2. Configure environment
+
 ```bash
 cp .env.example .env
-# Fill in: SUPABASE_URL, SUPABASE_SERVICE_KEY, OPENAI_API_KEY
+# Edit .env and fill in your keys (see table below)
 ```
 
-### 3. Start the backend API
+### 3. Start the backend
+
 ```bash
 python start_intellistake.py
-# FastAPI available at http://localhost:8000
+# FastAPI docs at http://localhost:8000/docs
 ```
 
-### 4. Start the React dashboard
+### 4. Start the dashboard
+
 ```bash
 cd dashboard
 npm install
 npm run dev
-# Dashboard at http://localhost:5173
+# Open http://localhost:5173
 ```
 
-### 5. (Optional) Start blockchain node
+### 5. (Optional) Local blockchain
+
 ```bash
 cd blockchain
 npm install
-npx hardhat node          # local chain on port 8545
+npx hardhat node                              # local chain on port 8545
 npx hardhat run scripts/deploy.js --network localhost
+python oracle_bridge.py                       # push AI scores on-chain
 ```
 
 ### 6. Docker (all-in-one)
+
 ```bash
 docker-compose up --build
 ```
 
 ---
 
-## Data Pipeline
-
-The data pipeline runs in 5 sequential phases via `run_full_pipeline.py`:
-
-```
-Phase 1 — Data Ingestion      data_scaling_engine/mca_audit_pipeline.py
-Phase 2 — GitHub Enrichment   data_scaling_engine/github_velocity_aggregator.py
-Phase 3 — NLP Sentiment       data_scaling_engine/sentiment_harvester.py
-Phase 4 — Knowledge Graph     data_scaling_engine/master_knowledge_graph.py
-Phase 5 — AI Scoring          engine/valuation_engine.py + trust_score_ml.py
-```
-
-Run the full pipeline:
-```bash
-python run_full_pipeline.py
-```
-
----
-
-## Testing
-
-```bash
-# Run all tests
-pytest tests/ -v
-
-# Smoke test (API endpoints)
-pytest tests/test_api_smoke.py -v
-
-# AI endpoint tests
-pytest tests/test_ai_endpoints.py -v
-```
-
----
-
 ## Environment Variables
-
-See `.env.example` for all required variables:
 
 | Variable | Purpose |
 |---|---|
 | `SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Service role key (backend only) |
-| `OPENAI_API_KEY` | GPT-4 for RAG chatbot + memo generation |
+| `OPENAI_API_KEY` | GPT-4 for RAG chatbot and memo generation |
 | `GITHUB_TOKEN` | GitHub API for velocity enrichment |
 | `BLOCKCHAIN_RPC_URL` | Ethereum RPC endpoint |
 | `PRIVATE_KEY` | Deployer wallet private key |
 
----
-
-## CI/CD
-
-GitHub Actions workflow at `.github/workflows/ci.yml`:
-- Installs Python + Node dependencies
-- Runs pytest suite
-- Builds the React dashboard
+See `.env.example` for the full list with descriptions.
 
 ---
 
-## Team
+## Running the Data Pipeline
 
-**NMIMS MCA Capstone 2025–26**  
-Department of Computer Applications, NMIMS University Mumbai
+```bash
+# Full pipeline (all 5 phases)
+python run_full_pipeline.py
+
+# Individual phase
+python run_pipeline.py --phase 1   # MCA ingestion
+python run_pipeline.py --phase 2   # GitHub velocity
+python run_pipeline.py --phase 3   # NLP sentiment
+python run_pipeline.py --phase 4   # Knowledge graph
+python run_pipeline.py --phase 5   # AI scoring
+```
+
+Pipeline outputs land in `unified_data/4_production/`.
 
 ---
 
-## License
+## Running Tests
 
-[MIT License](LICENSE)
+```bash
+pytest tests/ -v
+```
+
+---
+
+## Project Info
+
+**NMIMS University Mumbai — MCA Department**
+Capstone Project 2025–26
+
+**License:** MIT
