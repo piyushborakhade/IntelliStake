@@ -319,7 +319,7 @@ pytest tests/ -v
 
 ## Project Info
 
-**NMIMS University Mumbai — MCA Department**
+**NMIMS University Mumbai — MBA Tech AI Department**
 Capstone Project 2025–26
 
 **License:** MIT
